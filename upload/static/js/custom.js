@@ -1,5 +1,4 @@
 $(document).foundation();
-var in_span = false;
 
 // If you change this, you need change also static result rendering in upload.html
 var success_template = '\
@@ -40,19 +39,19 @@ function write_result(status, text){
 
     if (status == 'success') {
         var nw = $( success_template.replace(regexp, text) );
-        $('#select-button').addClass('success');
-        $('#select-button span').text('Done!');
+        $('#select-button').addClass('success')
+                           .text('Done!');
     } else if (status == 'error') {
         var nw = $( success_template.replace(regexp, text) ); // error_template, actually
-        $('#select-button').addClass('alert');
-        $('#select-button span').text('Error!');
+        $('#select-button').addClass('alert')
+                           .text('Error!');
     }
 
     $('#results').append(nw);
     setTimeout(function(){
-        $('#select-button').removeClass('success');
-        $('#select-button').removeClass('alert');
-        $('#select-button span').text('Select file');
+        $('#select-button').removeClass('success')
+                           .removeClass('alert')
+                           .text('Select file');
     }, 2000);
 }
 
@@ -110,30 +109,25 @@ function upload(files){
 
 $('#submit-button').hide(0);
 
-$('#select-button span').on('dragenter', function(ev){ prevent(ev); in_span = true; })
-$('#select-button span').on('dragleave', function(ev){ prevent(ev); in_span = false; })
-
 $('#select-button').on('dragenter', function(ev){
     prevent(ev);
-    $('#select-button').addClass('secondary');
-    $('#select-button span').text('Drop it here!');
+    $('#select-button').addClass('secondary')
+                       .text('Drop it here!');
 });
 $('#select-button').on('dragleave', function(ev){
     prevent(ev);
-    if (!in_span) {
-        $(this).removeClass('secondary');
-        $(this).children('span').text('Select file');
-    }
+    $('#select-button').removeClass('secondary')
+                       .text('Select file');
 });
 
 $('#select-button').on('dragover', prevent);
-$('#select-button, #select-button span').on('drop', function(ev){
+$('#select-button').on('drop', function(ev){
     prevent(ev);
     upload(ev.originalEvent.dataTransfer.files);
-    $('#select-button').removeClass('secondary');
-    $('#select-button span').text('Select file');
+    $('#select-button').removeClass('secondary')
+                       .text('Select file');
 });
-$('#select-button input').change(function(ev){
+$('#fileup').change(function(ev){
     upload(ev.target.files);
 
     $(this).wrap('<form>').closest('form').get(0).reset();

@@ -1,0 +1,34 @@
+html,body,#wrap{
+	width: 100%; height: 100%;
+	margin: 0; padding: 0;
+}
+
+#progress{
+    opacity: 0;
+    position: absolute;
+    top: 45px; left: 0;
+    width: 100%;
+}
+#wrap{
+	display: table;
+}
+#topbar{
+    display: table-row;
+    height: 45px;
+}
+#center{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+#select-button{
+    margin: 10px 0;
+}
+#select-button, #submit-button{
+	width: 100%;
+}
+#results input{
+	margin: 5px 0;
+}
+#password-div{ margin-top: 5px; }
+#password{ margin-bottom: 0; }

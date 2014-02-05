@@ -1,0 +1,139 @@
+<html>
+<head>
+    <title>Вячеслав Сыроватский aka slasyz</title>
+    <meta name="description" content="Страничка Вячеслава Сыроватского aka slasyz">
+    <meta name="keywords" content="slasyz">
+    <meta name="author" content="Вячеслав Сыроватский">
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/favicon.png" type="image/png"> 
+    <style type="text/css">
+        html,body{
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background-color: {{ color.background }};
+            color: #fff;
+        }
+        #egg{
+            position: absolute;
+            top: 0; left: 0;
+            width: 50px; height: 50px;
+        }
+        .table{
+            display: table;
+            width: 100%;
+            height: 100%;
+        }
+        .tablecell{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: left;
+            padding: 0;
+
+            font-family: 'Helvetica', 'Dejavu Sans', 'Droid Sans', sans-serif;
+            font-size: 48pt;
+        }
+        #list{
+            display: table;
+            padding: 0;
+            margin: 0 auto;
+        }
+        #list .item{ display: table-row; }
+        #list .image, #list .text{ display: table-cell; }
+        #list .image img{
+            vertical-align: middle;
+            height: 48px;
+        }
+        .text{ padding-left: 20px; }
+        
+        a, a:visited{
+            color: inherit;
+            text-decoration: none;
+        }
+        a:hover{ 
+            text-decoration: none;
+            border-bottom: 2px solid white;
+        }
+    </style>
+    <script src="static/color.js"></script>
+    <script type="text/javascript"><!--
+        var lastsymbols = '1111111';
+        window.onload = function(){
+            nick = 'slasyz';
+            domain = '@gmail.com';
+            email = document.getElementById('email');
+            email.innerHTML = '<a href="mailto:'+nick+domain+'">'+nick+domain+'</a>';
+
+            document.getElementById('egg').onclick = timer;
+            return false;
+        }
+
+        document.onkeypress = function(ev){
+            ch = String.fromCharCode(ev.charCode);
+            lastsymbols = lastsymbols.substr(1) + ch
+            if (lastsymbols == 'поехали') {
+                timer();
+            }
+        }//-->
+    </script>
+</head>
+<body>
+    <div id="egg"></div>
+    <div class="table">
+        <div class="tablecell">
+            <div id="list">
+                <div class="item">
+                    <div class="image"><img src="static/mail.png" /></div>
+                    <!--<div class="text" id="email"><span style="font-size: 24pt;">enable JS to see email</span>&nbsp;</div>-->
+                    <div class="text" id="email">slasyz at gmail</div>
+                </div>
+                <div class="item">
+                    <div class="image"><img src="static/twitter.png" /></div>
+                    <div class="text"><a href="https://twitter.com/slasyz">twitter.com/slasyz</a></div>
+                </div>
+                <div class="item">
+                    <div class="image"><img src="static/vk.png" /></div>
+                    <div class="text"><a href="https://vk.com/slasyz">vk.com/slasyz</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-9637655-4', 'slasyz.ru');
+      ga('send', 'pageview');
+
+    </script>-->
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter23595214 = new Ya.Metrika({id:23595214,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true});
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="//mc.yandex.ru/watch/23595214" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</body>
+</html>

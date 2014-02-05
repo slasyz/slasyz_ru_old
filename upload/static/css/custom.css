@@ -30,5 +30,11 @@ html,body,#wrap{
 #results input{
 	margin: 5px 0;
 }
+#fileup{
+    visibility: hidden;
+    width: 0; height: 0;
+    top: 0; left: 0;
+    position: absolute;
+}
 #password-div{ margin-top: 5px; }
 #password{ margin-bottom: 0; }

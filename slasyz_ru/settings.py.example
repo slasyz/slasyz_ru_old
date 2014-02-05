@@ -164,3 +164,6 @@ LOGGING = {
         },
     }
 }
+
+def static(pth):
+    return os.path.join(os.path.abspath(os.path.dirname(os.path.realpath(pth))), 'static')

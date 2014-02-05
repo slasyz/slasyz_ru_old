@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from django.conf.urls import patterns, include, url
+from slasyz_ru.settings import static
 
 # по идее, эта херня должна дублироваться в конфигах апача-нджинкса-чтонибудьещё
 
@@ -13,5 +14,5 @@ urlpatterns = patterns('',
     url(r'^upload/', include('upload.urls')),
 
     # This should be in your proxy (i.e. nginx) config
-    url(r'^static\/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/home/sl/programming/django/slasyz_ru/slasyz_ru/static'}),
+    url(r'^static\/(?P<path>.*)$', 'django.views.static.serve', {'document_root': static(__file__)}),
 )

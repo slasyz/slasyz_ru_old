@@ -27,14 +27,32 @@ html,body,#wrap{
 #select-button, #submit-button{
 	width: 100%;
 }
-#results input{
-	margin: 5px 0;
+.success-file{
+    font-size: 8pt;
+    color: #0a0;
 }
+.success-file:hover{ text-decoration: underline; }
+#results .success-url{
+    margin: 2px 0 5px; border-color: #0f0;
+}
+
+.error-file{ 
+    font-size: 8pt;
+    color: #f00;
+}
+.error-text{
+    padding: 8pt; margin: 2px 0 5px;
+    color: #333;
+    border: 1pt solid #f55;
+    -webkit-box-shadow: inset 0 1px 2px rgba(255,0,0,0.1);
+    box-shadow: inset 0 1px 2px rgba(255,0,0,0.1);
+    font-size: 0.875rem;
+}
+
 #fileup{
     visibility: hidden;
     width: 0; height: 0;
     top: 0; left: 0;
     position: absolute;
 }
-#password-div{ margin-top: 5px; }
-#password{ margin-bottom: 0; }
+#password{ margin: 5px 0 0; }

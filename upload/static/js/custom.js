@@ -3,17 +3,18 @@ $(document).foundation();
 // If you change this, you need change also static result rendering in upload.html
 var success_template = '\
     <div class="columns small-12"> \
-        <input type="url" onclick="this.select();" value="%text%" /> \
+        <a class="success-file" href="%link%">%short_name%</a> \
+        <input class="success-url" type="url" onclick="this.select();" value="%link%" /> \
     </div>';
 var error_template = '\
     <div class="columns small-12"> \
-        <div data-alert class="alert-box failure"> \
-            %text% \
-            <a href="#" class="close">&times;</a> \
-        </div> \
-    </div> \
-';
+        <span class="error-file">%short_name%</span> \
+        <div class="error-text">%error%</div> \
+    </div>';
 
+function regexp(r){
+    return new RegExp(r.replace('%', '\\%'), 'g');
+}
 function prevent(ev){
     ev.stopPropagation();
     ev.preventDefault();
@@ -33,16 +34,22 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-function write_result(status, text){
-    regexp = new RegExp('\%text\%', 'g');
+function write_result(status, json){
     $('.progress').fadeTo(500, 0);
-
     if (status == 'success') {
-        var nw = $( success_template.replace(regexp, text) );
+        tpl = success_template;
+        tpl = tpl.replace(regexp('%short_name%'), json['short_name']);
+        tpl = tpl.replace(regexp('%link%'), json['link']);
+        var nw = $(tpl);
         $('#select-button').addClass('success')
                            .text('Done!');
     } else if (status == 'error') {
-        var nw = $( success_template.replace(regexp, text) ); // error_template, actually
+        tpl = error_template;
+        if (!json['short_name']) { json['short_name'] = 'Upload error'; }
+        if (!json['error']) { json['error'] = 'Unknown error'; }
+        tpl = tpl.replace(regexp('%short_name%'), json['short_name']);
+        tpl = tpl.replace(regexp('%error%'), json['error']);
+        var nw = $(tpl);
         $('#select-button').addClass('alert')
                            .text('Error!');
     }
@@ -57,19 +64,7 @@ function write_result(status, text){
 
 function completeUpload(xhr, status) {
     json = JSON.parse(xhr.responseText);
-    text = ''
-
-    if (status == 'success') {
-        text = json['link']
-    } else if (status == 'error') {
-        if (json['error']) {
-            text = json['error']
-        } else {
-            text = 'Unknown error, sorry!';
-        }
-    }
-
-    write_result(status, text)
+    write_result(status, json);
 }
 function uploadProgress(ev){
     var percent = parseInt(ev.loaded / ev.total * 100);
@@ -83,6 +78,7 @@ function upload(files){
         var csrftoken = getCookie('csrftoken');
 
         if (file.size > $('#max_file_size').val()) {
+            json = {error: 'File is too big', short_name: 'Upload error'};
             write_result('error', 'File is too big');
         } else {
             var formdata = new FormData();
@@ -107,7 +103,7 @@ function upload(files){
     }
 }
 
-$('#submit-button').hide(0);
+//$('#submit-button').hide(0);
 
 $('#select-button').on('dragenter', function(ev){
     prevent(ev);
@@ -129,7 +125,6 @@ $('#select-button').on('drop', function(ev){
 });
 $('#fileup').change(function(ev){
     upload(ev.target.files);
-
     $(this).wrap('<form>').closest('form').get(0).reset();
     $(this).unwrap();
 });

@@ -14,14 +14,25 @@ from slasyz_ru.settings import UPLOAD_DIR, UPLOAD_URL, MAX_FILE_SIZE, UPLOAD_PAS
 def filepath(filename):
     return os.path.join(UPLOAD_DIR, filename)
 
+def get_short_name(filename):
+    if len(filename) <= 30:
+        return filename
+    else:
+        spl = os.path.splitext(filename)
+        return spl[0][:30-3-3-len(spl[1])] + '...' + spl[0][-3:] + spl[1]
+
 def upload_file(uploaded_file):
     from urlparse import urljoin
     try:
         # Checking file
         if uploaded_file.size > MAX_FILE_SIZE:
-            return {'error': 'File is too big.', 'status': 413}
+            return {'error': 'File is too big.',
+                    'short_name': get_short_name(uploaded_file.name),
+                    'status': 413}
         if uploaded_file.name == 'error.test':
-            return {'error': 'I\'m a teapot)))0', 'status': 418}
+            return {'error': 'I\'m a teapot)))0',
+                    'short_name': get_short_name(uploaded_file.name),
+                    'status': 418}
 
         # trying file.ext, file_2.ext, file_3.ext, ...
         filename = uploaded_file.name
@@ -38,10 +49,13 @@ def upload_file(uploaded_file):
 
         link = urljoin(UPLOAD_URL, filename)
         result = {'link': link,
+                  'short_name': get_short_name(filename),
                   'status': 200}
         return result
     except:
-        return {'error': 'A server error occured', 'status': 500}
+        return {'error': 'A server error occured.',
+                'short_name': get_short_name(uploaded_file.name),
+                'status': 500}
 
 def upload(request):
     context = {'max_file_size': MAX_FILE_SIZE}
@@ -71,4 +85,4 @@ def upload_ajax(request):
         result = upload_file(request.FILES['fileup'])
         return HttpResponse(json.dumps(result), status=result['status'])
     else:
-        return HttpResponse(json.dumps({'error': 'Should be POST-request.'}), status=400)
+        return HttpResponse(json.dumps({'error': 'Should be POST-request.', 'status': 400}), status=400)

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Upload Script</title>
-    <link rel="stylesheet" href="static/css/foundation.css" />
+    <link rel="stylesheet" href="static/css/foundation.min.css" />
     <link rel="stylesheet" href="static/css/custom.css" />
     <script src="static/js/vendor/modernizr.js"></script>
 </head>
@@ -16,43 +16,56 @@
         <div id="topbar">
             <nav class="top-bar" data-topbar>
                 <ul class="title-area">
-                  <li class="name">
-                    <h1>
-                      <a href="">
-                        Ultimate File Uploader
-                      </a>
-                    </h1>
-                  </li>
+                    <li class="name">
+                        <h1>
+                            <a href="" style="width: 100%;">
+                                Ultimate File Uploader
+                            </a>
+                        </h1>
+                    </li>
                 </ul>
             </nav>
         </div>
         <div id="center">
             <form method="post" enctype="multipart/form-data" action="">
                 <div class="row">
-                    <div class="large-4 medium-5 small-8 small-centered columns">
+                    <div class="large-4 medium-5 small-9 small-centered columns">
                         <div id="results" class="row">
                             {% for file in files %}
                                 <div class="columns small-12">
                                 {% if file.error %}
-                                    {% comment %}
-                                    <div data-alert class="alert-box failure">
-                                        {{ file.error }}
-                                        <a href="#" class="close">&times;</a>
-                                    </div>
-                                    {% endcomment %}
-                                    <input type="url" onclick="this.select();" value="{{ file.error }}" />
+                                    {% if file.short_name %}
+                                        <span class="error-file">{{ file.short_name }}</span>
+                                    {% else %}
+                                        <span class="error-file">Upload error</span>
+                                    {% endif %}
+                                    <div class="error-text">{{ file.error }}</div>
                                 {% else %}
-                                    <input type="url" onclick="this.select();" value="{{ file.link }}" />
+                                    <a class="success-file" href="{{ file.link }}">{{ file.short_name }}</a>
+                                    <input class="success-url" type="url" onclick="this.select();" value="{{ file.link }}" />
                                 {% endif %}
                                 </div>
                             {% endfor %}
+                            <!--<div class="columns small-12">
+                                <a class="success-file" href="http://govno.tk/asdferh6lkjhylndyld.jpg">asdferh6lkjhylndyld.jpg</a>
+                                <input class="success-url" type="url" onclick="this.select();" value="http://govno.tk/asdferh6lkjhylndyld.jpg" />
+                            </div>
+                            <div class="columns small-12">
+                                <span class="error-file">asdferh6lkjhylndyld.jpg</span>
+                                <div class="error-text">A server error occured.</div>
+                            </div>
+                            <div class="columns small-12">
+                                <a class="success-file" href="http://govno.tk/asdferh6lkjhylndyld.jpg">mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.mmm</a>
+                                <input class="success-url" type="url" onclick="this.select();" value="http://govno.tk/asdferh6lkjhylndyld.jpg" />
+                            </div>
+                            <div class="columns small-12">
+                                <span class="error-file">Upload error:</span>
+                                <div class="error-text">A server error occured.</div>
+                            </div>-->
                         </div>
                         {% csrf_token %}
                         <input type="hidden" name="MAX_FILE_SIZE" id="max_file_size" value="{{ max_file_size }}" />
-                        <div id="password-div">
-                            <label for="password">Password:</label>
-                            <input type="password" name="password" id="password" />
-                        </div>
+                        <input type="password" name="password" id="password" placeholder="Password" />
                         <label class="button" id="select-button" for="fileup">Select file</label>
                         <input type="file" name="fileup" id="fileup" multiple />
                         <input class="button secondary" id="submit-button" type="submit" value="Upload" />

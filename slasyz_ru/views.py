@@ -13,3 +13,15 @@ def index(request):
 
 	color = {'background': choice(bgcolors), 'text': choice(textcolors)}
 	return HttpResponse(render(request, 'index.html', {'color': color}))
+
+def custom_400(request):
+    return HttpResponse(render(request, 'error.html', {'code': 400, 'name': 'Bad Request'}))
+
+def custom_403(request):
+    return HttpResponse(render(request, 'error.html', {'code': 403, 'name': 'Forbidden'}))
+
+def custom_404(request):
+    return HttpResponse(render(request, 'error.html', {'code': 404, 'name': 'Not Found'}))
+
+def custom_500(request):
+    return HttpResponse(render(request, 'error.html', {'code': 500, 'name': 'Internal Server Error'}))

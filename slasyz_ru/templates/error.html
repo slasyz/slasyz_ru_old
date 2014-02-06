@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>Error {{ code }}: {{ name }}</title>
+    <style type="text/css">
+        html,body,#wrap{
+            padding: 0; margin: 0;
+            width: 100%; height: 100%;
+            font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+            background: #eee;
+        }
+        #wrap{ display: table; }
+        #middle{
+            display: table-row;
+        }
+        #inner{
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        h1,h2{
+            margin: 0;
+            color: #333;
+        }
+        h1{ font-size: 9rem; }
+        h2{ font-size: 3rem; }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <div id="middle">
+            <div id="inner">
+                <h1>{{ code }}</h1>
+                <h2>{{ name }}</h2>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

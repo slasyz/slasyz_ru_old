@@ -103,12 +103,7 @@ function upload(files){
     }
 }
 
-<<<<<<< HEAD
 $('#submit-button').hide(0);
-=======
-//$('#submit-button').hide(0);
-
->>>>>>> 413e7c4bcc0b6d94f490e2d6a6990a08524019c5
 $('#select-button').on('dragenter', function(ev){
     prevent(ev);
     $('#select-button').addClass('secondary')

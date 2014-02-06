@@ -27,6 +27,12 @@ html,body,#wrap{
 #select-button, #submit-button{
 	width: 100%;
 }
+.close-button{
+    font-size: 8pt;
+    color: red;
+    height: 100%;
+}
+
 .success-file{
     font-size: 8pt;
     color: #0a0;

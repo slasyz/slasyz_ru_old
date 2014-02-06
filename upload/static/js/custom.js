@@ -3,11 +3,13 @@ $(document).foundation();
 // If you change this, you need change also static result rendering in upload.html
 var success_template = '\
     <div class="columns small-12"> \
+        <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a> \
         <a class="success-file" href="%link%">%short_name%</a> \
         <input class="success-url" type="url" onclick="this.select();" value="%link%" /> \
     </div>';
 var error_template = '\
     <div class="columns small-12"> \
+        <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a> \
         <span class="error-file">%short_name%</span> \
         <div class="error-text">%error%</div> \
     </div>';

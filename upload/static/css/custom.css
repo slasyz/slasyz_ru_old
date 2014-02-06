@@ -37,7 +37,10 @@ html,body,#wrap{
     font-size: 8pt;
     color: #0a0;
 }
-.success-file:hover{ text-decoration: underline; }
+.success-file:hover{
+    text-decoration: underline;
+    color: #0f0;
+}
 #results .success-url{
     margin: 2px 0 5px; border-color: #0f0;
 }

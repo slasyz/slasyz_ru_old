@@ -53,7 +53,7 @@ html,body,#wrap{
 }
 .error-text{
     padding: 8pt; margin: 2px 0 5px;
-    color: #333;
+    color: #333; background: white;
     border: 1pt solid #f55;
     -webkit-box-shadow: inset 0 1px 2px rgba(255,0,0,0.1);
     box-shadow: inset 0 1px 2px rgba(255,0,0,0.1);

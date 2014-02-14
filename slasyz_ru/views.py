@@ -1,4 +1,5 @@
 import datetime
+import os.path
 from django.http import HttpResponse
 
 from django.template.loader import get_template
@@ -24,4 +25,4 @@ def custom_404(request):
     return HttpResponse(render(request, 'error.html', {'code': 404, 'name': 'Not Found'}), status=404)
 
 def custom_500(request):
-    return HttpResponse(render(request, 'error.html', {'code': 500, 'name': 'Internal Server Error'}), status=404)
+    return HttpResponse(render(request, 'error.html', {'code': 500, 'name': 'Internal Server Error'}), status=500)

@@ -22,6 +22,18 @@ html,body,#wrap{
 	display: table-cell;
 	vertical-align: middle;
 }
+#footer-wrap{
+    display: table-row;
+}
+#footer{
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 0.75rem;
+    color: #888;
+    height: 2rem; padding: 15px;
+    /*border-top: #ccc solid 1px;*/
+    background: #ddd;
+}
 
 #select-button{
     margin: 10px 0;

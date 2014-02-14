@@ -19,12 +19,11 @@ server {
     root /home/sl/www/slasyz.ru;
     index index.html index.htm index.php;
 
-        location ~ [^/]\.php(/|$) {
-        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-        if (!-f $document_root$fastcgi_script_name) {
-            return 404;
-        }
+    error_page 400 403 404 500 = @django;
 
+    location ~ [^/]\.php(/|$) {
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        fastcgi_intercept_errors on;
         fastcgi_pass unix:/var/run/php5-fpm.sock;
         fastcgi_index index.php;
         include fastcgi_params;
@@ -52,11 +51,8 @@ server {
 
     location /static/ {
         #root /home/sl/django/slasyz_ru/slasyz_ru;
-        alias /home/sl/django/slasyz_ru/slasyz_ru/static/;
-    }
-    location /upload/static/ {
-        #root /home/sl/django/slasyz_ru;
-        alias /home/sl/django/slasyz_ru/upload/static/;
+        #alias /home/sl/django/slasyz_ru/slasyz_ru/static/;
+        try_files /home/sl/django/slasyz_ru/upload/static/$uri /home/sl/django/slasyz_ru/slasyz_ru/static/$uri =404;
     }
 
     ssl on;

@@ -50,9 +50,8 @@ server {
     }
 
     location /static/ {
-        #root /home/sl/django/slasyz_ru/slasyz_ru;
-        #alias /home/sl/django/slasyz_ru/slasyz_ru/static/;
-        try_files /home/sl/django/slasyz_ru/upload/static/$uri /home/sl/django/slasyz_ru/slasyz_ru/static/$uri =404;
+        root /home/sl/django/slasyz_ru;
+        try_files /upload$uri /slasyz_ru$uri =404;
     }
 
     ssl on;

@@ -1,7 +1,6 @@
 import os.path
 
 from django.conf.urls import patterns, include, url
-from slasyz_ru.settings import static
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -12,5 +11,5 @@ urlpatterns = patterns('',
     url(r'^upload-ajax/$', 'upload.views.upload_ajax'),
 
     # This should be in your proxy (i.e. nginx) config
-    url(r'^static\/(?P<path>.*)$', 'django.views.static.serve', {'document_root': static(__file__)}),
+    #url(r'^static\/(?P<path>.*)$', 'django.views.static.serve', {'document_root': static(__file__)}),
 )

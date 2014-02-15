@@ -1,3 +1,5 @@
+# save this file to /etc/nginx/sites-available/slasyz.ru and put a symlink to it into /etc/nginx/sites-enabled
+
 server {
     listen 80;
     server_name slasyz.ru www.slasyz.ru;
@@ -43,10 +45,14 @@ server {
 #       client_max_body_size 10m;
 #       proxy_connect_timeout 90;
 #   }
+#   location @django {
+#       include fastcgi_params;
+#       fastcgi_split_path_info ^()(.*)$;
+#       fastcgi_pass 127.0.0.1:8000;
+#   }
     location @django {
-        include fastcgi_params;
-        fastcgi_split_path_info ^()(.*)$;
-        fastcgi_pass 127.0.0.1:8000;
+        include uwsgi_params;
+        uwsgi_pass unix:/run/uwsgi/app/slasyz_ru/socket;
     }
 
     ssl on;

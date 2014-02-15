@@ -49,11 +49,6 @@ server {
         fastcgi_pass 127.0.0.1:8000;
     }
 
-    location /static/ {
-        root /home/sl/django/slasyz_ru;
-        try_files /upload$uri /slasyz_ru$uri =404;
-    }
-
     ssl on;
     ssl_certificate /etc/ssl/localcerts/slasyz.ru.pem;
     ssl_certificate_key /etc/ssl/localcerts/slasyz.ru.key;

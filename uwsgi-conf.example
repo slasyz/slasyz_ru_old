@@ -4,9 +4,7 @@
 chdir = /home/sl/django/slasyz_ru
 module = slasyz_ru.wsgi:application
 
-daemonize = /var/log/uwsgi/slasyz_ru.log
 log-date = True
-
 uid = sl
 gid = sl
 max-requests = 5000

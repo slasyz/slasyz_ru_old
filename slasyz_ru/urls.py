@@ -18,7 +18,6 @@ urlpatterns = patterns('',
 
     url(r'^$', 'slasyz_ru.views.index'),
     url(r'^upload/', include('upload.urls')),
-    #url(r'^dashboard/', include('dashboard.urls')),
 
     url(r'^400$', handler400),
     url(r'^403$', handler403),

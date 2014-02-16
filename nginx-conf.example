@@ -1,5 +1,9 @@
 # save this file to /etc/nginx/sites-available/slasyz.ru and put a symlink to it into /etc/nginx/sites-enabled
 
+# this two lines should be in your /etc/nginx/nginx.conf http{} section
+#log_format colored '[[1;32m$time_local[0m] "[1;31m$request_method[0m [1;36m$host$uri[0m" [1;31m$status[0m "[1;33m$http_user_agent[0m"';
+#access_log /var/log/nginx/access.log colored;
+
 server {
     listen 80;
     listen 443 ssl;
@@ -27,7 +31,6 @@ server {
     listen 443 ssl;
     server_name slasyz.ru;
 
-    access_log /var/log/nginx/access.log;
     root /home/sl/www/slasyz.ru;
     index index.html index.htm index.php;
 

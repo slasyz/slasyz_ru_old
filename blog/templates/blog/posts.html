@@ -1,0 +1,7 @@
+{% extends base_tpl %}
+
+{% block content %}
+    {% for post in posts %}
+        {% include "blog/tpl/post.tpl" %}
+    {% endfor %}
+{% endblock %}

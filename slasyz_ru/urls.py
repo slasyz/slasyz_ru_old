@@ -18,11 +18,14 @@ urlpatterns = patterns('',
 
     url(r'^$', 'slasyz_ru.views.index'),
     url(r'^upload/', include('upload.urls')),
+    url(r'^blog/', include('blog.urls')),
 
     url(r'^400$', handler400),
     url(r'^403$', handler403),
     url(r'^404$', handler404),
     url(r'^500$', handler500),
+
+    #url(r'static/', ),
 
     # This should be in your proxy (i.e. nginx) config
     #url(r'^static\/(?P<path>.*)$', 'django.views.static.serve', {'document_root': static(__file__)}),

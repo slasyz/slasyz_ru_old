@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'slasyz_ru',
     'upload',
+    'blog',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

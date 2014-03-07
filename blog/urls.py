@@ -6,6 +6,8 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^$', 'blog.views.latest'),
+    url(r'post\/(?P<post_id>\d+)', 'blog.views.post'),
+
     #url(r'^upload-ajax/$', 'upload.views.upload_ajax'),
 
     # This should be in your proxy (i.e. nginx) config

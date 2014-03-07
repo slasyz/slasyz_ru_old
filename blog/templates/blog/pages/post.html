@@ -2,9 +2,16 @@
 
 {% block content %}
     {% include "blog/tpl/post.tpl" %}
+    <h4>Comments:</h4>
     <div id="comments" class="row">
         <div class="small-12 columns">
-            comments section
+            {% for comment in comments %}
+                {% include "blog/tpl/comment.tpl" %}
+            {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+{% block small_title %}
+    {{ post.title }}
 {% endblock %}

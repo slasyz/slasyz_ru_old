@@ -10,7 +10,8 @@ from slasyz_ru.settings import STATIC_ROOT
 
 def index(request):
     backgrounds = os.listdir(os.path.join(STATIC_ROOT, 'backgrounds'))
-    n = len(backgrounds)-1
+    backgrounds.sort()
+    n = len(backgrounds)
     i = int(time.time()) // (60*60*24) % n
 
     return HttpResponse(render(request, 'index.html', {'background': backgrounds[i]}))

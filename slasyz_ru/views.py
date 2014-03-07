@@ -1,13 +1,19 @@
-import datetime
-import os.path
-from django.http import HttpResponse
+import os
+import time
 
 from django.template.loader import get_template
 from django.template import Context
 from django.shortcuts import render
+from django.http import HttpResponse
+
+from slasyz_ru.settings import STATIC_ROOT
 
 def index(request):
-	return HttpResponse(render(request, 'index.html', {}))
+    backgrounds = os.listdir(os.path.join(STATIC_ROOT, 'backgrounds'))
+    n = len(backgrounds)-1
+    i = int(time.time()) // (60*60*24) % n
+
+    return HttpResponse(render(request, 'index.html', {'background': backgrounds[i]}))
 
 def custom_400(request):
     return HttpResponse(render(request, 'error.html', {'code': 400, 'name': 'Bad Request'}), status=400)

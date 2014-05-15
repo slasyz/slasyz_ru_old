@@ -6,15 +6,20 @@ from django.template import Context
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from slasyz_ru.settings import STATIC_ROOT
+from slasyz_ru.settings import STATIC_ROOT, STATIC_URL
 
 def index(request):
-    backgrounds = os.listdir(os.path.join(STATIC_ROOT, 'backgrounds'))
-    backgrounds.sort()
-    n = len(backgrounds)
-    i = int(time.time()) // (60*60*24) % n
+    files = os.listdir(os.path.join(STATIC_ROOT, 'backgrounds'))
 
-    return HttpResponse(render(request, 'index.html', {'background': backgrounds[i]}))
+    backgrounds = [os.path.join(STATIC_URL, 'backgrounds', x) for x in files]
+    backgrounds.sort()
+
+    wp_list = ', '.join(['"url({})"'.format(x) for x in backgrounds])
+    i = int(time.time()) // (60*60*24) % len(backgrounds)
+
+    return HttpResponse(render(request, 'index.html', {'background': backgrounds[i],
+                                                       'index': i,
+                                                       'wp_list': wp_list}))
 
 def custom_400(request):
     return HttpResponse(render(request, 'error.html', {'code': 400, 'name': 'Bad Request'}), status=400)

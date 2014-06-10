@@ -33,6 +33,7 @@ server {
 
     root /home/sl/www/slasyz.ru;
     index index.html index.htm index.php;
+    client_max_body_size 500m;
 
     error_page 400 403 404 500 = @django;
 

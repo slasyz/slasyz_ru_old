@@ -81,7 +81,7 @@ function upload(files){
 
         if (file.size > $('#max_file_size').val()) {
             json = {error: 'File is too big', short_name: 'Upload error'};
-            write_result('error', 'File is too big');
+            write_result('error', json);
         } else {
             var formdata = new FormData();
             formdata.append('fileup', file);

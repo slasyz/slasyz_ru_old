@@ -14,6 +14,12 @@ TITLE = {'upload': "Upload",
          'blog': "My Blog",
          'management': "Management Panel"}
 
+LINKS = {'blog': [{'url': 'management_blog_add',
+                   'caption': 'New post',
+                   'needs_auth': True,
+                   'needs_admin': True}]}
+
+# slasyz_ru.blog settings
 POSTS_PER_PAGE = 10
 
 ADMINS = (
@@ -113,7 +119,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'django.core.context_processors.request',
-    'blog.context_processors.default',
+    'slasyz_ru.context_processors.default',
 )
 
 MIDDLEWARE_CLASSES = (

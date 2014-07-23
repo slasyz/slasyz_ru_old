@@ -41,7 +41,7 @@ input[type=submit]{ width: 100%; }
     font-size: 2.5rem;
 }
 
-/* position of .bar's */
+/* position of bars */
 #wrap{
     min-height: 100%;
     position: relative;
@@ -57,39 +57,31 @@ input[type=submit]{ width: 100%; }
     padding: 1rem;
 }
 
-/* size of bars and their elements */
+/* size and align of bars and their elements */
 .bar{
     background: #AD3D00;
     width: 100%;
     color: #fff;
 }
-.bar ul{
-    margin-bottom: 0;
-}
-.bar ul li{
-    display: inline-block;
-}
+.bar ul{ margin-bottom: 0; }
+.bar ul li{ display: inline-block; }
 .bar-element{
     display: block;
     padding: 1rem;
 }
-a.bar-element:hover, a.bar-element.current{
-    background-color: #C55500;
-}
 
 .bar-left, .bar-right{ margin: 0; }
-
-.bar a, .bar a{ color: #FFB088; }
-.bar a:hover, .bar a:hover, a.bar-element.current{ color: #FFCCB0; }
 .bar-left{ float: left; }
 .bar-right{ float: right; }
-
 .bar ul li:first-child span{ padding-left: 0; }
 .bar ul li:last-child span{ padding-right: 0; }
 
-#login input{
-    width: 33%;
-}
+/* colors of bar elements */
+.bar a, .bar a{ color: #FFB088; }
+.bar a:hover, .bar a:hover, a.bar-element.current{ color: #FFCCB0; }
+a.bar-element:hover, a.bar-element.current{ background-color: #C55500; }
+
+#login input{ width: 33%; }
 #submit{
     /*width: 100%;*/
 }

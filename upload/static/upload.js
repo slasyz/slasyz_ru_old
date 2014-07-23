@@ -108,12 +108,14 @@ function upload(files){
 $('#submit-button').hide(0);
 $('#select-button').on('dragenter', function(ev){
     prevent(ev);
-    $('#select-button').addClass('secondary')
+    $('#select-button').removeClass('primary')
+                       .addClass('secondary')
                        .text('Drop it here!');
 });
 $('#select-button').on('dragleave', function(ev){
     prevent(ev);
-    $('#select-button').removeClass('secondary')
+    $('#select-button').addClass('primary')
+                       .removeClass('secondary')
                        .text('Select file');
 });
 
@@ -121,7 +123,8 @@ $('#select-button').on('dragover', prevent);
 $('#select-button').on('drop', function(ev){
     prevent(ev);
     upload(ev.originalEvent.dataTransfer.files);
-    $('#select-button').removeClass('secondary')
+    $('#select-button').addClass('primary')
+                       .removeClass('secondary')
                        .text('Select file');
 });
 $('#fileup').change(function(ev){

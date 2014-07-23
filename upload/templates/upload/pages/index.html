@@ -1,31 +1,14 @@
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Uploader</title>
-    <link rel="stylesheet" href="{{ STATIC_URL }}foundation/css/foundation.min.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}upload.css" />
-    <script src="{{ STATIC_URL }}foundation/js/vendor/modernizr.js"></script>
+    {% include "global/tpl/head.tpl" %}
 </head>
 <body>
     <div class="progress" id="progress">
         <span class="meter" style="width: 70%;"></span>
     </div>
     <div id="wrap">
-        <div id="topbar">
-            <nav class="top-bar" data-topbar>
-                <ul class="title-area">
-                    <li class="name">
-                        <h1>
-                            <a href="" style="width: 100%;">
-                                File Uploader
-                            </a>
-                        </h1>
-                    </li>
-                </ul>
-            </nav>
-        </div>
+        {% include "global/tpl/topbar.tpl" %}
         <div id="center">
             <form method="post" enctype="multipart/form-data" action="">
                 <div class="row">
@@ -71,20 +54,14 @@
                         {% csrf_token %}
                         <input type="hidden" name="MAX_FILE_SIZE" id="max_file_size" value="{{ max_file_size }}" />
                         <input type="password" name="password" id="password" placeholder="Password" />
-                        <label class="button" id="select-button" for="fileup">Select file</label>
+                        <label class="button primary" id="select-button" for="fileup">Select file</label>
                         <input type="file" name="fileup" id="fileup" multiple />
                         <input class="button secondary" id="submit-button" type="submit" value="Upload" />
                     </div>
                 </div>
             </form>
         </div>
-        <div id="footer-wrap">
-            <div id="footer">
-                Powered by <a href="http://djangoproject.com/">Django</a>+<a href="http://foundation.zurb.com/">Foundation</a>+<a href="http://jquery.com/">jQuery</a>.
-                Made by <a href="http://slasyz.ru/">slasyz</a>.
-                Sources available via <a href="http://bitbucket.org/slasyz/slasyz_ru">bitbucket.org</a>.
-            </div>
-        </div>
+        {% include "global/tpl/footer.tpl" %}
     </div>
 
     <script src="https://code.jquery.com/jquery.min.js"></script>

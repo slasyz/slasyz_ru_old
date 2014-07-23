@@ -10,7 +10,8 @@ LOG_FILE = '/home/sl/logs/slasyz_ru/upload.log'
 MAX_FILE_SIZE = 500 * 1024 * 1024 # 500MB
 UPLOAD_PASSWORD = '1234'
 
-TITLE = {'blog': "My Blog",
+TITLE = {'upload': "Upload",
+         'blog': "My Blog",
          'management': "Management Panel"}
 
 POSTS_PER_PAGE = 10

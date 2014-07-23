@@ -1,7 +1,7 @@
 html,body,#wrap{
 	width: 100%; height: 100%;
 	margin: 0; padding: 0;
-    background: #eee;
+    /*background: #eee;*/
 }
 
 #progress{
@@ -13,26 +13,22 @@ html,body,#wrap{
 }
 #wrap{
 	display: table;
+    position: relative;
 }
 #topbar{
     display: table-row;
-    height: 45px;
+    height: 3rem;
 }
 #center{
 	display: table-cell;
 	vertical-align: middle;
 }
-#footer-wrap{
-    display: table-row;
-}
+
+#footer-empty{ display: none; }
 #footer{
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 0.75rem;
-    color: #888;
-    height: 2rem; padding: 15px;
-    /*border-top: #ccc solid 1px;*/
-    background: #ddd;
+    display: table-row;
+    height: 3rem;
+    position: static;
 }
 
 #select-button{

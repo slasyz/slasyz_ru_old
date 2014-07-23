@@ -17,10 +17,10 @@ a:hover, a:focus{ color: #803300; }
 input[type=submit]{ width: 100%; }
 #post-form textarea{ min-height: 15rem;}
 .button.primary{
-    background: #852f00;
+    background: #AD3D00;
 }
 .button.primary:hover{
-    background: #AD3D00;
+    background: #C55500;
 }
 
 #head{
@@ -78,8 +78,8 @@ input[type=submit]{ width: 100%; }
 
 /* colors of bar elements */
 .bar a, .bar a{ color: #FFB088; }
-.bar a:hover, .bar a:hover, a.bar-element.current{ color: #FFCCB0; }
-a.bar-element:hover, a.bar-element.current{ background-color: #C55500; }
+.bar a:hover, .bar a:hover, a.bar-element.active{ color: #FFCCB0; }
+a.bar-element:hover, a.bar-element.active{ background-color: #C55500; }
 
 #login input{ width: 33%; }
 #submit{

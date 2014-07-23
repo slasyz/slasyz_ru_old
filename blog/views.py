@@ -8,16 +8,10 @@ from django.template import RequestContext
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage
 
-from slasyz_ru.settings import TITLE, POSTS_PER_PAGE
+from slasyz_ru.settings import POSTS_PER_PAGE
 from blog.models import Post, Comment
 from blog.forms import CommentForm, AnonymousCommentForm
 from management.views import blog_views
-
-
-def context_processor(request):
-    APP_NAME = 'blog'
-    return {'APP_NAME': APP_NAME,
-            'APP_TITLE': TITLE[APP_NAME]}
 
 
 def page_view(request, page=1):
@@ -47,7 +41,7 @@ def page_view(request, page=1):
                'posts': current_page,
                'prev_page': prev_page,
                'next_page': next_page}
-    return render(request, 'blog/pages/posts.html', RequestContext(request, context, processors=[context_processor,]))
+    return render(request, 'blog/pages/posts.html', RequestContext(request, context))
 
 
 def post_view(request, short_name):
@@ -68,7 +62,7 @@ def post_view(request, short_name):
                'comments': comments,
                'comment_form': comment_form}
 
-    return render(request, 'blog/pages/post.html', RequestContext(request, context, processors=[context_processor,]))
+    return render(request, 'blog/pages/post.html', RequestContext(request, context))
 
 
 def add_comment_view(request, short_name):

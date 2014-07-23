@@ -10,7 +10,7 @@ from django.template import RequestContext
 from django.shortcuts import render
 
 from upload.forms import UploadFileForm
-from slasyz_ru.settings import TITLE, UPLOAD_DIR, UPLOAD_URL, MAX_FILE_SIZE, UPLOAD_PASSWORD, LOG_FILE
+from slasyz_ru.settings import UPLOAD_DIR, UPLOAD_URL, MAX_FILE_SIZE, UPLOAD_PASSWORD, LOG_FILE
 LOG_TEMPLATE = '[{{time}}] \033[1;{color}m{filename}\033[0m -> \033[1;36m{text}\033[0m\n'
 
 class LinkResult(dict):
@@ -36,10 +36,6 @@ class ErrorResult(dict):
 def filepath(filename):
     return os.path.join(UPLOAD_DIR, filename)
 
-def context_processor(request):
-    APP_NAME = 'upload'
-    return {'APP_NAME': APP_NAME,
-            'APP_TITLE': TITLE[APP_NAME]}
 
 def get_short_name(filename):
     if len(filename) <= 30:
@@ -47,6 +43,7 @@ def get_short_name(filename):
     else:
         spl = os.path.splitext(filename)
         return spl[0][:30-3-3-len(spl[1])] + '...' + spl[0][-3:] + spl[1]
+
 
 def log(text):
     time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
@@ -56,7 +53,8 @@ def log(text):
     f.write(text.format(time=time))
     f.close()
 
-def upload_file(uploaded_file):
+
+def upload_file(request, uploaded_file):
     from urlparse import urljoin
     try:
         # Checking file
@@ -83,24 +81,26 @@ def upload_file(uploaded_file):
     except:
         return ErrorResult('A server error occured.', name=uploaded_file.name, status=500)
 
+
 def upload(request):
     context = {'base_tpl': 'base/full.html',
                'title': 'Upload file',
                'max_file_size': MAX_FILE_SIZE}
-    files = []
+    files = [] # TODO: rewrite this
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if not form.is_valid():
             files.append(ErrorResult('An error occured.', status=400))
-        elif request.POST['password'] != UPLOAD_PASSWORD:
+        elif (request.POST.get('password') != UPLOAD_PASSWORD) and not request.user.is_authenticated():
             files.append(ErrorResult('Incorrect password', status=403))
         else:
             for f in request.FILES.getlist('fileup'):
-                result = upload_file(f)
+                result = upload_file(request, f)
                 files.append(result)
 
     context['files'] = files
-    return render(request, 'upload/pages/index.html', RequestContext(request, context, processors=[context_processor,]))
+    return render(request, 'upload/pages/index.html', RequestContext(request, context))
+
 
 def upload_ajax(request):
     if request.method == 'POST':

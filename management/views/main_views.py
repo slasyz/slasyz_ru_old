@@ -9,14 +9,7 @@ from django.shortcuts import render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 
-from slasyz_ru.settings import TITLE
 from management.middleware import RedirectIfAnonymous
-
-
-def context_processor(request):
-    APP_NAME = 'management'
-    return {'APP_NAME': APP_NAME,
-            'APP_TITLE': TITLE[APP_NAME]}
 
 
 def login_view(request):
@@ -32,7 +25,7 @@ def login_view(request):
         if request.user.is_authenticated():
             return HttpResponseRedirect(reverse('management'))
         else:
-            return render(request, 'management/pages/login.html', RequestContext(request, context, processors=[context_processor,]))
+            return render(request, 'management/pages/login.html', RequestContext(request, context))
 
 
 def logout_view(request):
@@ -44,4 +37,4 @@ def logout_view(request):
 def index(request):
     context = {'title': _('Main page'),
                'base_tpl': 'base/full.html'}
-    return render(request, 'management/pages/index.html', RequestContext(request, context, processors=[context_processor,]))
+    return render(request, 'management/pages/index.html', RequestContext(request, context))

@@ -7,7 +7,7 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'upload.views.upload'),
+    url(r'^$', 'upload.views.upload', name='upload'),
     url(r'^upload-ajax/$', 'upload.views.upload_ajax'),
 
     # This should be in your proxy (i.e. nginx) config

@@ -1,7 +1,25 @@
 {% extends base_tpl %}
+{% load i18n %}
 
 {% block content %}
-    {% for post in posts %}
-        {% include "blog/tpl/post.tpl" %}
-    {% endfor %}
+    {% if posts %}
+        {% for post in posts %}
+            {% include "blog/tpl/post.tpl" with full=False %}
+        {% endfor %}
+
+        <div id="pagination">
+            {% if prev_page %}
+                {% if prev_page == 1 %}
+                    <a href="{% url 'blog' %}" id="prev_page">{% trans "« Previous page" %}</a>
+                {% else %}
+                    <a href="{% url 'blog_page' prev_page %}" id="prev_page">{% trans "« Previous page" %}</a>
+                {% endif %}
+            {% endif %}
+            {% if next_page %}
+                <a href="{% url 'blog_page' next_page %}" id="next_page">{% trans "Next page »" %}</a>
+            {% endif %}
+        </div>
+    {% else %}
+        {% trans "There are no posts right now." %}
+    {% endif %}
 {% endblock %}

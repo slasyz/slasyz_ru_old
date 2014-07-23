@@ -1,57 +1,46 @@
-@import url("http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700&subset=latin,cyrillic");
-
-html,body{
-    font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-    height: 100%;
-}
-h1,h2,h3,h4,h5,h6, .post{
-    font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-}
-
-#head{
-    padding: 50px 50px;
-    margin: 0 0 1rem;
-    width: 100%; height: auto;
-    background: url('/static/blog-background.jpg');
-    background-position: center center;
-    background-size: cover;
-
-    color: #fff;
-
-    display: table;
-}
-#head .row{
-    display: table-row;
-}
-#head .cell{
-    padding: 0;
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-}
-#big-title, #small-title{
-    color: #fff;
-}
-#big-title{
-    font-size: 5rem;
-    font-weight: 300;
-}
-#small-title{
-    font-size: 2.5rem;
-    font-weight: 300;
-}
+#pagination{ margin-top: 2rem; }
+#prev_page{ float: left; }
+#next_page{ float: right; clear: none; }
 
 .post .title{
     margin: 0 0 0.25rem;
+    font-size: 2.5rem;
 }
 .post .info{
-    font-size: 0.75rem;
+    font-size: 1rem;
     color: #888;
+    text-align: right;
 }
 .post .text{
     margin-top: 1rem;
+    text-align: justify;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
-.post div, .post h3, .post span{
-    /*border: 1px red solid;*/
+#comments{
+    /*margin-top: 0.75rem;*/
+}
+#comments h4{ margin-bottom: 1rem; }
+.comment{
+    margin-bottom: 1rem;
+}
+.comment .info .date{
+    color: #888;
+}
+.comment .info .name{
+    font-weight: bold;
+}
+.comment .text{
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+#comment-form{
+    margin-top: 1rem;
+    width: 50%;
+    min-width: 15rem;
+}
+#comment-form textarea{
+    min-height: 10rem;
 }

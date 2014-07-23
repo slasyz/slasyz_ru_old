@@ -1,40 +1,98 @@
 # coding: utf-8
 
-from django.http import HttpResponse, Http404
-from django.template.loader import get_template
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage
 
-def latest(request):
-    posts = [{'title': 'Hello World',
-              'created': '2014-02-21 11:00:00',
-              'text': '<p>This is text of post</p><p>This is another line of text of post. This is another sentence of another line of text of post.</p>'},
-             {'title': 'Hello World 2',
-              'created': '2014-02-21 10:00:00',
-              'text': '<p>This is text of post</p><p>This is another line of text of post. This is another sentence of another line of text of post.</p>'}]
-    context = {'posts': posts, 'title': 'Latest posts', 'base_tpl': 'blog/base/full.html'}
-    return HttpResponse(render(request, 'blog/pages/posts.html', RequestContext(request, context)))
+from slasyz_ru.settings import TITLE, POSTS_PER_PAGE
+from blog.models import Post, Comment
+from blog.forms import CommentForm, AnonymousCommentForm
+from management.views import blog_views
 
-def post(request, post_id):
-    if post_id == '234':
-        comments = [{'author': 'Author Name',
-                     'created': '2014-02-21 11:05:00',
-                     'text': 'Veri sank u )))'},
-                    {'author': 'Author Name',
-                     'created': '2014-02-21 11:06:01',
-                     'text': 'Sori fo mai inglish ahahah )))'}
-                   ]
-        context = {'post': {'title': 'Hello World. Проверка кириллицы.',
-                            'created': '2014-02-21 11:00:00',
-                            'text': """
-                                <p>Повседневная практика показывает, что сложившаяся структура организации представляет собой интересный эксперимент проверки новых предложений. Товарищи! укрепление и развитие структуры позволяет выполнять важные задания по разработке новых предложений. С другой стороны постоянный количественный рост и сфера нашей активности позволяет оценить значение соответствующий условий активизации. Товарищи! постоянное информационно-пропагандистское обеспечение нашей деятельности требуют определения и уточнения системы обучения кадров, соответствует насущным потребностям.</p>
-                                <p>Задача организации, в особенности же консультация с широким активом представляет собой интересный эксперимент проверки системы обучения кадров, соответствует насущным потребностям. С другой стороны укрепление и развитие структуры требуют определения и уточнения форм развития. Значимость этих проблем настолько очевидна, что постоянный количественный рост и сфера нашей активности требуют определения и уточнения позиций, занимаемых участниками в отношении поставленных задач. Товарищи! реализация намеченных плановых заданий позволяет оценить значение дальнейших направлений развития. Задача организации, в особенности же начало повседневной работы по формированию позиции требуют от нас анализа форм развития. Равным образом консультация с широким активом обеспечивает широкому кругу (специалистов) участие в формировании соответствующий условий активизации.</p>
-                                <p>С другой стороны консультация с широким активом в значительной степени обуславливает создание системы обучения кадров, соответствует насущным потребностям. Идейные соображения высшего порядка, а также реализация намеченных плановых заданий позволяет выполнять важные задания по разработке дальнейших направлений развития. Значимость этих проблем настолько очевидна, что дальнейшее развитие различных форм деятельности представляет собой интересный эксперимент проверки системы обучения кадров, соответствует насущным потребностям. Задача организации, в особенности же постоянный количественный рост и сфера нашей активности обеспечивает широкому кругу (специалистов) участие в формировании модели развития. Равным образом сложившаяся структура организации способствует подготовки и реализации позиций, занимаемых участниками в отношении поставленных задач. Задача организации, в особенности же сложившаяся структура организации играет важную роль в формировании существенных финансовых и административных условий.</p>
-                            """},
-                   'comments': comments,
-                   'title': 'Hello World. Проверка кириллицы.',
-                   'base_tpl': 'blog/base/full.html',
-                  }
-        return HttpResponse(render(request, 'blog/pages/post.html', RequestContext(request, context)))
+
+def context_processor(request):
+    APP_NAME = 'blog'
+    return {'APP_NAME': APP_NAME,
+            'APP_TITLE': TITLE[APP_NAME]}
+
+
+def page_view(request, page=1):
+    posts_all = Post.objects.all().order_by('-created')
+    paginator = Paginator(posts_all, POSTS_PER_PAGE)
+
+    try:
+        current_page = paginator.page(page)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        current_page = paginator.page(paginator.num_pages)
+
+    prev_page = next_page = 0
+    if current_page.has_previous():
+        prev_page = current_page.previous_page_number()
+    if current_page.has_next():
+        next_page = current_page.next_page_number()
+
+    if page == 1:
+        title = _('Latest')
     else:
-        raise Http404
+        title = _('Page {}').format(page)
+
+
+    context = {'title': title,
+               'base_tpl': 'base/full.html',
+               'posts': current_page,
+               'prev_page': prev_page,
+               'next_page': next_page}
+    return render(request, 'blog/pages/posts.html', RequestContext(request, context, processors=[context_processor,]))
+
+
+def post_view(request, short_name):
+    try:
+        res = Post.objects.get(short_name=short_name)
+    except Post.DoesNotExist:
+        raise Http404()
+    comments = Comment.objects.filter(post_id=res.id).order_by('created')
+
+    if request.user.is_authenticated():
+        comment_form = CommentForm()
+    else:
+        comment_form = AnonymousCommentForm()
+
+    context = {'title': res.title,
+               'base_tpl': 'base/full.html',
+               'post': res,
+               'comments': comments,
+               'comment_form': comment_form}
+
+    return render(request, 'blog/pages/post.html', RequestContext(request, context, processors=[context_processor,]))
+
+
+def add_comment_view(request, short_name):
+    if request.method == 'POST':
+        try:
+            post = Post.objects.get(short_name=short_name)
+        except Post.DoesNotExist:
+            raise Http404()
+
+        ### TODO:
+        # избавиться от копипаста
+        if request.user.is_authenticated():
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.author = request.user
+                comment.post = post
+                comment.save()
+        else:
+            form = AnonymousCommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.author = None
+                comment.post = post
+                comment.save()
+    
+    return HttpResponseRedirect(reverse('blog_post', args=[short_name,]))

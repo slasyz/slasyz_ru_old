@@ -1,5 +1,5 @@
 #from django.core.context_processors import request
-from slasyz_ru.settings import BLOG_TITLE
+from slasyz_ru.settings import TITLE
 
 def default(request):
-    return {'blog_title': BLOG_TITLE}
+    return {'TITLE': TITLE}

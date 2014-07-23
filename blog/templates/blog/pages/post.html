@@ -1,13 +1,26 @@
 {% extends base_tpl %}
+{% load i18n %}
 
 {% block content %}
-    {% include "blog/tpl/post.tpl" %}
-    <h4>Comments:</h4>
+    {% include "blog/tpl/post.tpl" with full=True %}
     <div id="comments" class="row">
         <div class="small-12 columns">
-            {% for comment in comments %}
-                {% include "blog/tpl/comment.tpl" %}
-            {% endfor %}
+            <h4>{% trans "Comments" %}:</h4>
+            {% if comments %}
+                {% for comment in comments %}
+                    {% include "blog/tpl/comment.tpl" %}
+                {% endfor %}
+            {% else %}
+                <div>There are no comments right now.</div>
+            {% endif %}
+            <div id="comment-form">
+                <h5>{% trans "Add your own:" %}</h5>
+                <form action="{% url 'blog_add_comment' post.short_name %}" method="post">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <input type="submit" class="button primary" value="Add" />
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

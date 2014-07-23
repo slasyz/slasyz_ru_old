@@ -16,9 +16,10 @@ urlpatterns = patterns('',
     # url(r'^$', 'slasyz_ru.views.home', name='home'),
     # url(r'^slasyz_ru/', include('slasyz_ru.foo.urls')),
 
-    url(r'^$', 'slasyz_ru.views.index'),
+    url(r'^$', 'slasyz_ru.views.index', name='index'),
     url(r'^upload/', include('upload.urls')),
     url(r'^blog/', include('blog.urls')),
+    url(r'^management/', include('management.urls')),
 
     url(r'^400$', handler400),
     url(r'^403$', handler403),

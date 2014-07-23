@@ -1,4 +1,4 @@
-# Django settings for slasyz_ru project.
+# coding: utf-8
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -10,8 +10,10 @@ LOG_FILE = '/home/sl/logs/slasyz_ru/upload.log'
 MAX_FILE_SIZE = 500 * 1024 * 1024 # 500MB
 UPLOAD_PASSWORD = '1234'
 
-# slasyz_ru.blog
-BLOG_TITLE = "My Blog"
+TITLE = {'blog': "My Blog",
+         'management': "Management Panel"}
+
+POSTS_PER_PAGE = 10
 
 ADMINS = (
     ('Vyacheslav S.', 'slasyz@gmail.com'),
@@ -109,6 +111,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.request',
     'blog.context_processors.default',
 )
 
@@ -134,7 +137,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-    #'django.contrib.auth',
+    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
@@ -147,6 +150,7 @@ INSTALLED_APPS = (
     'slasyz_ru',
     'upload',
     'blog',
+    'management',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

@@ -5,11 +5,9 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'blog.views.latest'),
-    url(r'post\/(?P<post_id>\d+)', 'blog.views.post'),
+    url(r'^$', 'blog.views.page_view', name='blog'),
+    url(r'^page/(?P<page>[0-9]+)/$', 'blog.views.page_view', name='blog_page'),
+    url(r'^post/(?P<short_name>[a-z0-9-]+)$', 'blog.views.post_view', name='blog_post'),
 
-    #url(r'^upload-ajax/$', 'upload.views.upload_ajax'),
-
-    # This should be in your proxy (i.e. nginx) config
-    #url(r'^static\/(?P<path>.*)$', 'django.views.static.serve', {'document_root': static(__file__)}),
+    url(r'^post/(?P<short_name>[a-z0-9-]+)/add_comment/$', 'blog.views.add_comment_view', name='blog_add_comment'),
 )

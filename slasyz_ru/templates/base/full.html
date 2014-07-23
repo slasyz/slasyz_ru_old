@@ -1,0 +1,37 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }} - {{ APP_TITLE }}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}foundation/css/foundation.min.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}base.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}{{ APP_NAME }}.css" />
+    <script src="{{ STATIC_URL }}foundation/js/vendor/modernizr.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        {% include "management/tpl/topbar.tpl" %}
+        <div id="head">
+            <div class="row" id="big-title">
+                <div class="small-8 columns">
+                    <h1><a href="{% url APP_NAME %}">{{ APP_TITLE }}</a></h1>
+                    <!--<h1 id="small-title">{% block small_title %}{% endblock %}</h1>-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 columns">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        {% include "management/tpl/footer.tpl" %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}foundation/js/foundation.min.js"></script>
+    <script src="{{ STATIC_URL }}base.js"></script>
+    <script src="{{ STATIC_URL }}{{ APP_NAME }}.js"></script>
+{% include "yandex.html" %}
+</body>
+</html>

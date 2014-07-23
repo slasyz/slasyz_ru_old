@@ -2,6 +2,9 @@
 #prev_page{ float: left; }
 #next_page{ float: right; clear: none; }
 
+.post{
+    margin-bottom: 1rem;
+}
 .post .title{
     margin: 0 0 0.25rem;
     font-size: 2.5rem;

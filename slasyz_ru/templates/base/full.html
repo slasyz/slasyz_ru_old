@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="wrap">
-        {% include "management/tpl/topbar.tpl" %}
+        {% include "global/tpl/topbar.tpl" %}
         <div id="head">
             <div class="row" id="big-title">
                 <div class="small-8 columns">
@@ -25,12 +25,12 @@
                 {% block content %}{% endblock %}
             </div>
         </div>
-        {% include "management/tpl/footer.tpl" %}
+        {% include "global/tpl/footer.tpl" %}
     </div>
 
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}foundation/js/foundation.min.js"></script>
-    <script src="{{ STATIC_URL }}base.js"></script>
+    <script src="{{ STATIC_URL }}global/base.js"></script>
     <script src="{{ STATIC_URL }}{{ APP_NAME }}.js"></script>
 {% include "yandex.html" %}
 </body>

@@ -4,7 +4,8 @@
     <div class="row">
         <div class="small-12 columns">
             <ul class="bar-left">
-                {% if user.is_authenticated %}
+                {% comment %} TODO: do it in for loop {% endcomment %}
+                {% if user.is_superuser %}
                     <li>{% include 'global/tpl/bar_link.tpl' with url_name='management' caption='Management' %}</a></li>
                 {% endif %}
                 <li>{% include 'global/tpl/bar_link.tpl' with url_name='upload' caption='Upload' %}</a></li>
@@ -15,7 +16,6 @@
                     <li><span class="bar-element">{% trans "Hello" %}, {{ user.first_name }} {{ user.last_name }}!</span></li>
                 {% endif %}
 
-                <!-- {{ TOPBAR_LINKS }} -->
                 {% for link in TOPBAR_LINKS %}
                     {% comment %}because django template system cannot into parentheses inside "if" tag{% endcomment %}
                     {% if not link.needs_auth %}
@@ -28,6 +28,11 @@
                         <li>{% include 'global/tpl/bar_link.tpl' with url_name=link.url caption=link.caption %}</li>
                     {% endif %}
                 {% endfor %}
+
+                {% url 'management_'|add:APP_NAME as app_manage_url %}
+                {% if user.is_superuser and app_manage_url %}
+                    <li><a class="bar-element" href="{{ app_manage_url }}">Manage</a></li>
+                {% endif %}
 
                 {% if user.is_authenticated %}
                     <li><a class="bar-element" href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>

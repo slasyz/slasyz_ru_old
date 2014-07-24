@@ -4,10 +4,10 @@ from django.conf.urls import patterns, include, url
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
-    url(r'^$', 'blog.views.page_view', name='blog'),
-    url(r'^page/(?P<page>[0-9]+)/$', 'blog.views.page_view', name='blog_page'),
-    url(r'^post/(?P<short_name>[a-z0-9-]+)$', 'blog.views.post_view', name='blog_post'),
+urlpatterns = patterns('blog.views',
+    url(r'^$', 'page_view', name='blog'),
+    url(r'^page/(?P<page>[0-9]+)/$', 'page_view', name='blog_page'),
+    url(r'^post/(?P<short_name>[a-z0-9-]+)$', 'post_view', name='blog_post'),
 
-    url(r'^post/(?P<short_name>[a-z0-9-]+)/add_comment/$', 'blog.views.add_comment_view', name='blog_add_comment'),
+    url(r'^post/(?P<short_name>[a-z0-9-]+)/add_comment/$', 'add_comment_view', name='blog_add_comment'),
 )

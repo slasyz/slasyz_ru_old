@@ -24,4 +24,4 @@ urlpatterns = patterns('',
 
     # This should be in your proxy (i.e. nginx) config
     #url(r'^static\/(?P<path>.*)$', 'django.views.static.serve', {'document_root': static(__file__)}),
-) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+)# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

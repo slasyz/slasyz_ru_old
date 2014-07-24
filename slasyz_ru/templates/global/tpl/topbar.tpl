@@ -4,19 +4,18 @@
     <div class="row">
         <div class="small-12 columns">
             <ul class="bar-left">
-                {% comment %} TODO: do it in for loop {% endcomment %}
-                {% if user.is_superuser %}
-                    <li>{% include 'global/tpl/bar_link.tpl' with url_name='management' caption='Management' %}</a></li>
-                {% endif %}
-                <li>{% include 'global/tpl/bar_link.tpl' with url_name='upload' caption='Upload' %}</a></li>
-                <li>{% include 'global/tpl/bar_link.tpl' with url_name='blog' caption='Blog' %}</li>
+                {% for key, value in INFO %}
+                    {% if not value.needs_admin or user.is_superuser %}
+                        <li>{% include 'global/tpl/bar_link.tpl' with url_name=key caption=value.short_title %}</a></li>
+                    {% endif %}
+                {% endfor %}
             </ul>
             <ul class="bar-right">
                 {% if user.is_authenticated %}
                     <li><span class="bar-element">{% trans "Hello" %}, {{ user.first_name }} {{ user.last_name }}!</span></li>
                 {% endif %}
 
-                {% for link in TOPBAR_LINKS %}
+                {% for link in APP_INFO.topbar_links %}
                     {% comment %}because django template system cannot into parentheses inside "if" tag{% endcomment %}
                     {% if not link.needs_auth %}
                         <li>{% include 'global/tpl/bar_link.tpl' with url_name=link.url caption=link.caption %}</li>

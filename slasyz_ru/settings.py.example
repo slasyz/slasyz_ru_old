@@ -10,14 +10,22 @@ LOG_FILE = '/home/sl/logs/slasyz_ru/upload.log'
 MAX_FILE_SIZE = 500 * 1024 * 1024 # 500MB
 UPLOAD_PASSWORD = '1234'
 
-TITLE = {'upload': "Upload",
-         'blog': "My Blog",
-         'management': "Management Panel"}
-
-LINKS = {'blog': [{'url': 'management_blog_add',
-                   'caption': 'New post',
-                   'needs_auth': True,
-                   'needs_admin': True}]}
+INFO = (('management', {'short_title': 'Management',
+                        'title': 'Management Panel',
+                        'needs_admin': True,
+                        'topbar_links': []}),
+        ('upload', {'short_title': 'Upload',
+                    'title': 'Upload',
+                    'needs_admin': False,
+                    'topbar_links': []}),
+        ('blog', {'short_title': 'Blog',
+                  'title': 'My Blog',
+                  'needs_admin': False,
+                  'topbar_links': [{'url': 'management_blog_add',
+                                    'caption': 'New post',
+                                    'needs_auth': True,
+                                    'needs_admin': True}]}),
+       )
 
 # slasyz_ru.blog settings
 POSTS_PER_PAGE = 10
@@ -128,6 +136,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'slasyz_ru.middleware.RedirectIfAnonymous',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )

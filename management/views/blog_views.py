@@ -13,7 +13,6 @@ from management.forms import PostForm
 from management.middleware import RedirectIfAnonymous
 
 
-@decorator_from_middleware(RedirectIfAnonymous)
 def add(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -32,7 +31,6 @@ def add(request):
     return render(request, 'management/pages/blog/edit.html', RequestContext(request, context))
 
 
-@decorator_from_middleware(RedirectIfAnonymous)
 def edit(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
@@ -58,7 +56,6 @@ def edit(request, post_id):
     return render(request, 'management/pages/blog/edit.html', RequestContext(request, context))
 
 
-@decorator_from_middleware(RedirectIfAnonymous)
 def rm(request, post_id):
     try:
         post = Post.objects.get(id=post_id)
@@ -78,7 +75,6 @@ def rm(request, post_id):
         return HttpResponseRedirect(reverse('blog'))
 
 
-@decorator_from_middleware(RedirectIfAnonymous)
 def index(request):
     context = {'title': _('Blog management main page'),
                'base_tpl': 'base/full.html'}

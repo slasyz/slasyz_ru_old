@@ -33,7 +33,6 @@ def logout_view(request):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-@decorator_from_middleware(RedirectIfAnonymous)
 def index(request):
     context = {'title': _('Main page'),
                'base_tpl': 'base/full.html'}

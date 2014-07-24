@@ -16,14 +16,7 @@
                 {% endif %}
 
                 {% for link in APP_INFO.topbar_links %}
-                    {% comment %}because django template system cannot into parentheses inside "if" tag{% endcomment %}
-                    {% if not link.needs_auth %}
-                        <li>{% include 'global/tpl/bar_link.tpl' with url_name=link.url caption=link.caption %}</li>
-                    {% endif %}
-                    {% if user.is_authenticated and not user.is_superuser and link.needs_auth and not link.needs_admin %}
-                        <li>{% include 'global/tpl/bar_link.tpl' with url_name=link.url caption=link.caption %}</li>
-                    {% endif %}
-                    {% if user.is_authenticated and user.is_superuser and link.needs_auth and link.needs_admin %}
+                    {% if not link.needs_auth or user.is_superuser or not link.needs_admin and user.is_authenticated %}
                         <li>{% include 'global/tpl/bar_link.tpl' with url_name=link.url caption=link.caption %}</li>
                     {% endif %}
                 {% endfor %}

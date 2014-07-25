@@ -5,26 +5,39 @@
 </head>
 <body>
     <div id="wrap">
-        {% include "global/tpl/topbar.tpl" %}
-        <div id="head">
-            <div class="row" id="big-title">
-                <div class="small-12 columns">
-                    <h1>
-                        {% if APP_NAME %}
-                            <a href="{% url APP_NAME %}">{{ APP_INFO.title }}</a>
-                        {% else %}
-                            <a href="">{{ title }}</a>
-                        {% endif %}
-                    </h1>
+        <div id="topbar-wrap">
+            {% include "global/tpl/topbar.tpl" %}
+        </div>
+        {% if progress_bar %}
+            <div id="progress-wrap">
+                <div class="progress" id="progress">
+                    <span class="meter" style="width: 70%;"></span>
+                </div>
+            </div>
+        {% endif %}
+        <div id="middle-wrap">
+            <div id="middle">
+                <div id="head">
+                    <div class="row" id="big-title">
+                        <div class="small-12 columns">
+                            <h1>
+                                {% if not hide_big_title and APP_NAME %}
+                                    <a href="{% url APP_NAME %}">{{ APP_INFO.title }}</a>
+                                {% endif %}
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="content">
+                    <div class="small-12 columns">
+                        {% block content %}{% endblock %}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row" id="content">
-            <div class="small-12 columns">
-                {% block content %}{% endblock %}
-            </div>
+        <div id="footer-wrap">
+            {% include "global/tpl/footer.tpl" %}
         </div>
-        {% include "global/tpl/footer.tpl" %}
     </div>
 
     <script src="https://code.jquery.com/jquery.min.js"></script>

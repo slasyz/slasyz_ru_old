@@ -1,6 +1,5 @@
 {% load i18n %}
 
-<div id="footer-empty" class="bar"><ul><li><span>&nbsp;</span></li></ul></div>
 <div id="footer" class="bar">
     <div class="row">
         <div class="small-12 columns">

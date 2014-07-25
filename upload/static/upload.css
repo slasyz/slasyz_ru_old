@@ -4,33 +4,12 @@ html,body,#wrap{
     /*background: #eee;*/
 }
 
+#middle{ vertical-align: middle; }
+
 #progress{
     opacity: 0;
-    position: absolute;
-    top: 45px; left: 0;
-    width: 100%;
-    background: #eee;
+    display: table-cell;
 }
-#wrap{
-	display: table;
-    position: relative;
-}
-#topbar{
-    display: table-row;
-    height: 3rem;
-}
-#center{
-	display: table-cell;
-	vertical-align: middle;
-}
-
-#footer-empty{ display: none; }
-#footer{
-    display: table-row;
-    height: 3rem;
-    position: static;
-}
-
 #select-button{
     margin: 10px 0;
 }

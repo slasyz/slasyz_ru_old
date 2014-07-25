@@ -39,18 +39,27 @@ input[type=submit]{ width: 100%; }
 
 /* position of bars */
 #wrap{
+    height: 100%;
+    width: 100%;
+    display: table;
+}
+#topbar-wrap, #middle-wrap, #footer-wrap, #progress-wrap{
+    display: table-row;
+}
+#topbar{
+    display: table-cell;
+    height: 3rem;
+}
+#middle{
+    display: table-cell;
+    height: 100%;
     min-height: 100%;
-    position: relative;
 }
-#footer, #footer-empty{
-    position: absolute;
-    bottom: 0;
-    margin-top: 1rem;
-}
-#footer-empty{
-    background: none;
+#footer{
+    display: table-cell;
+    height: 3rem;
     position: static;
-    padding: 1rem;
+    margin-top: 1rem;
 }
 
 /* size and align of bars and their elements */

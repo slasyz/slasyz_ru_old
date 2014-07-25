@@ -44,9 +44,9 @@ def page_view(request, page=1):
     return render(request, 'blog/pages/posts.html', RequestContext(request, context))
 
 
-def post_view(request, short_name):
+def post_view(request, post_id, short_name):
     try:
-        res = Post.objects.get(short_name=short_name)
+        res = Post.objects.get(id=post_id, short_name=short_name)
     except Post.DoesNotExist:
         raise Http404()
     comments = Comment.objects.filter(post_id=res.id).order_by('created')
@@ -65,10 +65,10 @@ def post_view(request, short_name):
     return render(request, 'blog/pages/post.html', RequestContext(request, context))
 
 
-def add_comment_view(request, short_name):
+def add_comment_view(request, post_id, short_name):
     if request.method == 'POST':
         try:
-            post = Post.objects.get(short_name=short_name)
+            post = Post.objects.get(id=post_id, short_name=short_name)
         except Post.DoesNotExist:
             raise Http404()
 

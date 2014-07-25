@@ -13,7 +13,7 @@ class Post(models.Model):
     fulltext = models.TextField()
 
     def get_absolute_url(self):
-        return reverse('blog_post', args=[self.short_name,])
+        return reverse('blog_post', args=[self.id, self.short_name])
 
     def comments_count(self):
         return Comment.objects.filter(post_id=self.id).count()

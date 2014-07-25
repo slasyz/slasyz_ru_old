@@ -84,7 +84,6 @@ def upload_file(request, uploaded_file):
 
 def upload(request):
     context = {'base_tpl': 'base/full.html',
-               'title': 'Upload file',
                'max_file_size': MAX_FILE_SIZE}
     files = [] # TODO: rewrite this
     if request.method == 'POST':

@@ -1,4 +1,4 @@
-#pagination{ margin-top: 2rem; }
+#pagination{ padding: 1rem 0 2rem; }
 #prev_page{ float: left; }
 #next_page{ float: right; clear: none; }
 

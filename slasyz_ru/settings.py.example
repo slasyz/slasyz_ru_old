@@ -137,6 +137,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+SOUTH_MIGRATION_MODULES = {
+    'precise_bbcode': 'precise_bbcode.south_migrations',
+}
+
 ROOT_URLCONF = 'slasyz_ru.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.

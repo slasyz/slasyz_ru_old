@@ -10,13 +10,18 @@ class Post(models.Model):
     short_name = models.CharField(max_length=255, unique=True)
     title = models.CharField(max_length=255)
     annotation = models.TextField()
-    fulltext = models.TextField()
+    full_text = models.TextField()
+
+    def __unicode__(self):
+        return self.title
 
     def get_absolute_url(self):
         return reverse('blog_post', args=[self.id, self.short_name])
+    get_absolute_url.short_description = 'URL'
 
-    def comments_count(self):
+    def get_comments_count(self):
         return Comment.objects.filter(post_id=self.id).count()
+    get_comments_count.short_description='comments'
 
 
 class Comment(models.Model):

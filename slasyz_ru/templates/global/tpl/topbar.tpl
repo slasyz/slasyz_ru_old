@@ -4,7 +4,7 @@
     <div class="row">
         <div class="small-12 columns">
             <ul class="bar-left">
-                {% for key, value in INFO %}
+                {% for key, value in APPS %}
                     {% if not value.needs_admin or user.is_superuser %}
                         <li>{% include 'global/tpl/bar_link.tpl' with url_name=key caption=value.short_title %}</a></li>
                     {% endif %}

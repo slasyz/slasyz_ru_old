@@ -1,11 +1,11 @@
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, resolve
-from slasyz_ru.settings import INFO
+from slasyz_ru.settings import APPS
 
 class RedirectIfAnonymous:
     def process_request(self, request):
         url = resolve(request.path)
-        APP_INFO = dict(INFO).get(url.app_name)
+        APP_INFO = dict(APPS).get(url.app_name)
 
         if url.url_name == 'login':
             return None # do not redirect if it is a login page

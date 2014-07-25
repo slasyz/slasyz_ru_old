@@ -10,7 +10,7 @@ LOG_FILE = '/home/sl/logs/slasyz_ru/upload.log'
 MAX_FILE_SIZE = 500 * 1024 * 1024 # 500MB
 UPLOAD_PASSWORD = '1234'
 
-INFO = (('management', {'short_title': 'Management',
+APPS = (('management', {'short_title': 'Management',
                         'title': 'Management Panel',
                         'needs_admin': True,
                         'topbar_links': []}),

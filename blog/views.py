@@ -11,7 +11,6 @@ from django.core.paginator import Paginator, EmptyPage
 from slasyz_ru.settings import POSTS_PER_PAGE
 from blog.models import Post, Comment
 from blog.forms import CommentForm, AnonymousCommentForm
-from management.views import blog_views
 
 
 def page_view(request, page=1):

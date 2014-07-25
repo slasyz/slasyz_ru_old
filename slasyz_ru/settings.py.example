@@ -10,11 +10,7 @@ LOG_FILE = '/home/sl/logs/slasyz_ru/upload.log'
 MAX_FILE_SIZE = 500 * 1024 * 1024 # 500MB
 UPLOAD_PASSWORD = '1234'
 
-APPS = (('management', {'short_title': 'Management',
-                        'title': 'Management Panel',
-                        'needs_admin': True,
-                        'topbar_links': []}),
-        ('upload', {'short_title': 'Upload',
+APPS = (('upload', {'short_title': 'Upload',
                     'title': 'Upload',
                     'needs_admin': False,
                     'topbar_links': []}),
@@ -164,7 +160,6 @@ INSTALLED_APPS = (
     'slasyz_ru',
     'upload',
     'blog',
-    'management',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

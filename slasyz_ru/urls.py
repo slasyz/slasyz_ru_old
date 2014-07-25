@@ -16,7 +16,6 @@ urlpatterns = patterns('',
     url(r'^$', 'slasyz_ru.views.index', name='index'),
     url(r'^upload/', include('upload.urls', app_name='upload')),
     url(r'^blog/', include('blog.urls', app_name='blog')),
-    url(r'^management/', include('management.urls', app_name='management')),
 
     url(r'^login/$', 'slasyz_ru.views.login_view', name='login'),
     url(r'^logout/$', 'slasyz_ru.views.logout_view', name='logout'),

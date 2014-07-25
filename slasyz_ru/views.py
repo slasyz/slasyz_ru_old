@@ -27,7 +27,7 @@ def login_view(request):
             return # TODO: error output
     else:
         if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('management'))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('index')))
         else:
             return render(request, 'global/pages/login.html', RequestContext(request, context))
 

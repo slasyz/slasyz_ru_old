@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from precise_bbcode.fields import BBCodeTextField
 
 from django.core.validators import RegexValidator
 from django.core.urlresolvers import reverse
@@ -13,8 +14,8 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     short_name = models.CharField(max_length=255, unique=True, validators=[short_name_validator,])
     title = models.CharField(max_length=255)
-    annotation = models.TextField()
-    full_text = models.TextField()
+    annotation = BBCodeTextField()
+    full_text = BBCodeTextField()
 
     def __unicode__(self):
         return self.title

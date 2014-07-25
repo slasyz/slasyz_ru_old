@@ -3,10 +3,10 @@
 <div class="post">
     <h3 class="title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
     <div class="text">
-        {{ post.annotation|safe }}
+        {{ post.annotation.rendered|safe }}
         {% if full %}
             <div id="cut"></div>
-            {{ post.full_text|safe }}
+            {{ post.full_text.rendered|safe }}
         {% endif %}
     </div>
     <div class="info">

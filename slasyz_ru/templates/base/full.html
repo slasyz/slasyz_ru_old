@@ -8,13 +8,19 @@
         {% include "global/tpl/topbar.tpl" %}
         <div id="head">
             <div class="row" id="big-title">
-                <div class="small-8 columns">
-                    <h1><a href="{% url APP_NAME %}">{{ APP_INFO.title }}</a></h1>
+                <div class="small-12 columns">
+                    <h1>
+                        {% if APP_NAME %}
+                            <a href="{% url APP_NAME %}">{{ APP_INFO.title }}</a>
+                        {% else %}
+                            <a href="">{{ title }}</a>
+                        {% endif %}
+                    </h1>
                     <!--<h1 id="small-title">{% block small_title %}{% endblock %}</h1>-->
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="content">
             <div class="small-12 columns">
                 {% block content %}{% endblock %}
             </div>

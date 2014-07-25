@@ -15,8 +15,8 @@
               {% blocktrans with count=post.get_comments_count %}{{ count }} comments{% endblocktrans %}
           </a>
         {% if user.is_superuser %}
-            | <a href="{% url 'management_blog_edit' post.id %}">edit</a>
-            | <a href="{% url 'management_blog_rm' post.id %}">rm</a>
+            | <a href="{% url 'admin:blog_post_change' post.id %}">edit</a>
+            | <a href="{% url 'admin:blog_post_delete' post.id %}">rm</a>
         {% endif %}
     </div>
 </div>

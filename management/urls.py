@@ -14,8 +14,6 @@ blog_patterns = patterns('management.views.blog_views',
 
 urlpatterns = patterns('management.views.main_views',
     url(r'^$', 'index', name='management'),
-    url(r'^login/$', 'login_view', name='login'),
-    url(r'^logout/$', 'logout_view', name='logout'),
 
     url(r'^blog/', include(blog_patterns)),
 )

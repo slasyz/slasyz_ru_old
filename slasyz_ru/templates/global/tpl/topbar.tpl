@@ -21,9 +21,12 @@
                     {% endif %}
                 {% endfor %}
 
-                {% url 'management_'|add:APP_NAME as app_manage_url %}
-                {% if user.is_superuser and app_manage_url %}
-                    <li><a class="bar-element" href="{{ app_manage_url }}">Manage</a></li>
+                {% if APP_NAME %}
+                    {% comment %}TODO: remove it with management app{% endcomment %}
+                    {% url 'management_'|add:APP_NAME as app_manage_url %}
+                    {% if user.is_superuser and app_manage_url %}
+                        <li><a class="bar-element" href="{{ app_manage_url }}">Manage</a></li>
+                    {% endif %}
                 {% endif %}
 
                 {% if user.is_authenticated %}

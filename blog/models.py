@@ -1,13 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.core.validators import RegexValidator
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 
+from blog.urls import SHORT_NAME_REGEX
+short_name_validator = RegexValidator('^{}$'.format(SHORT_NAME_REGEX), _('Short name should consist of small latin letters and dash.'))
 
 class Post(models.Model):
     author = models.ForeignKey(User)
     created = models.DateTimeField(auto_now_add=True)
-    short_name = models.CharField(max_length=255, unique=True)
+    short_name = models.CharField(max_length=255, unique=True, validators=[short_name_validator,])
     title = models.CharField(max_length=255)
     annotation = models.TextField()
     full_text = models.TextField()

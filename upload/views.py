@@ -106,10 +106,10 @@ def upload_ajax(request):
         form = UploadFileForm(request.POST, request.FILES)
         if not form.is_valid():
             return HttpResponse(json.dumps(ErrorResult('An error occured.', status=400)), status=400)
-        if request.POST['password'] != UPLOAD_PASSWORD:
+        if (request.POST.get('password') != UPLOAD_PASSWORD) and not request.user.is_authenticated():
             return HttpResponse(json.dumps(ErrorResult('Incorrect password.', status=403)), status=403)
 
-        result = upload_file(request.FILES['fileup'])
+        result = upload_file(request, request.FILES['fileup'])
         return HttpResponse(json.dumps(result), status=result['status'])
     else:
         return HttpResponse(json.dumps(ErrorResult('Should be POST-request.', status=400)), status=400)

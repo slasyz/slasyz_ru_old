@@ -1,6 +1,8 @@
 $(document).foundation();
 
-// If you change this, you need change also static result rendering in upload.html
+// If you change this, you need change also static result rendering in index.html
+// TODO: move these two variables to index.html and include them by django
+
 var success_template = '\
     <div class="columns small-12"> \
         <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a> \

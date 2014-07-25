@@ -14,6 +14,6 @@ class RedirectIfAnonymous:
             if APP_INFO['needs_admin']:
                 if request.user.is_authenticated():
                     if not request.user.is_superuser:
-                        return # error: authenticated but hasn't admin rights
+                        return # TODO: error: authenticated but hasn't admin rights
                 else:
                     return HttpResponseRedirect(reverse('login'))

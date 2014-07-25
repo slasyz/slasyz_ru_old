@@ -71,8 +71,7 @@ def add_comment_view(request, post_id, short_name):
         except Post.DoesNotExist:
             raise Http404()
 
-        ### TODO:
-        # избавиться от копипаста
+        ### TODO: do something with this copypaste
         if request.user.is_authenticated():
             form = CommentForm(request.POST)
             if form.is_valid():

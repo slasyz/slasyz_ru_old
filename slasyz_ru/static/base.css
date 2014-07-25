@@ -11,9 +11,6 @@ h1,h2,h3,h4,h5,h6{
 }
 a{ color: #C55500; }
 a:hover, a:focus{ color: #803300; }
-.row{
-    /*max-width: 50rem !important;*/
-}
 input[type=submit]{ width: 100%; }
 #post-form textarea{ min-height: 15rem;}
 .button.primary{
@@ -32,7 +29,6 @@ input[type=submit]{ width: 100%; }
 }
 #big-title{
     font-family: "Open Sans";
-    /*background: #dfd;*/
 }
 #big-title h1{
     font-size: 4rem;
@@ -82,6 +78,3 @@ input[type=submit]{ width: 100%; }
 a.bar-element:hover, a.bar-element.active{ background-color: #C55500; }
 
 #login input{ width: 33%; }
-#submit{
-    /*width: 100%;*/
-}

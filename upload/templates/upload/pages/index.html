@@ -30,26 +30,6 @@
                                 {% endif %}
                                 </div>
                             {% endfor %}
-                            <!--<div class="columns small-12">
-                                <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a>
-                                <a class="success-file" href="http://govno.tk/asdferh6lkjhylndyld.jpg">asdferh6lkjhylndyld.jpg</a>
-                                <input class="success-url" type="url" onclick="this.select();" value="http://govno.tk/asdferh6lkjhylndyld.jpg" />
-                            </div>
-                            <div class="columns small-12">
-                                <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a>
-                                <span class="error-file">asdferh6lkjhylndyld.jpg</span>
-                                <div class="error-text">A server error occured.</div>
-                            </div>
-                            <div class="columns small-12">
-                                <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a>
-                                <a class="success-file" href="http://govno.tk/asdferh6lkjhylndyld.jpg">mmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.mmm</a>
-                                <input class="success-url" type="url" onclick="this.select();" value="http://govno.tk/asdferh6lkjhylndyld.jpg" />
-                            </div>
-                            <div class="columns small-12">
-                                <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a>
-                                <span class="error-file">Upload error:</span>
-                                <div class="error-text">A server error occured.</div>
-                            </div>-->
                         </div>
                         {% csrf_token %}
                         <input type="hidden" name="MAX_FILE_SIZE" id="max_file_size" value="{{ max_file_size }}" />

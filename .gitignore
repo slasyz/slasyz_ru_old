@@ -1,4 +1,5 @@
 *.pyc
 slasyz_ru/settings.py
+blog/migrations/
 slasyz_ru.sublime-project
 slasyz_ru.sublime-workspace

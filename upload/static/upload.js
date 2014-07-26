@@ -100,7 +100,7 @@ function upload(files){
                 data: formdata,
                 processData: false,
                 contentType: false,
-                headers: {'X-FILE-NAME': file.name, 'X-CSRFToken': csrftoken},
+                headers: {'X-FILE-NAME': unescape(encodeURIComponent(file.name)), 'X-CSRFToken': csrftoken},
                 type: 'POST',
             });
         }

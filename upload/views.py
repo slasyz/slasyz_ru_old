@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import os.path
+import codecs
 import json
 import datetime
 from django.http import HttpResponse
@@ -11,7 +12,7 @@ from django.shortcuts import render
 
 from upload.forms import UploadFileForm
 from slasyz_ru.settings import UPLOAD_DIR, UPLOAD_URL, MAX_FILE_SIZE, UPLOAD_PASSWORD, LOG_FILE
-LOG_TEMPLATE = '[{{time}}] \033[1;{color}m{filename}\033[0m -> \033[1;36m{text}\033[0m\n'
+LOG_TEMPLATE = u'[{{time}}] \033[1;{color}m{filename}\033[0m -> \033[1;36m{text}\033[0m\n'
 
 class LinkResult(dict):
     def __init__(self, name, link):
@@ -49,7 +50,7 @@ def log(text):
     time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     if not os.path.exists(LOG_FILE): open(LOG_FILE, 'w').close()
 
-    f = open(LOG_FILE, 'a')
+    f = codecs.open(LOG_FILE, 'a', 'utf-8')
     f.write(text.format(time=time))
     f.close()
 

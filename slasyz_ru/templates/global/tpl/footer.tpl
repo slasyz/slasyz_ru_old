@@ -13,7 +13,7 @@
             </ul>
             <ul class="bar-right">
                 <li>
-                    <a class="bar-element" href="http://bitbucket.org/slasyz/slasyz_ru">Bitbucket</a>
+                    <a class="bar-element" href="http://github.com/slasyz/slasyz_ru">GitHub</a>
                 </li>
             </ul>
         </div>

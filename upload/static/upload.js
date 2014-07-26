@@ -22,6 +22,14 @@ function regexp(r){
 function prevent(ev){
     ev.stopPropagation();
     ev.preventDefault();
+
+    // this workaround for firefox taken from
+    // http://stackoverflow.com/questions/14194324/firefox-firing-dragleave-when-dragging-over-text
+    try {
+        if (ev.relatedTarget.nodeType == 3) return true;
+    } catch(err) {}
+    if (ev.target === ev.relatedTarget) return true;
+    return false;
 }
 function getCookie(name) {
     var cookieValue = null;
@@ -90,7 +98,6 @@ function upload(files){
             formdata.append('password', $('#password').val());
 
             $.ajax('upload-ajax/', {
-                async: true,
                 xhr: function(){
                     var xhr = $.ajaxSettings.xhr();
                     xhr.upload.addEventListener('progress', uploadProgress, false);
@@ -109,13 +116,15 @@ function upload(files){
 
 $('#submit-button').hide(0);
 $('#select-button').on('dragenter', function(ev){
-    prevent(ev);
+    if (prevent(ev)) {return};
+    console.log('#select-button - dragenter');
     $('#select-button').removeClass('primary')
                        .addClass('secondary')
                        .text('Drop it here!');
 });
 $('#select-button').on('dragleave', function(ev){
-    prevent(ev);
+    if (prevent(ev)) {return};
+    console.log('#select-button - dragleave');
     $('#select-button').addClass('primary')
                        .removeClass('secondary')
                        .text('Select file');

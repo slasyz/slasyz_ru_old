@@ -1,5 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse, resolve
+
+from slasyz_ru.views import error_view
 from slasyz_ru.settings import APPS
 
 class RedirectIfAnonymous:
@@ -14,6 +16,6 @@ class RedirectIfAnonymous:
             if APP_INFO['needs_admin']:
                 if request.user.is_authenticated():
                     if not request.user.is_superuser:
-                        return # TODO: error: authenticated but hasn't admin rights
+                        return error_view(request, 'You do not have superuser rights.')
                 else:
                     return HttpResponseRedirect(reverse('login'))

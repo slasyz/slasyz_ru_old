@@ -20,25 +20,54 @@ def login_view(request):
                'base_tpl': 'base/full.html'}
 
     if request.method == 'POST':
-        user = authenticate(username=request.POST['username'], password=request.POST['password'])
-        if user is not None:
+        username = request.POST['username']
+        password = request.POST['password']
+        form = AuthenticationForm(data=request.POST, initial=request.POST)
+
+        if form.is_valid():
+            # log in and redirect to POST['referer']
+            user = authenticate(username=username, password=password)
             login(request, user)
+            return HttpResponseRedirect(request.POST['referer'])
         else:
-            return # TODO: error output
+            # display an error
+            errors = form.error_messages.keys()
+
+            if 'invalid_login' in errors:
+                error = 'Wrong username or password.'
+            elif 'inactive' in errors:
+                error = 'User {} is inactive.'.format(username)
+            else:
+                error = ''
+
+            context['login_form'] = form
+            context['error'] = error
+            return render(request, 'global/pages/login.html', RequestContext(request, context))
     else:
         if not request.user.is_authenticated():
+            # display login page
+            context['login_form'] = AuthenticationForm()
+            referer = request.META.get('HTTP_REFERER', '')
+            if (referer != '') and (urlparse(referer)[2] != reverse('login')):
+                context['referer'] = referer
+            else:
+                context['referer'] = reverse('index')
+
             return render(request, 'global/pages/login.html', RequestContext(request, context))
-
-    referer = request.META.get('HTTP_REFERER', '')
-    if (referer != '') and (urlparse(referer)[2] != reverse('login')):
-        return HttpResponseRedirect(referer)
-    else:
-        return HttpResponseRedirect(reverse('index'))
-
+        else:
+            # user already logged in: redirect to HTTP_REFERER or, if empty, index page
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('index')))
 
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('index')))
+
+
+def error_view(request, error='Unknown error'):
+    context = {'title': 'Error!',
+               'base_tpl': 'base/full.html',
+               'error': error}
+    return render(request, 'global/pages/error.html', RequestContext(request, context))
 
 
 def index(request):

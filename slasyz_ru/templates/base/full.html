@@ -28,6 +28,9 @@
                 </div>
                 <div class="row" id="content">
                     <div class="small-12 columns">
+                        {% if error %}
+                            <div id="error">{{ error }}</div>
+                        {% endif %}
                         {% block content %}{% endblock %}
                     </div>
                 </div>
@@ -41,7 +44,9 @@
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}foundation/js/foundation.min.js"></script>
     <script src="{{ STATIC_URL }}base.js"></script>
-    <script src="{{ STATIC_URL }}{{ APP_NAME }}.js"></script>
+    {% if APP_NAME %}
+        <script src="{{ STATIC_URL }}{{ APP_NAME }}.js"></script>
+    {% endif %}
 {% include "yandex.html" %}
 </body>
 </html>

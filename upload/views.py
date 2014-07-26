@@ -4,9 +4,10 @@ import os.path
 import codecs
 import json
 import datetime
-from django.http import HttpResponse
 
-from django.template.loader import get_template
+from django.utils.translation import ugettext as _
+
+from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render
 
@@ -30,7 +31,7 @@ class ErrorResult(dict):
             self['name'] = name
             self['short_name'] = get_short_name(name)
         else:
-            name = '(upload error)'
+            name = _('(upload error)')
         log(LOG_TEMPLATE.format(color='31', filename=name, text=error))
 
 
@@ -60,9 +61,9 @@ def upload_file(request, uploaded_file):
     try:
         # Checking file
         if uploaded_file.size > MAX_FILE_SIZE:
-            return ErrorResult('File is too big.', name=uploaded_file.name, status=413)
+            return ErrorResult(_('File is too big.'), name=uploaded_file.name, status=413)
         if uploaded_file.name == 'error.test':
-            return ErrorResult('I\'m a teapot)))0', name=uploaded_file.name, status=418)
+            return ErrorResult(_('I\'m a teapot)))0'), name=uploaded_file.name, status=418)
 
         # trying file.ext, file_2.ext, file_3.ext, ...
         filename = uploaded_file.name
@@ -80,11 +81,12 @@ def upload_file(request, uploaded_file):
         link = urljoin(UPLOAD_URL, filename)
         return LinkResult(filename, link)
     except:
-        return ErrorResult('A server error occured.', name=uploaded_file.name, status=500)
+        return ErrorResult(_('A server error occured.'), name=uploaded_file.name, status=500)
 
 
 def upload(request):
-    context = {'base_tpl': 'base/full.html',
+    context = {'title': _('Main page'),
+               'base_tpl': 'base/full.html',
                'hide_big_title': True,
                'progress_bar': True,
                'max_file_size': MAX_FILE_SIZE}
@@ -92,9 +94,9 @@ def upload(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if not form.is_valid():
-            files.append(ErrorResult('An error occured.', status=400))
+            files.append(ErrorResult(_('An error occured.'), status=400))
         elif (request.POST.get('password') != UPLOAD_PASSWORD) and not request.user.is_authenticated():
-            files.append(ErrorResult('Incorrect password', status=403))
+            files.append(ErrorResult(_('Incorrect password'), status=403))
         else:
             for f in request.FILES.getlist('fileup'):
                 result = upload_file(request, f)
@@ -108,11 +110,11 @@ def upload_ajax(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if not form.is_valid():
-            return HttpResponse(json.dumps(ErrorResult('An error occured.', status=400)), status=400)
+            return HttpResponse(json.dumps(ErrorResult(_('An error occured.'), status=400)), status=400)
         if (request.POST.get('password') != UPLOAD_PASSWORD) and not request.user.is_authenticated():
-            return HttpResponse(json.dumps(ErrorResult('Incorrect password.', status=403)), status=403)
+            return HttpResponse(json.dumps(ErrorResult(_('Incorrect password.'), status=403)), status=403)
 
         result = upload_file(request, request.FILES['fileup'])
         return HttpResponse(json.dumps(result), status=result['status'])
     else:
-        return HttpResponse(json.dumps(ErrorResult('Should be POST-request.', status=400)), status=400)
+        return HttpResponse(json.dumps(ErrorResult(_('Should be POST-request.'), status=400)), status=400)

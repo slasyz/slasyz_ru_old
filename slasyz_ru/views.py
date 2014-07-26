@@ -3,6 +3,7 @@ import time
 
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from django.utils.six.moves.urllib.parse import urlparse
 
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
@@ -22,14 +23,17 @@ def login_view(request):
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(request.META['HTTP_REFERER'])
         else:
             return # TODO: error output
     else:
-        if request.user.is_authenticated():
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('index')))
-        else:
+        if not request.user.is_authenticated():
             return render(request, 'global/pages/login.html', RequestContext(request, context))
+
+    referer = request.META.get('HTTP_REFERER', '')
+    if (referer != '') and (urlparse(referer)[2] != reverse('login')):
+        return HttpResponseRedirect(referer)
+    else:
+        return HttpResponseRedirect(reverse('index'))
 
 
 def logout_view(request):

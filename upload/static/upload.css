@@ -6,10 +6,6 @@ html,body,#wrap{
 
 #middle{ vertical-align: middle; }
 
-#progress{
-    opacity: 0;
-    display: table-cell;
-}
 #select-button{
     margin: 10px 0;
 }

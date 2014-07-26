@@ -43,7 +43,7 @@ input[type=submit]{ width: 100%; }
     width: 100%;
     display: table;
 }
-#topbar-wrap, #middle-wrap, #footer-wrap, #progress-wrap{
+#topbar-wrap, #middle-wrap, #footer-wrap{
     display: table-row;
 }
 #topbar{
@@ -54,6 +54,13 @@ input[type=submit]{ width: 100%; }
     display: table-cell;
     height: 100%;
     min-height: 100%;
+    position: relative;
+}
+#progress{
+    position: absolute;
+    top: 0; left: 0;
+    opacity: 0;
+    width: 100%;
 }
 #footer{
     display: table-cell;

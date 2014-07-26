@@ -8,15 +8,13 @@
         <div id="topbar-wrap">
             {% include "global/tpl/topbar.tpl" %}
         </div>
-        {% if progress_bar %}
-            <div id="progress-wrap">
-                <div class="progress" id="progress">
-                    <span class="meter" style="width: 70%;"></span>
-                </div>
-            </div>
-        {% endif %}
         <div id="middle-wrap">
             <div id="middle">
+                {% if progress_bar %}
+                    <div class="progress" id="progress">
+                        <span class="meter" style="width: 70%;"></span>
+                    </div>
+                {% endif %}
                 <div id="head">
                     <div class="row" id="big-title">
                         <div class="small-12 columns">

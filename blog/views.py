@@ -87,4 +87,4 @@ def add_comment_view(request, post_id, short_name):
                 comment.post = post
                 comment.save()
     
-    return HttpResponseRedirect(reverse('blog_post', args=[short_name,]))
+    return HttpResponseRedirect(reverse('blog_post', args=[post_id, short_name,]))

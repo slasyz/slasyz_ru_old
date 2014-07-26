@@ -26,7 +26,7 @@ class Post(models.Model):
 
     def get_comments_count(self):
         return Comment.objects.filter(post_id=self.id).count()
-    get_comments_count.short_description='comments'
+    get_comments_count.short_description = 'comments'
 
 
 class Comment(models.Model):
@@ -39,4 +39,5 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         post = Post.objects.get(id=self.post_id)
-        return '{}#comment-{}'.format(reverse('blog_post', args=[post.short_name,]), self.id)
+        return '{}#comment-{}'.format(reverse('blog_post', args=[post.id, post.short_name]), self.id)
+    get_absolute_url.short_description = 'URL'

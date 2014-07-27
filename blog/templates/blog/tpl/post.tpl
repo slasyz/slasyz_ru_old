@@ -1,7 +1,12 @@
 {% load i18n %}
 
 <div class="post">
-    <h3 class="title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+    <h3 class="title">
+        {% if post.is_draft %}
+            <span class="draft">[{% trans "draft" %}]</span>
+        {% endif %}
+        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+    </h3>
     <div class="text">
         {{ post.annotation.rendered|safe }}
         {% if full %}

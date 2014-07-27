@@ -13,6 +13,7 @@ class Post(models.Model):
     author = models.ForeignKey(User)
     created = models.DateTimeField(auto_now_add=True)
     short_name = models.CharField(max_length=255, unique=True, validators=[short_name_validator,])
+    is_draft = models.BooleanField(default=False, verbose_name=u'Draft')
     title = models.CharField(max_length=255)
     annotation = BBCodeTextField()
     full_text = BBCodeTextField()

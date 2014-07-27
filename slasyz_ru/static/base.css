@@ -27,9 +27,6 @@ input[type=submit]{ width: 100%; }
 #big-title, #small-title{
     color: #fff;
 }
-#big-title{
-    font-family: "Open Sans";
-}
 #big-title h1{
     font-size: 4rem;
 }

@@ -15,7 +15,7 @@
         {% endif %}
     </div>
     <div class="info">
-        {% trans "created in" %} {{ post.created }}
+        {{ post.created }}
         | <a href="{{ post.get_absolute_url }}#comments">
               {% blocktrans with count=post.get_comments_count %}{{ count }} comments{% endblocktrans %}
           </a>

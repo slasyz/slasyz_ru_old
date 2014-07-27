@@ -35,7 +35,7 @@ class Comment(models.Model):
     author_name = models.CharField(max_length=60, blank=True)
     author_email = models.EmailField(blank=True)
     post = models.ForeignKey(Post)
-    text = models.TextField()
+    text = BBCodeTextField()
     created = models.DateTimeField(auto_now_add=True)
 
     def get_absolute_url(self):

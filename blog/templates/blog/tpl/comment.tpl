@@ -10,5 +10,5 @@
         {% endif %}
         <span class="date">{{ comment.created }}</span>
     </div>
-    <div class="text">{{ comment.text }}</div>
+    <div class="text">{{ comment.text.rendered|safe }}</div>
 </div>

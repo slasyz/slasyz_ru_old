@@ -42,6 +42,7 @@ def login_view(request):
 
             context['login_form'] = form
             context['error'] = error
+            context['referer'] = request.POST['referer']
             return render(request, 'global/pages/login.html', RequestContext(request, context))
     else:
         if not request.user.is_authenticated():

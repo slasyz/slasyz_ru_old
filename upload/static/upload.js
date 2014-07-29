@@ -1,21 +1,5 @@
 $(document).foundation();
 
-// If you change this, you need change also static result rendering in index.html
-// TODO: move these two variables to index.html and include them by django
-
-var success_template = '\
-    <div class="columns small-12"> \
-        <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a> \
-        <a class="success-file" href="%link%">%short_name%</a> \
-        <input class="success-url" type="url" onclick="this.select();" value="%link%" /> \
-    </div>';
-var error_template = '\
-    <div class="columns small-12"> \
-        <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a> \
-        <span class="error-file">%short_name%</span> \
-        <div class="error-text">%error%</div> \
-    </div>';
-
 function regexp(r){
     return new RegExp(r.replace('%', '\\%'), 'g');
 }
@@ -46,37 +30,30 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-function write_result(status, json){
+function write_result(status, html_res){
     $('.progress').fadeTo(500, 0);
     if (status == 'success') {
-        tpl = success_template;
-        tpl = tpl.replace(regexp('%short_name%'), json['short_name']);
-        tpl = tpl.replace(regexp('%link%'), json['link']);
-        var nw = $(tpl);
-        $('#select-button').addClass('success')
+        $('#select-button').removeClass('primary')
+                           .addClass('success')
                            .text('Done!');
     } else if (status == 'error') {
-        tpl = error_template;
-        if (!json['short_name']) { json['short_name'] = 'Upload error'; }
-        if (!json['error']) { json['error'] = 'Unknown error'; }
-        tpl = tpl.replace(regexp('%short_name%'), json['short_name']);
-        tpl = tpl.replace(regexp('%error%'), json['error']);
-        var nw = $(tpl);
-        $('#select-button').addClass('alert')
+        $('#select-button').removeClass('primary')
+                           .addClass('alert')
                            .text('Error!');
     }
 
+    var nw = $(html_res);
     $('#results').append(nw);
     setTimeout(function(){
         $('#select-button').removeClass('success')
                            .removeClass('alert')
+                           .addClass('primary')
                            .text('Select file');
     }, 2000);
 }
 
 function completeUpload(xhr, status) {
-    json = JSON.parse(xhr.responseText);
-    write_result(status, json);
+    write_result(status, xhr.responseText);
 }
 function uploadProgress(ev){
     var percent = parseInt(ev.loaded / ev.total * 100);
@@ -90,8 +67,7 @@ function upload(files){
         var csrftoken = getCookie('csrftoken');
 
         if (file.size > $('#max_file_size').val()) {
-            json = {error: 'File is too big', short_name: 'Upload error'};
-            write_result('error', json);
+            write_result('error', toobig_html);
         } else {
             var formdata = new FormData();
             formdata.append('fileup', file);

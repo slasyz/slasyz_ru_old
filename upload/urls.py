@@ -1,8 +1,6 @@
-import os.path
-
 from django.conf.urls import patterns, include, url
 
-urlpatterns = patterns('',
-    url(r'^$', 'upload.views.upload', name='upload'),
-    url(r'^upload-ajax/$', 'upload.views.upload_ajax'),
+urlpatterns = patterns('upload.views',
+    url(r'^$', 'upload_view', name='upload'),
+    url(r'^upload-ajax/$', 'upload_ajax_view'),
 )

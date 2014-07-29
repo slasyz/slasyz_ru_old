@@ -7,7 +7,7 @@ html,body,#wrap{
 #middle{ vertical-align: middle; }
 
 #select-button{
-    margin: 10px 0;
+    margin: 0;
 }
 #select-button, #submit-button{
 	width: 100%;

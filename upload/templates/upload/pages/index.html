@@ -2,35 +2,31 @@
 {% load i18n %}
 
 {% block content %}
+<script>
+    {% trans "File is too big." as toobig_text %}
+    var toobig_html = '{% spaceless %}{% include "upload/tpl/error.tpl" with error=toobig_text %}{% endspaceless %}';
+</script>
 <form method="post" enctype="multipart/form-data" action="">
     <div class="row">
         <div class="large-4 medium-5 small-9 small-centered columns">
             <div id="results" class="row">
-                {% for file in files %}
-                    <div class="columns small-12">
-                    <a class="close-button" onclick="$(this).parent().remove();" title="Close">&times;</a>
-                    {% if file.error %}
-                        {% if file.short_name %}
-                            <span class="error-file">{{ file.short_name }}</span>
-                        {% else %}
-                            <span class="error-file">Upload error</span>
-                        {% endif %}
-                        <div class="error-text">{{ file.error }}</div>
-                    {% else %}
-                        <a class="success-file" href="{{ file.link }}">{{ file.short_name }}</a>
-                        <input class="success-url" type="url" onclick="this.select();" value="{{ file.link }}" />
-                    {% endif %}
-                    </div>
+                {% if error %}
+                    {% include 'upload/tpl/error.tpl' %}
+                {% endif %}
+                {% for result in results %}
+                    {{ result.render }}
                 {% endfor %}
             </div>
             {% csrf_token %}
             <input type="hidden" name="MAX_FILE_SIZE" id="max_file_size" value="{{ max_file_size }}" />
             {% if not request.user.is_authenticated %}
-                <input type="password" name="password" id="password" placeholder="Password" />
+                <p><input type="password" name="password" id="password" placeholder="Password" /></p>
             {% endif %}
-            <label class="button primary" id="select-button" for="fileup">Select file</label>
-            <input type="file" name="fileup" id="fileup" multiple />
-            <input class="button secondary" id="submit-button" type="submit" value="Upload" />
+            <p>
+                <label class="button primary" id="select-button" for="fileup">Select file</label>
+                <input type="file" name="fileup" id="fileup" multiple />
+            </p>
+            <p><input class="button secondary" id="submit-button" type="submit" value="Upload" /></p>
         </div>
     </div>
 </form>

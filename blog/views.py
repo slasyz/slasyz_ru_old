@@ -22,8 +22,8 @@ def page_view(request, page=1):
     try:
         current_page = paginator.page(page)
     except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        current_page = paginator.page(paginator.num_pages)
+        # If page is out of range (e.g. 9999), redirect to last available page.
+        return HttpResponseRedirect(reverse('blog_page', args=[paginator.num_pages,]))
 
     prev_page = next_page = 0
     if current_page.has_previous():
@@ -49,10 +49,10 @@ def post_view(request, post_id, short_name):
     try:
         res = Post.objects.get(id=post_id, short_name=short_name)
     except Post.DoesNotExist:
-        raise Http404()
+        raise Http404
 
     if res.is_draft and not request.user.is_superuser:
-        raise Http404()
+        raise Http404
 
     comments = Comment.objects.filter(post_id=res.id).order_by('created')
     if request.user.is_authenticated():
@@ -74,7 +74,7 @@ def add_comment_view(request, post_id, short_name):
         try:
             post = Post.objects.get(id=post_id, short_name=short_name)
         except Post.DoesNotExist:
-            raise Http404()
+            raise Http404
 
         ### TODO: do something with this copypaste
         if request.user.is_authenticated():

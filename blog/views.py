@@ -15,7 +15,7 @@ from blog.forms import CommentForm, AnonymousCommentForm
 
 def page_view(request, page=1):
     posts_all = Post.objects.all().order_by('-created')
-    if not request.user.is_superuser:
+    if not request.user.has_perm('post.can_read_drafts'):
         posts_all = posts_all.filter(is_draft=False)
     paginator = Paginator(posts_all, POSTS_PER_PAGE)
 
@@ -51,7 +51,7 @@ def post_view(request, post_id, short_name):
     except Post.DoesNotExist:
         raise Http404
 
-    if res.is_draft and not request.user.is_superuser:
+    if res.is_draft and not request.user.has_perm('post.can_read_drafts'):
         raise Http404
 
     comments = Comment.objects.filter(post_id=res.id).order_by('created')

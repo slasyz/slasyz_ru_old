@@ -29,6 +29,11 @@ class Post(models.Model):
         return Comment.objects.filter(post_id=self.id).count()
     get_comments_count.short_description = 'comments'
 
+    class Meta:
+        permissions = (
+            ("can_read_drafts", "Can read draft posts"),
+        )
+
 
 class Comment(models.Model):
     author = models.ForeignKey(User, null=True, blank=True)

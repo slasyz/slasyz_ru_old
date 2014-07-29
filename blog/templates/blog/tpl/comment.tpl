@@ -8,10 +8,13 @@
         {% else %}
             <span class="name">{{ comment.author_name }}</span>,
         {% endif %}
+
         <span class="date">{{ comment.created }}</span>
-        {% if user.is_superuser %}
+        {% if perms.comment.change or user == comment.author %}
             | <a href="{% url 'admin:blog_comment_change' comment.id %}">edit</a>
-            | <a href="{% url 'admin:blog_comment_delete' comment.id %}">rm</a>
+        {% endif %}
+        {% if perms.comment.delete %}
+            | <a href="{% url 'admin:blog_comment_delete' comment.id %}">delete</a>
         {% endif %}
     </div>
     <div class="text">{{ comment.text.rendered|safe }}</div>

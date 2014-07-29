@@ -6,9 +6,8 @@
         <div class="small-12 columns">
             <ul class="bar-left">
                 {% for key, value in APPS %}
-                    {% if not value.needs_admin or user.is_superuser %}
-                        <li>{% include 'global/tpl/bar_link.tpl' with url_name=key caption=value.short_title %}</a></li>
-                    {% endif %}
+                    {% comment %}TODO: add app permission check{% endcomment %}
+                    <li>{% include 'global/tpl/bar_link.tpl' with url_name=key caption=value.short_title %}</a></li>
                 {% endfor %}
             </ul>
             <ul class="bar-right">

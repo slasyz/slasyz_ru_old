@@ -92,7 +92,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    ('foundation', '/home/sl/Documents/bin/foundation'),
+    ('foundation', '/home/sl/soft/foundation'),
 )
 
 # List of finder classes that know how to find static files in

@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load include_if_exists %}
 
 <div id="topbar" class="bar">
     <div class="row">
@@ -15,11 +16,7 @@
                     <li><span class="bar-element">{% trans "Hello" %}, {{ user.first_name }} {{ user.last_name }}!</span></li>
                 {% endif %}
 
-                {% for link in APP_INFO.topbar_links %}
-                    {% if not link.needs_auth or user.is_superuser or not link.needs_admin and user.is_authenticated %}
-                        <li>{% include 'global/tpl/bar_link.tpl' with url_name=link.url caption=link.caption %}</li>
-                    {% endif %}
-                {% endfor %}
+                {% include_if_exists APP_NAME|add:"/global/topbar_app_links.tpl" %}
 
                 {% if user.is_authenticated %}
                     <li><a class="bar-element" href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>

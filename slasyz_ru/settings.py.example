@@ -3,8 +3,8 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-APPS = (('upload', {'short_title': 'Upload',
-                    'title': 'Upload',
+APPS = (('upload', {'short_title': 'Upload', # title displayed in topbar links
+                    'title': 'Upload',       # title displayed in other places
                     'needs_admin': False,
                     'topbar_links': []}),
         ('blog', {'short_title': 'Blog',
@@ -17,11 +17,11 @@ APPS = (('upload', {'short_title': 'Upload',
        )
 
 # slasyz_ru.upload
-UPLOAD_DIR = '/home/sl/www/files.slasyz.ru'
-UPLOAD_URL = 'http://files.slasyz.ru/' # URL prefix of uploaded files
-LOG_FILE = '/home/sl/logs/slasyz_ru/upload.log'
-MAX_FILE_SIZE = 500 * 1024 * 1024 # 500MB
-UPLOAD_PASSWORD = '1234'
+UPLOAD_DIR = '/home/sl/www/files.slasyz.ru'     # path for uploaded files storage
+UPLOAD_URL = 'http://files.slasyz.ru/'          # URL prefix for uploaded files
+LOG_FILE = '/home/sl/logs/slasyz_ru/upload.log' # path to log file
+MAX_FILE_SIZE = 500 * 1024 * 1024               # 500MB
+UPLOAD_PASSWORD = '1234'                        # password for non-authenticated users
 
 # slasyz_ru.blog settings
 POSTS_PER_PAGE = 10
@@ -92,6 +92,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    # path to Foundation built files
     ('foundation', '/home/sl/soft/foundation'),
 )
 

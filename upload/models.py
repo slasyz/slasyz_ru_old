@@ -12,3 +12,8 @@ class File(models.Model):
     def get_absolute_url(self):
         return urljoin(UPLOAD_URL, self.filename)
     get_absolute_url.short_description = 'URL'
+
+    class Meta:
+        permissions = (
+            ("can_manage_filesystem", "Can manage filesystem"),
+        )

@@ -1,0 +1,27 @@
+{% extends base_tpl %}
+{% load i18n %}
+
+{% block content %}
+    <ul class="breadcrumbs">
+        {% for a, b in address_panel %}
+            <li> <a href="?path={{ b }}">{{ a }}</a> </li>
+        {% endfor %}
+    </ul>
+
+    <div>
+        <h3>Dirs:</h3>
+        <ul>
+            {% for dir, path in dirs %}
+                <li><a href="?path={{ path }}">{{ dir }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div>
+        <h3>Files:</h3>
+        <ul>
+            {% for file, path in files %}
+                <li><a href="?path={{ path }}">{{ file }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

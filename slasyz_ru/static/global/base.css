@@ -9,7 +9,7 @@ h1,h2,h3,h4,h5,h6{
     font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
     font-weight: 300;
 }
-a{ color: #C55500; }
+a, .breadcrumbs a{ color: #C55500; }
 a:hover, a:focus{ color: #803300; }
 input[type=submit]{ width: 100%; }
 #post-form textarea{ min-height: 15rem;}
@@ -18,6 +18,13 @@ input[type=submit]{ width: 100%; }
 }
 .button.primary:hover{
     background: #C55500;
+}
+
+.breadcrumbs{
+    background: #FFEEDD;
+}
+.breadcrumbs>*{
+    font-size: 1rem;
 }
 
 #head{

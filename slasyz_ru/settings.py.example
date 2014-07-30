@@ -4,11 +4,9 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 APPS = (('upload', {'short_title': 'Upload', # title displayed in topbar links
-                    'title': 'Upload',       # title displayed in other places
-                    'needs_admin': False}),
+                    'title': 'Upload'}),     # title displayed in other places
         ('blog', {'short_title': 'Blog',
-                  'title': 'My Blog',
-                  'needs_admin': False}),
+                  'title': 'My Blog'}),
        )
 
 # slasyz_ru.upload

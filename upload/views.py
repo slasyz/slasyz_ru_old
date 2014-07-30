@@ -40,8 +40,7 @@ def filesystem_view(request):
     else:
         dirs = []; files = []; error = ''
         try:
-            os.chdir(path)
-            for f in sorted(os.listdir('.')):
+            for f in sorted(os.listdir(path)):
                 new_path = os.path.join(path, f)
                 if os.path.isdir(f):
                     dirs.append((f, new_path))

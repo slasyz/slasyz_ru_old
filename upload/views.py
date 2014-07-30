@@ -42,7 +42,7 @@ def filesystem_view(request):
         try:
             for f in sorted(os.listdir(path)):
                 new_path = os.path.join(path, f)
-                if os.path.isdir(f):
+                if os.path.isdir(os.path.join(path, f)):
                     dirs.append((f, new_path))
                 else:
                     files.append((f, new_path))

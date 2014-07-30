@@ -2,6 +2,7 @@
 <html class="no-js" lang="en">
 <head>
     {% include "global/tpl/head.tpl" %}
+    {% block head %}{% endblock %}
 </head>
 <body>
     <div id="wrap">
@@ -43,9 +44,9 @@
 
     <script src="{{ STATIC_URL }}foundation/js/vendor/jquery.js"></script>
     <script src="{{ STATIC_URL }}foundation/js/foundation.min.js"></script>
-    <script src="{{ STATIC_URL }}base.js"></script>
+    <script src="{{ STATIC_URL }}global/base.js"></script>
     {% if APP_NAME %}
-        <script src="{{ STATIC_URL }}{{ APP_NAME }}.js"></script>
+        <script src="{{ STATIC_URL }}{{ APP_NAME }}/base.js"></script>
     {% endif %}
 {% include "yandex.html" %}
 </body>

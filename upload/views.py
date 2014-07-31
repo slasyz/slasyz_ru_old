@@ -10,7 +10,7 @@ from random import choice
 
 from urlparse import urljoin
 from django.utils.translation import ugettext as _
-from django.core.signing import Signer, BadSignature
+from django.core.signing import Signer, BadSignature, dumps, loads
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 
@@ -34,10 +34,14 @@ class Link(object):
 
 class FileLink(Link):
     @property
-    def signature(self):
-        signer = Signer()
-        sign = signer.sign(self.path).split(':')[1]
-        print ">>>>", sign
+    def public_url(self):
+        url = reverse('upload_public', kwargs={'uniq_id': self.uniq_id,
+                                               'basename': self.basename})
+        return url
+
+    @property
+    def uniq_id(self):
+        sign = dumps(self.path).replace(':', '/')
         return sign
 
 
@@ -162,14 +166,11 @@ def filestream_view(request, path):
     return response
 
 
-def public_view(request, path):
-    signer = Signer()
-    try:
-        value = '{}:{}'.format(path, request.GET.get('signature'))
-        signer.unsign(value)
-        return filestream_view(request, path)
-    except BadSignature:
+def public_view(request, uniq_id, basename):
+    path = loads(uniq_id.replace('/', ':'))
+    if os.path.basename(path) != basename:
         raise PermissionDenied
+    return filestream_view(request, path)
 
 
 @login_required()

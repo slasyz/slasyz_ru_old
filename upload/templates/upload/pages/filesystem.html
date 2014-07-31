@@ -21,7 +21,7 @@
         <ul>
             {% for file in files %}
                 <li>
-                    <a href="{% url 'upload_public' path=file.path %}?signature={{ file.signature }}">[s]</a>
+                    <a href="{{ file.public_url }}">[s]</a>
                     <span> | </span>
                     <a href="?path={{ file.path }}">{{ file.basename }}</a>
                 </li>

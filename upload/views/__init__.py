@@ -6,6 +6,9 @@ from mimetypes import guess_type
 from string import ascii_letters
 from random import choice
 
+import upload_files
+from filesystem import *
+
 from urlparse import urljoin
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required, permission_required
@@ -17,8 +20,6 @@ from django.template import RequestContext
 from django.shortcuts import render
 
 from slasyz_ru.settings import UPLOAD_PASSWORD, MAX_FILE_SIZE, UPLOAD_DIR, UPLOAD_URL
-from upload.upload_files import upload_files
-from upload.filesystem import *
 
 
 def filestream_view(request, path):

@@ -9,8 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import RequestContext
 from django.shortcuts import render
 
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import login
+from django.contrib.auth import logout
 
 from slasyz_ru.settings import STATIC_ROOT, STATIC_URL
 
@@ -18,46 +18,8 @@ from slasyz_ru.settings import STATIC_ROOT, STATIC_URL
 def login_view(request):
     context = {'title': _('Login'),
                'base_tpl': 'base/full.html'}
+    return login(request, 'global/pages/login.html', extra_context=context)
 
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        form = AuthenticationForm(data=request.POST, initial=request.POST)
-
-        if form.is_valid():
-            # log in and redirect to POST['referer']
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return HttpResponseRedirect(request.POST['referer'])
-        else:
-            # display an error
-            errors = form.error_messages.keys()
-
-            if 'invalid_login' in errors:
-                error = 'Wrong username or password.'
-            elif 'inactive' in errors:
-                error = 'User {} is inactive.'.format(username)
-            else:
-                error = ''
-
-            context['login_form'] = form
-            context['error'] = error
-            context['referer'] = request.POST['referer']
-            return render(request, 'global/pages/login.html', RequestContext(request, context))
-    else:
-        if not request.user.is_authenticated():
-            # display login page
-            context['login_form'] = AuthenticationForm()
-            referer = request.META.get('HTTP_REFERER', '')
-            if (referer != '') and (urlparse(referer)[2] != reverse('login')):
-                context['referer'] = referer
-            else:
-                context['referer'] = reverse('index')
-
-            return render(request, 'global/pages/login.html', RequestContext(request, context))
-        else:
-            # user already logged in: redirect to HTTP_REFERER or, if empty, index page
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('index')))
 
 def logout_view(request):
     logout(request)

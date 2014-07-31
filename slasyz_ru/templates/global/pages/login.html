@@ -5,8 +5,7 @@
 <div id="login">
     <form method="post" action="">
         {% csrf_token %}
-        <input type="hidden" name="referer" value="{{ referer }}" />
-        {{ login_form.as_p }}
+        {{ form.as_p }}
         <input type="submit" value="{% trans "Login" %}" class="button primary" id="submit" />
     </form>
 </div>

@@ -20,7 +20,7 @@
                 {% if user.is_authenticated %}
                     <li><a class="bar-element" href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
                 {% else %}
-                    <li>{% include 'global/tpl/bar_link.tpl' with url_name='login' caption='Login' %}</li>
+                    <li>{% include 'global/tpl/bar_link.tpl' with url_name='login' caption='Login' url_params='next='|add:request.path %}</li>
                 {% endif %}
             </ul>
         </div>

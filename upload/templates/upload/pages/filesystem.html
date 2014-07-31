@@ -11,16 +11,20 @@
     <div>
         <h3>Dirs:</h3>
         <ul>
-            {% for dir, path in dirs %}
-                <li><a href="?path={{ path }}">{{ dir }}</a></li>
+            {% for dir in dirs %}
+                <li><a href="?path={{ dir.path }}">{{ dir.basename }}</a></li>
             {% endfor %}
         </ul>
     </div>
     <div>
         <h3>Files:</h3>
         <ul>
-            {% for file, path in files %}
-                <li><a href="?path={{ path }}">{{ file }}</a></li>
+            {% for file in files %}
+                <li>
+                    <a href="{% url 'upload_public' path=file.path %}?signature={{ file.signature }}">[s]</a>
+                    <span> | </span>
+                    <a href="?path={{ file.path }}">{{ file.basename }}</a>
+                </li>
             {% endfor %}
         </ul>
     </div>

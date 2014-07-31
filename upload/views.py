@@ -8,10 +8,9 @@ from itertools import chain
 from string import ascii_letters
 from random import choice
 
-from time import sleep # FIX
-
 from urlparse import urljoin
 from django.utils.translation import ugettext as _
+from django.core.signing import Signer, BadSignature
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.urlresolvers import reverse
 
@@ -22,6 +21,28 @@ from django.shortcuts import render
 
 from slasyz_ru.settings import UPLOAD_PASSWORD, MAX_FILE_SIZE, UPLOAD_DIR, UPLOAD_URL
 from upload.upload_files import upload_files
+
+
+class Link(object):
+    def __init__(self, path):
+        self.path = path
+
+    @property
+    def basename(self):
+        return os.path.basename(self.path)
+
+
+class FileLink(Link):
+    @property
+    def signature(self):
+        signer = Signer()
+        sign = signer.sign(self.path).split(':')[1]
+        print ">>>>", sign
+        return sign
+
+
+class DirectoryLink(Link):
+    pass
 
 
 def read_in_ranges(file_object, ranges, file_size, boundary, content_type=None):
@@ -134,6 +155,16 @@ def filestream_view(request, path):
     return response
 
 
+def public_view(request, path):
+    signer = Signer()
+    try:
+        value = '{}:{}'.format(path, request.GET.get('signature'))
+        signer.unsign(value)
+        return filestream_view(request, path)
+    except BadSignature:
+        raise PermissionDenied
+
+
 @login_required()
 @permission_required('upload.can_manage_filesystem', raise_exception=True)
 def filesystem_view(request):
@@ -150,9 +181,9 @@ def filesystem_view(request):
             for f in sorted(os.listdir(path)):
                 new_path = os.path.join(path, f)
                 if os.path.isdir(os.path.join(path, f)):
-                    dirs.append((f, new_path))
+                    dirs.append(DirectoryLink(new_path))
                 else:
-                    files.append((f, new_path))
+                    files.append(FileLink(new_path))
         except OSError:
             error = _('An error occured (probably, you do not have enough rights).')
 

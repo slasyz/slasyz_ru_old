@@ -2,17 +2,14 @@
 
 import os
 import re
-import string
 from mimetypes import guess_type
-from itertools import chain
 from string import ascii_letters
 from random import choice
 
 from urlparse import urljoin
 from django.utils.translation import ugettext as _
-from django.core.signing import Signer, BadSignature, dumps, loads
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.urlresolvers import reverse
+#from django.core.urlresolvers import reverse
 
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, StreamingHttpResponse, Http404
@@ -21,66 +18,7 @@ from django.shortcuts import render
 
 from slasyz_ru.settings import UPLOAD_PASSWORD, MAX_FILE_SIZE, UPLOAD_DIR, UPLOAD_URL
 from upload.upload_files import upload_files
-
-
-class Link(object):
-    def __init__(self, path):
-        self.path = path
-
-    @property
-    def basename(self):
-        return os.path.basename(self.path)
-
-
-class FileLink(Link):
-    @property
-    def public_url(self):
-        url = reverse('upload_public', kwargs={'uniq_id': self.uniq_id,
-                                               'basename': self.basename})
-        return url
-
-    @property
-    def uniq_id(self):
-        sign = dumps(self.path).replace(':', '/')
-        return sign
-
-
-class DirectoryLink(Link):
-    @property
-    def basename(self):
-        if self.path == '/':
-            return '/'
-        elif self.path[-1] == '/':
-            return os.path.basename(self.path[:-1])
-        else:
-            return os.path.basename(self.path)
-
-
-def read_in_ranges(file_object, ranges, file_size, boundary, content_type=None):
-    for r in ranges:
-        a, b = r
-        yield '--{}\r\n'.format(boundary)
-        if content_type: yield 'Content-Type: {}\r\n'.format(content_type)
-        yield 'Content-Range: {}-{}/{}\r\n'.format(a, b, file_size)
-        yield '\r\n'
-
-        for chunk in read_in_chunks(file_object, a, b):
-            yield chunk
-        yield '\r\n'
-    yield '--{}--'.format(boundary)
-
-
-def read_in_chunks(file_object, beg, end, chunk_size=1024):
-    """
-    Iterate file part piece by piece.
-    """
-
-    file_object.seek(beg)
-    while True:
-        chunk = min(chunk_size, end-file_object.tell()+1)
-        data = file_object.read(chunk)
-        if not data: return
-        yield data
+from upload.filesystem import *
 
 
 def filestream_view(request, path):
@@ -167,10 +105,13 @@ def filestream_view(request, path):
 
 
 def public_view(request, uniq_id, basename):
-    path = loads(uniq_id.replace('/', ':'))
-    if os.path.basename(path) != basename:
+    try:
+        file = FileLink(uniq_id=uniq_id)
+        if file.basename != basename:
+            raise PermissionDenied
+        return filestream_view(request, file.path)
+    except BadIDException:
         raise PermissionDenied
-    return filestream_view(request, path)
 
 
 @login_required()

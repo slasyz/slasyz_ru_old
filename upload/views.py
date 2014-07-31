@@ -42,7 +42,14 @@ class FileLink(Link):
 
 
 class DirectoryLink(Link):
-    pass
+    @property
+    def basename(self):
+        if self.path == '/':
+            return '/'
+        elif self.path[-1] == '/':
+            return os.path.basename(self.path[:-1])
+        else:
+            return os.path.basename(self.path)
 
 
 def read_in_ranges(file_object, ranges, file_size, boundary, content_type=None):
@@ -188,12 +195,12 @@ def filesystem_view(request):
             error = _('An error occured (probably, you do not have enough rights).')
 
         fullpath = os.path.abspath(os.path.realpath(path)).split(os.sep)[1:]
-        address_panel = [('/', '/')]
+        address_panel = [DirectoryLink('/')]
 
         new_path = '/'
         for i in xrange(len(fullpath)):
             new_path = os.path.join(new_path, fullpath[i])
-            address_panel.append((fullpath[i], new_path))
+            address_panel.append(DirectoryLink(new_path))
 
         context = {'title': _('Filesystem manage'),
                    'base_tpl': 'base/full.html',

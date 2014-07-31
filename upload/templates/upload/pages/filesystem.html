@@ -3,8 +3,8 @@
 
 {% block content %}
     <ul class="breadcrumbs">
-        {% for a, b in address_panel %}
-            <li> <a href="?path={{ b }}">{{ a }}</a> </li>
+        {% for address in address_panel %}
+            <li> <a href="?path={{ address.path }}">{{ address.basename }}</a> </li>
         {% endfor %}
     </ul>
 

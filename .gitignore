@@ -1,4 +1,5 @@
 *.pyc
 slasyz_ru/settings.py
+slasyz_ru/settings/custom.py
 slasyz_ru.sublime-project
 slasyz_ru.sublime-workspace

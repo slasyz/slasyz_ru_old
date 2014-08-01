@@ -8,15 +8,11 @@
         {% endfor %}
 
         <div id="pagination">
-            {% if prev_page %}
-                {% if prev_page == 1 %}
-                    <a href="{% url 'blog' %}" id="prev_page">{% trans "« Previous page" %}</a>
-                {% else %}
-                    <a href="{% url 'blog_page' prev_page %}" id="prev_page">{% trans "« Previous page" %}</a>
-                {% endif %}
+            {% if prev_page_url %}
+                <a href="{{ prev_page_url }}" id="prev_page">{% trans "« Previous page" %}</a>
             {% endif %}
-            {% if next_page %}
-                <a href="{% url 'blog_page' next_page %}" id="next_page">{% trans "Next page »" %}</a>
+            {% if next_page_url %}
+                <a href="{{ next_page_url }}" id="next_page">{% trans "Next page »" %}</a>
             {% endif %}
         </div>
     {% else %}

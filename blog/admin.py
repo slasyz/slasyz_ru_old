@@ -1,5 +1,5 @@
 from django.contrib import admin
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Tag
 
 #@admin.register(Post) # in dev-version
 class PostAdmin(admin.ModelAdmin):
@@ -17,5 +17,11 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ['post', 'author', 'author_name', 'created', 'get_absolute_url', 'text']
 
 
+class TagAdmin(admin.ModelAdmin):
+    ordering = ['name']
+    list_display = ['name']
+
+
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Tag, TagAdmin)

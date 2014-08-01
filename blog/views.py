@@ -9,21 +9,18 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage
 
 from slasyz_ru.settings import POSTS_PER_PAGE
-from blog.models import Post, Comment
+from blog.models import Tag, Post, Comment
 from blog.forms import CommentForm, AnonymousCommentForm
 
 
-def page_view(request, page=1):
-    posts_all = Post.objects.all().order_by('-created')
-    if not request.user.has_perm('post.can_read_drafts'):
-        posts_all = posts_all.filter(is_draft=False)
-    paginator = Paginator(posts_all, POSTS_PER_PAGE)
+def get_page(queryset, page, page_func):
+    paginator = Paginator(queryset, POSTS_PER_PAGE)
 
     try:
         current_page = paginator.page(page)
     except EmptyPage:
         # If page is out of range (e.g. 9999), redirect to last available page.
-        return HttpResponseRedirect(reverse('blog_page', args=[paginator.num_pages,]))
+        return HttpResponseRedirect(page_func(paginator.num_pages))
 
     prev_page = next_page = 0
     if current_page.has_previous():
@@ -31,19 +28,70 @@ def page_view(request, page=1):
     if current_page.has_next():
         next_page = current_page.next_page_number()
 
+    prev_page_url = next_page_url = None
+    if prev_page: prev_page_url = page_func(prev_page)
+    if next_page: next_page_url = page_func(next_page)
+
+    return current_page, prev_page_url, next_page_url
+
+
+# TODO: rewrite this and next view
+def page_view(request, page=1):
+    main_page = reverse('blog')
+    if (int(page) == 1) and (request.path != main_page):
+        return HttpResponseRedirect(main_page)
+
+    posts_all = Post.objects.all().order_by('-created')
+    if not request.user.has_perm('post.can_read_drafts'):
+        posts_all = posts_all.filter(is_draft=False)
+
+    res = get_page(posts_all, page, lambda x: reverse('blog_page', args=[x]))
+    try:
+        current_page, prev_page_url, next_page_url = res
+    except ValueError:
+        return res
+
     if page == 1:
         title = _('Latest')
     else:
         title = _('Page {}').format(page)
 
-
     context = {'title': title,
                'base_tpl': 'base/full.html',
                'posts': current_page,
-               'prev_page': prev_page,
-               'next_page': next_page}
+               'prev_page_url': prev_page_url,
+               'next_page_url': next_page_url}
     return render(request, 'blog/pages/posts.html', RequestContext(request, context))
 
+
+# TODO: rewrite this and previous view
+def tag_page_view(request, tag_name, page=1):
+    main_page = reverse('blog_tag', args=[tag_name,])
+    if (int(page) == 1) and (request.path != main_page):
+        return HttpResponseRedirect(main_page)
+
+    try:
+        tag = Tag.objects.get(name=tag_name)
+    except Tag.DoesNotExist:
+        raise Http404
+
+    posts_all = Post.objects.filter(tags__id=tag.id)
+    if not request.user.has_perm('post.can_read_drafts'):
+        posts_all = posts_all.filter(is_draft=False)
+
+    res = get_page(posts_all, page, lambda x: reverse('blog_tag_page', args=[tag_name, x]))
+    try:
+        current_page, prev_page_url, next_page_url = res
+    except ValueError:
+        return res
+
+    title = _('Tag "{}" - page {}').format(tag_name, page)
+    context = {'title': title,
+               'base_tpl': 'base/full.html',
+               'posts': current_page,
+               'prev_page_url': prev_page_url,
+               'next_page_url': next_page_url}
+    return render(request, 'blog/pages/posts.html', RequestContext(request, context))
 
 def post_view(request, post_id, short_name):
     try:

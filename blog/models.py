@@ -5,10 +5,12 @@ from precise_bbcode.fields import BBCodeTextField
 from django.core.validators import RegexValidator
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
+from django.utils.encoding import python_2_unicode_compatible
 
 from blog.urls import SHORT_NAME_REGEX
 short_name_validator = RegexValidator('^{}$'.format(SHORT_NAME_REGEX), _('Short name should consist of small latin letters and dash.'))
 
+@python_2_unicode_compatible
 class Post(models.Model):
     author = models.ForeignKey(User)
     created = models.DateTimeField(auto_now_add=True)
@@ -18,7 +20,7 @@ class Post(models.Model):
     annotation = BBCodeTextField()
     full_text = BBCodeTextField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
@@ -45,5 +47,5 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         post = Post.objects.get(id=self.post_id)
-        return '{}#comment-{}'.format(reverse('blog_post', args=[post.id, post.short_name]), self.id)
+        return '{}#comment-{}'.format(post.get_absolute_url(), self.id)
     get_absolute_url.short_description = 'URL'

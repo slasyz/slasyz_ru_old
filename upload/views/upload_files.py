@@ -91,7 +91,7 @@ def upload_files_list(request):
             f.close()
 
             # creating database entry
-            if request.user.is_authenticated:
+            if request.user.is_authenticated():
                 db_entry = File(author=request.user, filename=filename)
             else:
                 db_entry = File(author=None, filename=filename)

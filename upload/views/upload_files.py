@@ -63,7 +63,7 @@ def filepath(filename):
     return os.path.join(UPLOAD_DIR, filename)
 
 
-def upload_files(request):
+def upload_files_list(request):
     """
         Returns a list of UploadFileResult's instances.
     """
@@ -105,4 +105,4 @@ def upload_files(request):
         except:
             results.append( UploadFileResult(uploaded_file.name, _('A server error occured.'), status=500) )
 
-    return result
+    return results

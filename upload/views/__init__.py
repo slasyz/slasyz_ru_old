@@ -6,8 +6,8 @@ from mimetypes import guess_type
 from string import ascii_letters
 from random import choice
 
-import upload_files
 from filesystem import *
+from upload_files import upload_files_list
 
 from urlparse import urljoin
 from django.utils.translation import ugettext as _
@@ -165,7 +165,7 @@ def upload_view(request):
         if (request.POST.get('password') != UPLOAD_PASSWORD) and not request.user.is_authenticated():
             context['error'] = _('Incorrect password.')
         else:
-            context['results'] = upload_files(request)
+            context['results'] = upload_files_list(request)
 
     return render(request, 'upload/pages/index.html', RequestContext(request, context))
 
@@ -175,7 +175,7 @@ def upload_ajax_view(request):
         if (request.POST.get('password') != UPLOAD_PASSWORD) and not request.user.is_authenticated():
             return render('upload/tpl/error.tpl', {'error': _('Incorrect password.')})
 
-        results = upload_files(request)
+        results = upload_files_list(request)
         res = u''
         for result in results:
             res += result.render()

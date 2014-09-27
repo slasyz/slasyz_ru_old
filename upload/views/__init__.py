@@ -178,7 +178,7 @@ def upload_ajax_view(request):
         results = upload_files_list(request)
         res = u''
         for result in results:
-            res += result.render()
+            res += result.render_to_string()
         return HttpResponse(res)
 
     return HttpResponse('', status=400)

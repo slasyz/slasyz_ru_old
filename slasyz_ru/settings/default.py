@@ -1,5 +1,8 @@
 # coding: utf-8
 
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
@@ -22,8 +25,6 @@ POSTS_PER_PAGE = 10
 ADMINS = (
     ('Vyacheslav S.', 'slasyz@gmail.com'),
 )
-
-MANAGERS = ADMINS
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
@@ -53,8 +54,6 @@ TIME_ZONE = 'Europe/Moscow'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
-
-SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -103,13 +102,6 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'asdfasdfasdf'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
-
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.debug',
@@ -128,8 +120,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 SOUTH_MIGRATION_MODULES = {

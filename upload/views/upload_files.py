@@ -41,14 +41,14 @@ class UploadFileResult(object):
             spl = os.path.splitext(filename)
             return spl[0][:30-3-3-len(spl[1])] + '...' + spl[0][-3:] + spl[1]
 
-    def render(self):
+    def render_to_string(self):
         context = {'error': self.error,
                    'short_name': self._get_short_name,
                    'text': self.text}
         return render_to_string('upload/tpl/success.tpl', context)
 
     def render_to_response(self):
-        return HttpResponse(self.render(), status=self.status)
+        return HttpResponse(self.render_to_string(), status=self.status)
 
 
 class TooBigException(Exception):

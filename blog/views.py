@@ -61,7 +61,7 @@ def page_view(request, page=1):
                'posts': current_page,
                'prev_page_url': prev_page_url,
                'next_page_url': next_page_url}
-    return render(request, 'blog/pages/posts.html', RequestContext(request, context))
+    return render(request, 'blog/pages/posts.html', context)
 
 
 # TODO: rewrite this and previous view
@@ -91,7 +91,7 @@ def tag_page_view(request, tag_name, page=1):
                'posts': current_page,
                'prev_page_url': prev_page_url,
                'next_page_url': next_page_url}
-    return render(request, 'blog/pages/posts.html', RequestContext(request, context))
+    return render(request, 'blog/pages/posts.html', context)
 
 def post_view(request, post_id, short_name):
     try:
@@ -114,7 +114,7 @@ def post_view(request, post_id, short_name):
                'comments': comments,
                'comment_form': comment_form}
 
-    return render(request, 'blog/pages/post.html', RequestContext(request, context))
+    return render(request, 'blog/pages/post.html', context)
 
 
 def add_comment_view(request, post_id, short_name):

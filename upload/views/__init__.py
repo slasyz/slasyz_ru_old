@@ -151,7 +151,7 @@ def filesystem_view(request):
                    'address_panel': address_panel,
                    'dirs': dirs,
                    'files': files}
-        return render(request, 'upload/pages/filesystem.html', RequestContext(request, context))
+        return render(request, 'upload/pages/filesystem.html', context)
 
 
 def upload_view(request):
@@ -167,13 +167,13 @@ def upload_view(request):
         else:
             context['results'] = upload_files_list(request)
 
-    return render(request, 'upload/pages/index.html', RequestContext(request, context))
+    return render(request, 'upload/pages/index.html', context)
 
 
 def upload_ajax_view(request):
     if request.method == 'POST':
         if (request.POST.get('password') != UPLOAD_PASSWORD) and not request.user.is_authenticated():
-            return render('upload/tpl/error.tpl', {'error': _('Incorrect password.')})
+            return render(request, 'upload/tpl/error.tpl', {'error': _('Incorrect password.')})
 
         results = upload_files_list(request)
         res = u''

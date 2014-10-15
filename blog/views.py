@@ -1,5 +1,6 @@
 # coding: utf-8
 
+from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
@@ -8,13 +9,12 @@ from django.template import RequestContext
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage
 
-from slasyz_ru.settings import POSTS_PER_PAGE
 from blog.models import Tag, Post, Comment
 from blog.forms import CommentForm, AnonymousCommentForm
 
 
 def get_page(queryset, page, page_func):
-    paginator = Paginator(queryset, POSTS_PER_PAGE)
+    paginator = Paginator(queryset, settings.POSTS_PER_PAGE)
 
     try:
         current_page = paginator.page(page)

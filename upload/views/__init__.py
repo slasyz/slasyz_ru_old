@@ -5,21 +5,19 @@ import re
 from mimetypes import guess_type
 from string import ascii_letters
 from random import choice
+from urlparse import urljoin
 
 from filesystem import *
 from upload_files import upload_files_list
 
-from urlparse import urljoin
+from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.contrib.auth.decorators import login_required, permission_required
-#from django.core.urlresolvers import reverse
 
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, StreamingHttpResponse, Http404
 from django.template import RequestContext
 from django.shortcuts import render
-
-from slasyz_ru.settings import UPLOAD_PASSWORD, MAX_FILE_SIZE, UPLOAD_DIR, UPLOAD_URL
 
 
 def filestream_view(request, path):
@@ -118,7 +116,7 @@ def public_view(request, uniq_id, basename):
 @login_required()
 @permission_required('upload.can_manage_filesystem', raise_exception=True)
 def filesystem_view(request):
-    path = request.GET.get('path', UPLOAD_DIR).encode('utf-8')
+    path = request.GET.get('path', settings.UPLOAD_DIR).encode('utf-8')
     if not os.path.exists(path):
         raise Http404
 
@@ -159,10 +157,10 @@ def upload_view(request):
                'base_tpl': 'base/full.html',
                'hide_big_title': True,
                'progress_bar': True,
-               'max_file_size': MAX_FILE_SIZE}
+               'max_file_size': settings.MAX_FILE_SIZE}
 
     if request.method == 'POST':
-        if (request.POST.get('password') != UPLOAD_PASSWORD) and not request.user.is_authenticated():
+        if (request.POST.get('password') != settings.UPLOAD_PASSWORD) and not request.user.is_authenticated():
             context['error'] = _('Incorrect password.')
         else:
             context['results'] = upload_files_list(request)
@@ -172,7 +170,7 @@ def upload_view(request):
 
 def upload_ajax_view(request):
     if request.method == 'POST':
-        if (request.POST.get('password') != UPLOAD_PASSWORD) and not request.user.is_authenticated():
+        if (request.POST.get('password') != settings.UPLOAD_PASSWORD) and not request.user.is_authenticated():
             return render(request, 'upload/tpl/error.tpl', {'error': _('Incorrect password.')})
 
         results = upload_files_list(request)

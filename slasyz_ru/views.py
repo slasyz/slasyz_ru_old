@@ -1,6 +1,7 @@
 import os
 import time
 
+from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.utils.six.moves.urllib.parse import urlparse
@@ -11,8 +12,6 @@ from django.shortcuts import render
 
 from django.contrib.auth.views import login
 from django.contrib.auth import logout
-
-from slasyz_ru.settings import STATIC_ROOT, STATIC_URL
 
 
 def login_view(request):
@@ -34,9 +33,9 @@ def error_view(request, error='Unknown error'):
 
 
 def index(request):
-    files = os.listdir(os.path.join(STATIC_ROOT, 'backgrounds'))
+    files = os.listdir(os.path.join(settings.STATIC_ROOT, 'backgrounds'))
 
-    backgrounds = [os.path.join(STATIC_URL, 'backgrounds', x) for x in files]
+    backgrounds = [os.path.join(settings.STATIC_URL, 'backgrounds', x) for x in files]
     backgrounds.sort()
 
     wp_list = ', '.join(['"url({})"'.format(x) for x in backgrounds])

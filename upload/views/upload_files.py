@@ -2,14 +2,14 @@
 
 import os.path
 import codecs
-
 from datetime import datetime
+
+from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 
 from upload.models import File
-from slasyz_ru.settings import UPLOAD_DIR, UPLOAD_URL, MAX_FILE_SIZE, LOG_FILE
 LOG_TEMPLATE = u'[{{time}}] \033[1;{color}m{filename}\033[0m -> \033[1;36m{text}\033[0m\n'
 
 
@@ -27,11 +27,10 @@ class UploadFileResult(object):
 
     def _log(self, text):
         time = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-        if not os.path.exists(LOG_FILE): open(LOG_FILE, 'w').close()
+        if not os.path.exists(settings.LOG_FILE): open(LOG_FILE, 'w').close()
 
-        f = codecs.open(LOG_FILE, 'a', 'utf-8')
-        f.write(text.format(time=time))
-        f.close()
+        with codecs.open(settings.LOG_FILE, 'a', 'utf-8') as f:
+            f.write(text.format(time=time))
 
     def _get_short_name(self):
         filename = self.name
@@ -60,7 +59,7 @@ class TeapotException(Exception):
 
 
 def filepath(filename):
-    return os.path.join(UPLOAD_DIR, filename)
+    return os.path.join(settings.UPLOAD_DIR, filename)
 
 
 def upload_files_list(request):
@@ -72,7 +71,7 @@ def upload_files_list(request):
     for uploaded_file in request.FILES.getlist('fileup'):
         try:
             # Checking file
-            if uploaded_file.size > MAX_FILE_SIZE:
+            if uploaded_file.size > settings.MAX_FILE_SIZE:
                 raise TooBigException
             if uploaded_file.name == 'error.test':
                 raise TeapotException

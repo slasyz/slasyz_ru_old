@@ -21,7 +21,7 @@
                         <div class="small-12 columns">
                             <h1>
                                 {% if not hide_big_title and APP_NAME %}
-                                    <a href="{% url APP_NAME %}">{{ APP_INFO.title }}</a>
+                                    <a href="{% url APP_NAME|add:":index" %}">{{ APP_INFO.title }}</a>
                                 {% endif %}
                             </h1>
                         </div>

@@ -37,7 +37,7 @@ def get_page(queryset, page, page_func):
 
 # TODO: rewrite this and next view
 def page_view(request, page=1):
-    main_page = reverse('blog')
+    main_page = reverse('blog:index')
     if (int(page) == 1) and (request.path != main_page):
         return HttpResponseRedirect(main_page)
 
@@ -45,7 +45,7 @@ def page_view(request, page=1):
     if not request.user.has_perm('post.can_read_drafts'):
         posts_all = posts_all.filter(is_draft=False)
 
-    res = get_page(posts_all, page, lambda x: reverse('blog_page', args=[x]))
+    res = get_page(posts_all, page, lambda x: reverse('blog:page', args=[x]))
     try:
         current_page, prev_page_url, next_page_url = res
     except ValueError:
@@ -66,7 +66,7 @@ def page_view(request, page=1):
 
 # TODO: rewrite this and previous view
 def tag_page_view(request, tag_name, page=1):
-    main_page = reverse('blog_tag', args=[tag_name,])
+    main_page = reverse('blog:tag', args=[tag_name,])
     if (int(page) == 1) and (request.path != main_page):
         return HttpResponseRedirect(main_page)
 
@@ -79,7 +79,7 @@ def tag_page_view(request, tag_name, page=1):
     if not request.user.has_perm('post.can_read_drafts'):
         posts_all = posts_all.filter(is_draft=False)
 
-    res = get_page(posts_all, page, lambda x: reverse('blog_tag_page', args=[tag_name, x]))
+    res = get_page(posts_all, page, lambda x: reverse('blog:tag_page', args=[tag_name, x]))
     try:
         current_page, prev_page_url, next_page_url = res
     except ValueError:
@@ -140,4 +140,4 @@ def add_comment_view(request, post_id, short_name):
                 comment.post = post
                 comment.save()
     
-    return HttpResponseRedirect(reverse('blog_post', args=[post_id, short_name,]))
+    return HttpResponseRedirect(reverse('blog:post', args=[post_id, short_name,]))

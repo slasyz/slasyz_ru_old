@@ -7,7 +7,7 @@
             <ul class="bar-left">
                 {% for key, value in APPS %}
                     {% comment %}TODO: add app permission check{% endcomment %}
-                    <li>{% include 'global/tpl/bar_link.tpl' with url_name=key caption=value.short_title %}</a></li>
+                    <li>{% include 'global/tpl/bar_link.tpl' with url_name=key|add:":index" caption=value.short_title %}</a></li>
                 {% endfor %}
             </ul>
             <ul class="bar-right">

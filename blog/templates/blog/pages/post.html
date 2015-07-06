@@ -15,7 +15,7 @@
             {% endif %}
             <div id="comment-form">
                 <h5>{% trans "Add your own:" %}</h5>
-                <form action="{% url 'blog_add_comment' post.id post.short_name %}" method="post">
+                <form action="{% url 'blog:add_comment' post.id post.short_name %}" method="post">
                     {% csrf_token %}
                     {{ comment_form }}
                     <input type="submit" class="button primary" value="Add" />

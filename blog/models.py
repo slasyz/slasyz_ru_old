@@ -35,7 +35,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('blog_post', args=[self.id, self.short_name])
+        return reverse('blog:post', args=[self.id, self.short_name])
     get_absolute_url.short_description = 'URL'
 
     def get_comments_count(self):

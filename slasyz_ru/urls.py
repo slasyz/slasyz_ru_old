@@ -13,10 +13,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'slasyz_ru.views.index', name='index'),
-    url(r'^upload/', include('upload.urls', app_name='upload')),
-    url(r'^blog/', include('blog.urls', app_name='blog')),
+    url(r'^upload/', include('upload.urls', app_name='upload', namespace='upload')),
+    url(r'^blog/',   include('blog.urls',   app_name='blog',   namespace='blog')),
 
-    url(r'^login/$', 'slasyz_ru.views.login_view', name='login'),
+    url(r'^login/$',  'slasyz_ru.views.login_view',  name='login'),
     url(r'^logout/$', 'slasyz_ru.views.logout_view', name='logout'),
     url(r'^admin/', include(admin.site.urls)),
 

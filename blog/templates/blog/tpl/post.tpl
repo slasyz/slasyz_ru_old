@@ -18,7 +18,7 @@
         {{ post.created }}
         {% if post.tags.count %}
             | Tags: {% for tag in post.tags.all %}
-                        <a href="{% url 'blog_tag' tag.name %}">{{ tag.name }}</a>
+                        <a href="{% url 'blog:tag' tag.name %}">{{ tag.name }}</a>
                     {% endfor %}
         {% endif %}
         | <a href="{{ post.get_absolute_url }}#comments">

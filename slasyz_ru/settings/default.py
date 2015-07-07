@@ -23,7 +23,7 @@ UPLOAD_PASSWORD = '1234'                        # password for non-authenticated
 POSTS_PER_PAGE = 10
 
 ADMINS = (
-    ('Vyacheslav S.', 'slasyz@gmail.com'),
+    ('Vyacheslav S.', 'webmaster@slasyz.ru'),
 )
 
 LOGIN_URL = '/login/'

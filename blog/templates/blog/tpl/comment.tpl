@@ -11,10 +11,10 @@
 
         <span class="date">{{ comment.created }}</span>
         {% if perms.comment.change or user == comment.author %}
-            | <a href="{% url 'admin:blog:comment_change' comment.id %}">edit</a>
+            | <a href="{% url 'admin:blog_comment_change' comment.id %}">edit</a>
         {% endif %}
         {% if perms.comment.delete %}
-            | <a href="{% url 'admin:blog:comment_delete' comment.id %}">delete</a>
+            | <a href="{% url 'admin:blog_comment_delete' comment.id %}">delete</a>
         {% endif %}
     </div>
     <div class="text">{{ comment.text.rendered|safe }}</div>

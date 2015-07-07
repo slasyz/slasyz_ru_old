@@ -31,7 +31,7 @@ class FileLink(Link):
 
     @property
     def public_url(self):
-        url = reverse('upload_public', kwargs={'uniq_id': self.uniq_id,
+        url = reverse('upload:public', kwargs={'uniq_id': self.uniq_id,
                                                'basename': self.basename})
         return url
 

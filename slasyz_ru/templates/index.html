@@ -6,6 +6,7 @@
     <meta name="author" content="Вячеслав Сыроватский">
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta property="og:title" content="slasyz.ru" />
     <meta property="og:desctiption" content="Страничка Вячеслава Сыроватского aka slasyz" />
@@ -46,9 +47,17 @@
             display: table;
             padding: 0;
             margin: 0 auto;
+            max-width: 100%;
         }
-        #list .item{ display: table-row; }
-        #list .text{ display: table-cell; }
+        #list .item{ 
+            display: table-row;
+            max-width: 100%;
+        }
+        #list .text{ 
+            display: table-cell; 
+            padding-bottom: 1rem;
+            padding-left: 0;
+        }
         .text{ padding-left: 20px; }
 
         a, a:visited{
@@ -58,6 +67,18 @@
         a:hover{
             text-decoration: none;
             border-bottom: 2px solid #fff;
+        }
+
+
+        @media (max-width: 600px) {
+            .tablecell{
+                font-size: 3rem;
+            }
+        }
+        @media (max-width: 450px) {
+            .tablecell{
+                font-size: 2rem;
+            }
         }
     </style>
     <script type="text/javascript"><!--

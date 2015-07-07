@@ -5,10 +5,10 @@ import re
 from mimetypes import guess_type
 from string import ascii_letters
 from random import choice
-from urlparse import urljoin
+from urllib.parse import urljoin
 
-from filesystem import *
-from upload_files import upload_files_list
+from .filesystem import *
+from .upload_files import upload_files_list
 
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -116,7 +116,7 @@ def public_view(request, uniq_id, basename):
 @login_required()
 @permission_required('upload.can_manage_filesystem', raise_exception=True)
 def filesystem_view(request):
-    path = request.GET.get('path', settings.UPLOAD_DIR).encode('utf-8')
+    path = request.GET.get('path', settings.UPLOAD_DIR)
     if not os.path.exists(path):
         raise Http404
 
@@ -139,7 +139,7 @@ def filesystem_view(request):
         address_panel = [DirectoryLink('/')]
 
         new_path = '/'
-        for i in xrange(len(fullpath)):
+        for i in range(len(fullpath)):
             new_path = os.path.join(new_path, fullpath[i])
             address_panel.append(DirectoryLink(new_path))
 

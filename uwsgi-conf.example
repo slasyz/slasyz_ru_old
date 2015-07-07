@@ -1,8 +1,10 @@
 # Save this file to /etc/uwsgi/apps-available/slasyz_ru.ini and put a symlink to it into /etc/uwsgi/apps-enabled
 
 [uwsgi]
+plugin = python3
 chdir = /home/sl/django/slasyz_ru
 module = slasyz_ru.wsgi:application
+virtualenv = /home/sl/.virtualenvs/p3_slasyz_ru
 
 log-date = True
 uid = sl

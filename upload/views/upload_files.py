@@ -85,7 +85,7 @@ def upload_files_list(request):
                 i+=1
 
             # copying file to destination directory
-            f = open(filepath(filename), 'w')
+            f = open(filepath(filename), 'wb')
             f.write(uploaded_file.read())
             f.close()
 

@@ -96,10 +96,7 @@ STATIC_ROOT = '/home/sl/www/slasyz.ru/static'
 STATIC_URL = '/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
-    # path to Foundation built files
-    ('foundation', '/home/sl/soft/foundation'),
-)
+STATICFILES_DIRS = ()
 
 # List of finder classes that know how to find static files in
 # various locations.

@@ -33,9 +33,9 @@ def error_view(request, error='Unknown error'):
 
 
 def index(request):
-    files = os.listdir(os.path.join(settings.STATIC_ROOT, 'backgrounds'))
+    files = os.listdir(os.path.join(settings.STATIC_ROOT, 'img', 'backgrounds'))
 
-    backgrounds = [os.path.join(settings.STATIC_URL, 'backgrounds', x) for x in files]
+    backgrounds = [os.path.join(settings.STATIC_URL, 'img', 'backgrounds', x) for x in files]
     backgrounds.sort()
 
     wp_list = ', '.join(['"url({})"'.format(x) for x in backgrounds])

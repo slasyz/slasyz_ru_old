@@ -1,9 +1,17 @@
+# Python object files
+__pycache__
 *.pyc
 
-slasyz_ru/settings/custom.py
-slasyz_ru.sublime-project
-slasyz_ru.sublime-workspace
-.idea
+# IDEs
+/slasyz_ru/settings/custom.py
+/slasyz_ru.sublime-project
+/slasyz_ru.sublime-workspace
+/.idea
 
-bower_components
-node_modules
+# Package managers
+/bower_components
+/node_modules
+
+# Gulp-generated files.
+/*/static/css/*
+/*/static/js/*

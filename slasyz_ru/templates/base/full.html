@@ -42,11 +42,11 @@
         </div>
     </div>
 
-    <script src="{{ STATIC_URL }}foundation/js/vendor/jquery.js"></script>
-    <script src="{{ STATIC_URL }}foundation/js/foundation.min.js"></script>
-    <script src="{{ STATIC_URL }}global/base.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/foundation.min.js"></script>
+    <script src="{{ STATIC_URL }}js/base.min.js"></script>
     {% if APP_NAME %}
-        <script src="{{ STATIC_URL }}{{ APP_NAME }}/base.js"></script>
+        <script src="{{ STATIC_URL }}js/{{ APP_NAME }}.min.js"></script>
     {% endif %}
 {% include "yandex.html" %}
 </body>

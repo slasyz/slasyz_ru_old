@@ -12,8 +12,8 @@ function prevent(ev){
     try {
         if (ev.relatedTarget.nodeType == 3) return true;
     } catch(err) {}
-    if (ev.target === ev.relatedTarget) return true;
-    return false;
+
+    return ev.target === ev.relatedTarget;
 }
 function getCookie(name) {
     var cookieValue = null;
@@ -30,6 +30,7 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
 function write_result(status, html_res){
     $('.progress').fadeTo(500, 0);
     if (status == 'success') {
@@ -60,7 +61,7 @@ function uploadProgress(ev){
     $('.meter').width(percent+'%');
 }
 function upload(files){
-    for (i=0; i<files.length; i++) {
+    for (var i = 0; i < files.length; i++) {
         $('.meter').width(0);
         $('.progress').fadeTo(500, 1);
         var file = files[i];
@@ -83,37 +84,38 @@ function upload(files){
                 data: formdata,
                 processData: false,
                 contentType: false,
-                headers: {'X-FILE-NAME': unescape(encodeURIComponent(file.name)), 'X-CSRFToken': csrftoken},
-                type: 'POST',
+                headers: {'X-FILE-NAME': decodeURIComponent(encodeURIComponent(file.name)), 'X-CSRFToken': csrftoken},
+                type: 'POST'
             });
         }
     }
 }
 
 $('#submit-button').hide(0);
-$('#select-button').on('dragenter', function(ev){
-    if (prevent(ev)) {return};
-    console.log('#select-button - dragenter');
-    $('#select-button').removeClass('primary')
-                       .addClass('secondary')
-                       .text('Drop it here!');
-});
-$('#select-button').on('dragleave', function(ev){
-    if (prevent(ev)) {return};
-    console.log('#select-button - dragleave');
-    $('#select-button').addClass('primary')
-                       .removeClass('secondary')
-                       .text('Select file');
-});
+$('#select-button')
+    .on('dragenter', function(ev){
+        if (prevent(ev)) { return }
+        console.log('#select-button - dragenter');
+        $('#select-button').removeClass('primary')
+                           .addClass('secondary')
+                           .text('Drop it here!');
+    })
+    .on('dragleave', function(ev){
+        if (prevent(ev)) { return };
+        console.log('#select-button - dragleave');
+        $('#select-button').addClass('primary')
+                           .removeClass('secondary')
+                           .text('Select file');
+    })
+    .on('dragover', prevent)
+    .on('drop', function(ev){
+        prevent(ev);
+        upload(ev.originalEvent.dataTransfer.files);
+        $('#select-button').addClass('primary')
+                           .removeClass('secondary')
+                           .text('Select file');
+    });
 
-$('#select-button').on('dragover', prevent);
-$('#select-button').on('drop', function(ev){
-    prevent(ev);
-    upload(ev.originalEvent.dataTransfer.files);
-    $('#select-button').addClass('primary')
-                       .removeClass('secondary')
-                       .text('Select file');
-});
 $('#fileup').change(function(ev){
     upload(ev.target.files);
     $(this).wrap('<form>').closest('form').get(0).reset();

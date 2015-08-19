@@ -6,18 +6,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-APPS = (('upload', {'short_title': 'Upload', # title displayed in topbar links
-                    'title': 'Upload'}),     # title displayed in other places
+APPS = (('upload', {'short_title': 'Upload',  # title displayed in topbar links
+                    'title': 'Upload'}),      # title displayed in other places
         ('blog', {'short_title': 'Blog',
-                  'title': 'My Blog'}),
-       )
+                  'title': 'My Blog'}))
 
 # slasyz_ru.upload
-UPLOAD_DIR = '/home/sl/www/files.slasyz.ru'     # path for uploaded files storage
-UPLOAD_URL = 'http://files.slasyz.ru/'          # URL prefix for uploaded files
-LOG_FILE = '/home/sl/logs/slasyz_ru/upload.log' # path to log file
-MAX_FILE_SIZE = 500 * 1024 * 1024               # 500MB
-UPLOAD_PASSWORD = '1234'                        # password for non-authenticated users
+UPLOAD_DIR = '/home/sl/www/files.slasyz.ru'      # path for uploaded files storage
+UPLOAD_URL = 'http://files.slasyz.ru/'           # URL prefix for uploaded files
+LOG_FILE = '/home/sl/logs/slasyz_ru/upload.log'  # path to log file
+MAX_FILE_SIZE = 500 * 1024 * 1024                # 500MB
+UPLOAD_PASSWORD = '1234'                         # password for non-authenticated users
 
 # slasyz_ru.blog settings
 POSTS_PER_PAGE = 10
@@ -31,13 +30,13 @@ LOGIN_REDIRECT_URL = '/'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'slasyz_ru',                  # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'slasyz_ru',  # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'slasyz_ru',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'HOST': '',  # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',  # Set to empty string for default.
     }
 }
 
@@ -103,7 +102,7 @@ STATICFILES_DIRS = ()
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.

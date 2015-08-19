@@ -1,7 +1,8 @@
 from django.contrib import admin
 from blog.models import Post, Comment, Tag
 
-#@admin.register(Post) # in dev-version
+
+# @admin.register(Post) # in dev-version
 class PostAdmin(admin.ModelAdmin):
     ordering = ['-created']
     list_display = ['title', 'author', 'created', 'is_draft', 'get_absolute_url', 'get_comments_count', 'annotation']

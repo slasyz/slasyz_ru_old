@@ -4,10 +4,8 @@ import time
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
-from django.utils.six.moves.urllib.parse import urlparse
 
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.template import RequestContext
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from django.contrib.auth.views import login
@@ -39,7 +37,7 @@ def index(request):
     backgrounds.sort()
 
     wp_list = ', '.join(['"url({})"'.format(x) for x in backgrounds])
-    i = int(time.time()) // (60*60*24) % len(backgrounds)
+    i = int(time.time()) // (60 * 60 * 24) % len(backgrounds)  # New picture every day.
 
     context = {'background': backgrounds[i],
                'index': i,
@@ -50,11 +48,14 @@ def index(request):
 def custom_400(request):
     return render(request, 'error.html', {'code': 400, 'name': 'Bad Request'}, status=400)
 
+
 def custom_403(request):
     return render(request, 'error.html', {'code': 403, 'name': 'Forbidden'}, status=403)
 
+
 def custom_404(request):
     return render(request, 'error.html', {'code': 404, 'name': 'Not Found'}, status=404)
+
 
 def custom_500(request):
     return render(request, 'error.html', {'code': 500, 'name': 'Internal Server Error'}, status=500)

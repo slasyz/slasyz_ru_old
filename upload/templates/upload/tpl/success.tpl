@@ -7,6 +7,7 @@
         <div class="error-text">{{ text }}</div>
     {% else %}
         <a class="success-file" href="{{ text }}">{{ short_name }}</a>
+        <!--suppress HtmlFormInputWithoutLabel, HtmlFormInputWithoutLabel -->
         <input class="success-url" type="url" onclick="this.select();" value="{{ text }}" />
     {% endif %}
 </div>

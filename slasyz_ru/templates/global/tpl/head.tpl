@@ -3,6 +3,8 @@
 <title>{{ title }}{% if APP_INFO.title %} - {{ APP_INFO.title }}{% endif %}</title>
 <link rel="stylesheet" href="{{ STATIC_URL }}css/base.min.css" />
 {% if APP_NAME %}
+    {% comment %} TODO: replace it to fully customizable something [1] {% endcomment %}
+    <!--suppress HtmlUnknownTarget -->
     <link rel="stylesheet" href="{{ STATIC_URL }}css/{{ APP_NAME }}.min.css" />
 {% endif %}
 <script src="{{ STATIC_URL }}js/modernizr.min.js"></script>

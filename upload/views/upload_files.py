@@ -21,13 +21,16 @@ class UploadFileResult(object):
         self.error = error
         self.status = status
 
-        if error: color = '32'
-        else: color = '31'
+        if error:
+            color = '32'
+        else:
+            color = '31'
         self._log(LOG_TEMPLATE.format(color=color, filename=name, text=text))
 
     def _log(self, text):
         time = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
-        if not os.path.exists(settings.LOG_FILE): open(LOG_FILE, 'w').close()
+        if not os.path.exists(settings.LOG_FILE):
+            open(settings.LOG_FILE, 'w').close()
 
         with codecs.open(settings.LOG_FILE, 'a', 'utf-8') as f:
             f.write(text.format(time=time))
@@ -38,7 +41,7 @@ class UploadFileResult(object):
             return filename
         else:
             spl = os.path.splitext(filename)
-            return spl[0][:30-3-3-len(spl[1])] + '...' + spl[0][-3:] + spl[1]
+            return spl[0][:30 - 3 - 3 - len(spl[1])] + '...' + spl[0][-3:] + spl[1]
 
     def render_to_string(self):
         context = {'error': self.error,
@@ -82,7 +85,7 @@ def upload_files_list(request):
             i = 2
             while os.path.exists(filepath(filename)):
                 filename = spl[0] + '_{}'.format(i) + spl[1]
-                i+=1
+                i += 1
 
             # copying file to destination directory
             f = open(filepath(filename), 'wb')
@@ -96,12 +99,12 @@ def upload_files_list(request):
                 db_entry = File(author=None, filename=filename)
             db_entry.save()
             link = db_entry.get_absolute_url()
-            results.append( UploadFileResult(filename, link) )
+            results.append(UploadFileResult(filename, link))
         except TooBigException:
-            results.append( UploadFileResult(uploaded_file.name, _('File is too big.'), error=True, status=413) )
+            results.append(UploadFileResult(uploaded_file.name, _('File is too big.'), error=True, status=413))
         except TeapotException:
-            results.append( UploadFileResult(uploaded_file.name, _('I\'m a teapot))0'), error=True, status=418) )
+            results.append(UploadFileResult(uploaded_file.name, _('I\'m a teapot))0'), error=True, status=418))
         except:
-            results.append( UploadFileResult(uploaded_file.name, _('A server error occured.'), status=500) )
+            results.append(UploadFileResult(uploaded_file.name, _('A server error occured.'), status=500))
 
     return results

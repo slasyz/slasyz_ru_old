@@ -1,11 +1,9 @@
 # coding: utf-8
 
-import os
 import re
 from mimetypes import guess_type
 from string import ascii_letters
 from random import choice
-from urllib.parse import urljoin
 
 from .filesystem import *
 from .upload_files import upload_files_list
@@ -16,7 +14,6 @@ from django.contrib.auth.decorators import login_required, permission_required
 
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, StreamingHttpResponse, Http404
-from django.template import RequestContext
 from django.shortcuts import render
 
 
@@ -25,11 +22,12 @@ def filestream_view(request, path):
     Stream content of file located on "path".
     """
     f = open(path, 'rb')
-    basename = os.path.basename(path)
+    basename = os.path.basename(path)  # TODO: why we don't use it?
     size = os.path.getsize(path)
     ct, encoding = guess_type(path)
     content_range = request.META.get('HTTP_RANGE')
-    if ct is None: ct = 'application/octet-stream'
+    if ct is None:
+        ct = 'application/octet-stream'
 
     if content_range:
         # "Range" header parsing
@@ -39,7 +37,7 @@ def filestream_view(request, path):
         # > Range: bytes=-b              // return last b bytes
         # > Range: bytes=a1-b1,a2-b2,... // return bytes from a1 to b1, from a2 to b2 etc
 
-        ranges = [] # list of non-empty ranges
+        ranges = []  # list of non-empty ranges
         raw_ranges = re.match(r'^bytes=(?P<ranges>(\d*-\d*,)*(\d*-\d*))$', content_range).group('ranges')
 
         for r in raw_ranges.split(','):
@@ -49,29 +47,30 @@ def filestream_view(request, path):
             elif b == '':
                 a, b = int(a), size - 1
             elif a == '':
-                a, b = size-int(b), size-1
-            if b >= size: b = size - 1
+                a, b = size - int(b), size - 1
 
-            if b-a >= 0:
-                a_real, b_real = a, b
+            if b >= size:
+                b = size - 1
+
+            if b - a >= 0:
                 ranges.append((a, b))
 
         if len(ranges) == 0:
             return HttpResponse(status=416)
         elif len(ranges) == 1:
-            ### Only one range.
+            # *** Only one range. ***
             # HTTP 206 Partial Content
             # Content-Type = (content type of file)
             # Content-Length = (range size)
             # Content-Range = (range range)
             #
             # (range data)
-            a, b = a_real, b_real
+            a, b = ranges[0]
             response = StreamingHttpResponse(read_in_chunks(f, a, b), status=206)
             response['Content-Length'] = b - a + 1
             response['Content-Range'] = 'bytes {}-{}/{}'.format(a, b, size)
         else:
-            ### Several ranges.
+            # *** Several ranges. ***
             # > HTTP 206 Partial Content
             # > Content-Type = multipart/byteranges; boundary=BOUNDARY
             # >
@@ -90,14 +89,16 @@ def filestream_view(request, path):
 
             # There is one pretty unlikely, but possible situation,
             # when file (one of range to be specific) contains boundary.
-            boundary = ''.join(choice(ascii_letters+'_') for x in range(50))
-            response = StreamingHttpResponse(read_in_ranges(f, ranges, size, boundary=boundary, content_type=ct), status=206)
+            boundary = ''.join(choice(ascii_letters + '_') for x in range(50))  # TODO: write something better
+            response = StreamingHttpResponse(read_in_ranges(f, ranges, size, boundary=boundary, content_type=ct),
+                                             status=206)
             ct = 'multipart/byteranges; boundary={}'
     else:
         response = StreamingHttpResponse(read_in_chunks(f, 0, size), status=200)
         response['Content-Length'] = size
 
-    if encoding: response['Content-Encoding'] = encoding
+    if encoding:
+        response['Content-Encoding'] = encoding
     response['Content-Type'] = ct
 
     return response
@@ -124,7 +125,9 @@ def filesystem_view(request):
         # return content of that file
         return filestream_view(request, path)
     else:
-        dirs = []; files = []; error = ''
+        dirs = []
+        files = []
+        error = ''
         try:
             for f in sorted(os.listdir(path)):
                 new_path = os.path.join(path, f)

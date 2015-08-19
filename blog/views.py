@@ -4,8 +4,7 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
-from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.template import RequestContext
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage
 
@@ -29,8 +28,10 @@ def get_page(queryset, page, page_func):
         next_page = current_page.next_page_number()
 
     prev_page_url = next_page_url = None
-    if prev_page: prev_page_url = page_func(prev_page)
-    if next_page: next_page_url = page_func(next_page)
+    if prev_page:
+        prev_page_url = page_func(prev_page)
+    if next_page:
+        next_page_url = page_func(next_page)
 
     return current_page, prev_page_url, next_page_url
 
@@ -66,7 +67,7 @@ def page_view(request, page=1):
 
 # TODO: rewrite this and previous view
 def tag_page_view(request, tag_name, page=1):
-    main_page = reverse('blog:tag', args=[tag_name,])
+    main_page = reverse('blog:tag', args=[tag_name, ])
     if (int(page) == 1) and (request.path != main_page):
         return HttpResponseRedirect(main_page)
 
@@ -92,6 +93,7 @@ def tag_page_view(request, tag_name, page=1):
                'prev_page_url': prev_page_url,
                'next_page_url': next_page_url}
     return render(request, 'blog/pages/posts.html', context)
+
 
 def post_view(request, post_id, short_name):
     try:
@@ -124,7 +126,7 @@ def add_comment_view(request, post_id, short_name):
         except Post.DoesNotExist:
             raise Http404
 
-        ### TODO: do something with this copypaste
+        # TODO: do something with this copypaste
         if request.user.is_authenticated():
             form = CommentForm(request.POST)
             if form.is_valid():
@@ -140,4 +142,4 @@ def add_comment_view(request, post_id, short_name):
                 comment.post = post
                 comment.save()
     
-    return HttpResponseRedirect(reverse('blog:post', args=[post_id, short_name,]))
+    return HttpResponseRedirect(reverse('blog:post', args=[post_id, short_name]))

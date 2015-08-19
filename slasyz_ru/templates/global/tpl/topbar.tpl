@@ -6,8 +6,8 @@
         <div class="small-12 columns">
             <ul class="bar-left">
                 {% for key, value in APPS %}
-                    {% comment %}TODO: add app permission check{% endcomment %}
-                    <li>{% include 'global/tpl/topbar_link.tpl' with url_name=key|add:":index" caption=value.short_title %}</a></li>
+                    {% comment %} TODO: add app permission check{% endcomment %}
+                    <li>{% include 'global/tpl/topbar_link.tpl' with url_name=key|add:":index" caption=value.short_title %}</li>
                 {% endfor %}
             </ul>
             <ul class="bar-right">

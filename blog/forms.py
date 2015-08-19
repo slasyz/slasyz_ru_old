@@ -1,7 +1,5 @@
 from django import forms
 from blog.models import Comment
-from precise_bbcode.fields import BBCodeTextField
-from blog.models import Post, Comment
 
 
 class CommentForm(forms.ModelForm):

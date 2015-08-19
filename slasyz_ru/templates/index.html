@@ -5,7 +5,8 @@
     <meta name="keywords" content="slasyz">
     <meta name="author" content="Вячеслав Сыроватский">
     <meta charset="UTF-8">
-    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <!--suppress HtmlUnknownTarget -->
+    <link rel="shortcut icon" href="/favicon.png" type="image/png"> {% comment %} TODO: create it and serve it by default. {% endcomment %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta property="og:title" content="slasyz.ru" />
@@ -23,8 +24,7 @@
             background: #000;
         }
         body{
-            background: url('{{ background }}');
-            background-position: center center;
+            background: url('{{ background }}') no-repeat center;
             background-size: cover;
             color: #fff;
         }
@@ -81,7 +81,7 @@
             }
         }
     </style>
-    <script type="text/javascript"><!--
+    <script type="text/javascript">
         var wp_list = [{{ wp_list|safe }}];
         var index = {{ index }};
 
@@ -91,13 +91,13 @@
         }
 
         window.onload = function () {
-            nick = 'slasyz';
-            domain = '@gmail.com';
-            email = document.getElementById('email');
+            var nick = 'slasyz';
+            var domain = '@gmail.com';
+            var email = document.getElementById('email');
             email.innerHTML = '<a href="mailto:'+nick+domain+'">'+nick+domain+'</a>';
 
             return false;
-        }
+        };
 
         window.onkeydown = function (ev) {
             if (ev.ctrlKey) {
@@ -107,8 +107,7 @@
                     wp_change(-1);
                 }
             }
-        }
-        //-->
+        };
     </script>
 </head>
 <body>

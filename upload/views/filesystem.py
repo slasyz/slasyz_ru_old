@@ -28,23 +28,19 @@ class FileLink(Link):
             path = self._id_to_path(uniq_id)
         super(FileLink, self).__init__(path=path)
 
-
     @property
     def public_url(self):
         url = reverse('upload:public', kwargs={'uniq_id': self.uniq_id,
                                                'basename': self.basename})
         return url
 
-
     @property
     def uniq_id(self):
         return self._path_to_id(self.path)
 
-
     @staticmethod
     def _path_to_id(path):
         return dumps(path).replace(':', '/')
-
 
     @staticmethod
     def _id_to_path(id):
@@ -69,7 +65,8 @@ def read_in_ranges(file_object, ranges, file_size, boundary, content_type=None):
     for r in ranges:
         a, b = r
         yield '--{}\r\n'.format(boundary)
-        if content_type: yield 'Content-Type: {}\r\n'.format(content_type)
+        if content_type:
+            yield 'Content-Type: {}\r\n'.format(content_type)
         yield 'Content-Range: {}-{}/{}\r\n'.format(a, b, file_size)
         yield '\r\n'
 
@@ -86,7 +83,8 @@ def read_in_chunks(file_object, beg, end, chunk_size=1024):
 
     file_object.seek(beg)
     while True:
-        chunk = min(chunk_size, end-file_object.tell()+1)
+        chunk = min(chunk_size, end - file_object.tell() + 1)
         data = file_object.read(chunk)
-        if not data: return
+        if not data:
+            return
         yield data

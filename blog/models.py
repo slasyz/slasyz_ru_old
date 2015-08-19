@@ -8,13 +8,14 @@ from django.utils.translation import ugettext as _
 from django.utils.encoding import python_2_unicode_compatible
 
 from blog.urls import SHORT_NAME_REGEX
-short_name_validator = RegexValidator('^{}$'.format(SHORT_NAME_REGEX), _('Short name should consist of small latin letters and dash.'))
+short_name_validator = RegexValidator('^{}$'.format(SHORT_NAME_REGEX),
+                                      _('Short name should consist of small latin letters and dash.'))
 tag_name_validator = RegexValidator(r'^[^/]+$', _('Tag name should not contain slash symbol.'))
 
 
 @python_2_unicode_compatible
 class Tag(models.Model):
-    name = models.CharField(max_length=255, validators=[tag_name_validator,])
+    name = models.CharField(max_length=255, validators=[tag_name_validator])
 
     def __str__(self):
         return self.name
@@ -24,7 +25,7 @@ class Tag(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(User)
     created = models.DateTimeField(auto_now_add=True)
-    short_name = models.CharField(max_length=255, unique=True, validators=[short_name_validator,])
+    short_name = models.CharField(max_length=255, unique=True, validators=[short_name_validator])
     tags = models.ManyToManyField(Tag)
     is_draft = models.BooleanField(default=False, verbose_name=u'Draft')
     title = models.CharField(max_length=255)

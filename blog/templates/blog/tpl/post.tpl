@@ -9,7 +9,7 @@
     </h3>
     <div class="text">
         {{ post.annotation.rendered|safe }}
-        {% if full %}
+        {% if full %}<br><br>
             <div id="cut"></div>
             {{ post.full_text.rendered|safe }}
         {% endif %}

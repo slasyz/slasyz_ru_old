@@ -29,7 +29,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     is_draft = models.BooleanField(default=False, verbose_name=u'Draft')
     title = models.CharField(max_length=255)
-    annotation = BBCodeTextField()
+    annotation = BBCodeTextField()  # TODO: get rid of this plugin
     full_text = BBCodeTextField()
 
     def __str__(self):

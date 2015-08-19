@@ -10,6 +10,7 @@ var uglify = require('gulp-uglify');
 
 var paths = {
     scss: ['*/static-src/scss/*.scss', '!*/static-src/scss/_*.scss'],
+    scss_watch: ['*/static-src/scss/*.scss'],
     js: ['*/static-src/js/*.js']
 };
 
@@ -64,7 +65,7 @@ gulp.task('clean', function(cb) {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(paths.scss, ['scss']);
+    gulp.watch(paths.scss_watch, ['scss']);
     gulp.watch(paths.js, ['js']);
 });
 

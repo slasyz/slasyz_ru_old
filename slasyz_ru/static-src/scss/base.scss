@@ -1,46 +1,33 @@
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700&subset=latin,cyrillic");
 @import url("http://fonts.googleapis.com/css?family=Droid+Serif&subset=latin,cyrillic");
 
+@import "_settings.scss";
 @import "../../../bower_components/foundation/scss/foundation";
 
-html,body{
-    font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+@import "_bar.scss";
+
+html, body{
     height: 100%;
 }
-h1,h2,h3,h4,h5,h6{
-    font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+h1, h2, h3, h4, h5, h6{
     font-weight: 300;
 }
-a, .breadcrumbs a{ color: #C55500; }
-a:hover, a:focus{ color: #803300; }
-input[type=submit]{ width: 100%; }
-#post-form textarea{ min-height: 15rem;}
-.button.primary{
-    background: #AD3D00;
-}
-.button.primary:hover{
-    background: #C55500;
-}
 
-.breadcrumbs{
-    background: #FFEEDD;
-}
-.breadcrumbs>*{
-    font-size: 1rem;
-}
+input[type=submit] { width: 100%; }
 
 #head{
     text-align: left;
     margin-bottom: 1.5rem;
-}
-#big-title, #small-title{
-    color: #fff;
-}
-#big-title h1{
-    font-size: 4rem;
-}
-#small-title{
-    font-size: 2.5rem;
+
+    #big-title, #small-title{
+        color: #fff;
+    }
+    #big-title h1{
+        font-size: 4rem;
+    }
+    #small-title{
+        font-size: 2.5rem;
+    }
 }
 
 #error{
@@ -49,6 +36,7 @@ input[type=submit]{ width: 100%; }
 }
 
 /* position of bars */
+
 #wrap{
     height: 100%;
     width: 100%;
@@ -79,29 +67,5 @@ input[type=submit]{ width: 100%; }
     position: static;
     margin-top: 1rem;
 }
-
-/* size and align of bars and their elements */
-.bar{
-    background: #AD3D00;
-    width: 100%;
-    color: #fff;
-}
-.bar ul{ margin-bottom: 0; }
-.bar ul li{ display: inline-block; }
-.bar-element{
-    display: block;
-    padding: 1rem;
-}
-
-.bar-left, .bar-right{ margin: 0; }
-.bar-left{ float: left; }
-.bar-right{ float: right; }
-.bar ul li:first-child span{ padding-left: 0; }
-.bar ul li:last-child span{ padding-right: 0; }
-
-/* colors of bar elements */
-.bar a, .bar a{ color: #FFB088; }
-.bar a:hover, .bar a:hover, a.bar-element.active{ color: #FFCCB0; }
-a.bar-element:hover, a.bar-element.active{ background-color: #C55500; }
 
 #login input{ width: 33%; }

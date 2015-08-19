@@ -1,47 +1,56 @@
-#pagination{ padding: 1rem 0 2rem; }
-#prev_page{ float: left; }
-#next_page{ float: right; clear: none; }
+#pagination { padding: 1rem 0 2rem; }
+#prev_page { float: left; }
+#next_page { float: right; clear: none; }
 
-.post{
+.post {
     margin-bottom: 1rem;
-}
-.post .title{
-    margin: 0 0 0.25rem;
-    font-size: 2.5rem;
-}
-.post .info{
-    font-size: 1rem;
-    color: #888;
-    text-align: right;
-    margin-top: 1rem;
-}
-.post .text{
-    margin-top: 1rem;
-    text-align: justify;
-    font-size: 1rem;
-    line-height: 1.5;
+
+    .title {
+        margin: 0 0 0.25rem;
+        font-size: 2.5rem;
+    }
+    .info {
+        font-size: 1rem;
+        color: #888;
+        text-align: right;
+        margin-top: 1rem;
+    }
+    .text {
+        margin-top: 1rem;
+        text-align: justify;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
 }
 
-#comments h4{ margin-bottom: 1rem; }
-.comment{
+#comments {
     margin-bottom: 1rem;
-}
-.comment .info .date{
-    color: #888;
-}
-.comment .info .name{
-    font-weight: bold;
-}
-.comment .text{
-    font-size: 1rem;
-    margin: 0.5rem 0;
-}
 
-#comment-form{
-    margin-top: 1rem;
-    width: 50%;
-    min-width: 15rem;
-}
-#comment-form textarea{
-    min-height: 10rem;
+    .comment {
+        margin-bottom: 1rem;
+
+        .info {
+            .date {
+                color: #888;
+            }
+            .name {
+                font-weight: bold;
+            }
+        }
+
+        .text {
+            font-size: 1rem;
+            margin: 0 0 0.5rem;
+        }
+    }
+
+    #comment-form {
+        margin-top: 1rem;
+        width: 50%;
+        min-width: 15rem;
+
+        textarea {
+            min-height: 10rem;
+        }
+    }
 }

@@ -7,7 +7,7 @@
             <ul class="bar-left">
                 {% for key, value in APPS %}
                     {% comment %}TODO: add app permission check{% endcomment %}
-                    <li>{% include 'global/tpl/bar_link.tpl' with url_name=key|add:":index" caption=value.short_title %}</a></li>
+                    <li>{% include 'global/tpl/topbar_link.tpl' with url_name=key|add:":index" caption=value.short_title %}</a></li>
                 {% endfor %}
             </ul>
             <ul class="bar-right">
@@ -20,7 +20,7 @@
                 {% if user.is_authenticated %}
                     <li><a class="bar-element" href="{% url 'logout' %}">{% trans 'Logout' %}</a></li>
                 {% else %}
-                    <li>{% include 'global/tpl/bar_link.tpl' with url_name='login' caption='Login' url_params='next='|add:request.path %}</li>
+                    <li>{% include 'global/tpl/topbar_link.tpl' with url_name='login' caption='Login' url_params='next='|add:request.path %}</li>
                 {% endif %}
             </ul>
         </div>

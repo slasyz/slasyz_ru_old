@@ -6,6 +6,8 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 
+// ***** Config ***** //
+
 var paths = {
     scss: ['*/static-src/scss/*.scss', '!*/static-src/scss/_*.scss'],
     js: ['*/static-src/js/*.js']
@@ -21,17 +23,17 @@ var destDirs = {
     scss: 'css'
 };
 
+// ***** Make correct destination path. ***** //
+
 function renameFile(filepath) {
     var arr = filepath.dirname.split(path.sep);
-    arr[1] = 'static';
-    arr[2] = destDirs[arr[2]] || arr[2];
-    filepath.extname = '.min' + filepath.extname;
+    arr[1] = 'static';// .../static-src/... -> .../static/...
+    arr[2] = destDirs[arr[2]] || arr[2]; // .../scss/... -> .../css/...
+    filepath.extname = '.min' + filepath.extname; // .../blog.js -> .../blog.min.js
     filepath.dirname = arr.join(path.sep);
 }
 
-gulp.task('clean', function(cb) {
-    del(['*/static/js/*.js', '*/static/css/*.css'], cb);
-});
+// ***** Copy some stuff, uglify it and so on ***** //
 
 gulp.task('scss', function() {
     gulp.src(paths.scss)
@@ -47,7 +49,7 @@ gulp.task('js', function() {
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('copy', function() {
+gulp.task('copylibs', function() {
     for (var key in copy) {
         gulp.src(copy[key])
             .pipe(rename(key))
@@ -55,10 +57,16 @@ gulp.task('copy', function() {
     }
 });
 
+// ***** General tasks ***** //
+
+gulp.task('clean', function(cb) {
+    del(['*/static/js/*.js', '*/static/css/*.css'], cb);
+});
+
 gulp.task('watch', function () {
     gulp.watch(paths.scss, ['scss']);
     gulp.watch(paths.js, ['js']);
 });
 
-gulp.task('build', ['scss', 'js', 'copy']);
+gulp.task('build', ['scss', 'js', 'copylibs']);
 gulp.task('default', ['watch', 'build']);

@@ -4,8 +4,6 @@
 @import "_settings.scss";
 @import "../../../bower_components/foundation/scss/foundation";
 
-@import "_bar.scss";
-
 html, body{
     height: 100%;
 }
@@ -47,7 +45,7 @@ input[type=submit] { width: 100%; }
 }
 #topbar{
     display: table-cell;
-    height: 3rem;
+    //height: 3rem;
 }
 #middle{
     display: table-cell;
@@ -63,9 +61,19 @@ input[type=submit] { width: 100%; }
 }
 #footer{
     display: table-cell;
-    height: 3rem;
-    position: static;
+    //position: static;
     margin-top: 1rem;
+}
+
+#topbar{
+    a.disabled:hover{
+        background-color: $topbar-bg-color !important;
+        cursor: default;
+    }
+}
+
+#footer{
+
 }
 
 #login input{ width: 33%; }

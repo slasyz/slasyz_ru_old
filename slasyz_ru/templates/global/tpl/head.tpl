@@ -1,4 +1,5 @@
 <meta charset="utf-8" />
+<link rel="shortcut icon" href="/favicon.png" type="image/png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{{ title }}{% if APP_INFO.title %} - {{ APP_INFO.title }}{% endif %}</title>
 <link rel="stylesheet" href="{{ STATIC_URL }}css/base.min.css" />

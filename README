@@ -1,4 +1,28 @@
 This is source code of my slasyz.ru page.
 
-  * south (http://south.readthedocs.org/)
-  * django-precise-bbcode (https://github.com/slasyz/django-precise-bbcode)
+  * Python:
+      * Django (https://www.djangoproject.com/)
+      * django-precise-bbcode (https://github.com/slasyz/django-precise-bbcode)
+      * mysqlclient (https://github.com/PyMySQL/mysqlclient-python)
+      * Pillow (https://python-pillow.github.io/)
+
+  * Node.js:
+      * gulp (http://gulpjs.com/)
+      * gulp-rename (https://www.npmjs.com/package/gulp-rename)
+      * gulp-sass (https://www.npmjs.com/package/gulp-sass)
+      * gulp-uglify (https://www.npmjs.com/package/gulp-uglify)
+      * del (https://www.npmjs.com/package/del)
+
+  * Bower:
+      * Zurb Foundation (http://foundation.zurb.com/)
+      * jQuery (https://jquery.com/)
+
+How to deploy the project:
+
+  * install python, setup virtual environment;
+  * install all python requirements;
+  * install npm, bower, gulp;
+  * install bower and npm requirements;
+  * do gulp build;
+  * do ./manage.py collectstatic;
+  * start a server

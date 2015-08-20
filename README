@@ -2,7 +2,6 @@ This is source code of my slasyz.ru page.
 
   * Python:
       * Django (https://www.djangoproject.com/)
-      * django-precise-bbcode (https://github.com/slasyz/django-precise-bbcode)
       * mysqlclient (https://github.com/PyMySQL/mysqlclient-python)
       * Pillow (https://python-pillow.github.io/)
 

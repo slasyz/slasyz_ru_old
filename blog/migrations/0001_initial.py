@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('short_name', models.CharField(unique=True, max_length=255, validators=[django.core.validators.RegexValidator(b'^[a-z0-9-]+$', 'Short name should consist of small latin letters and dash.')])),
+                ('short_name', models.CharField(unique=True, max_length=255, validators=[django.core.validators.RegexValidator(r'^[a-z0-9-]+$', 'Short name should consist of small latin letters and dash.')])),
                 ('is_draft', models.BooleanField(default=False, verbose_name='Draft')),
                 ('title', models.CharField(max_length=255)),
                 ('_annotation_rendered', models.TextField(null=True, editable=False, blank=True)),
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
             name='Tag',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=255, validators=[django.core.validators.RegexValidator(b'^[^/]+$', 'Tag name should not contain slash symbol.')])),
+                ('name', models.CharField(max_length=255, validators=[django.core.validators.RegexValidator(r'^[^/]+$', 'Tag name should not contain slash symbol.')])),
             ],
             options={
             },

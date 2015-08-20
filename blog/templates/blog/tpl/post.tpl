@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load replace_newlines %}
 
 <div class="post">
     <h3 class="title">
@@ -8,10 +9,10 @@
         <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
     </h3>
     <div class="text">
-        {{ post.annotation.rendered|safe }}
-        {% if full %}<br><br>
+        {{ post.annotation|replace_newlines|safe }}
+        {% if full %}
             <div id="cut"></div>
-            {{ post.full_text.rendered|safe }}
+            {{ post.full_text|replace_newlines|safe }}
         {% endif %}
     </div>
     <div class="info">

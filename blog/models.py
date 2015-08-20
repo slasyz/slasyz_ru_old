@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from precise_bbcode.fields import BBCodeTextField
+from html import escape
+from re import sub
 
 from django.core.validators import RegexValidator
 from django.core.urlresolvers import reverse
@@ -29,8 +30,8 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     is_draft = models.BooleanField(default=False, verbose_name=u'Draft')
     title = models.CharField(max_length=255)
-    annotation = BBCodeTextField()  # TODO: get rid of this plugin
-    full_text = BBCodeTextField()
+    annotation = models.TextField()
+    full_text = models.TextField()
 
     def __str__(self):
         return self.title
@@ -54,10 +55,15 @@ class Comment(models.Model):
     author_name = models.CharField(max_length=60, blank=True)
     author_email = models.EmailField(blank=True)
     post = models.ForeignKey(Post)
-    text = BBCodeTextField()
+    text = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
     def get_absolute_url(self):
         post = Post.objects.get(id=self.post_id)
         return '{}#comment-{}'.format(post.get_absolute_url(), self.id)
     get_absolute_url.short_description = 'URL'
+
+    def get_formatted_text(self):
+        text = escape(self.text)
+        text = sub(r'(?:https?|s?ftps?)://([^/]+)[^\"\s]+', '<a href="\g<0>">\g<1></a>', text)
+        return text

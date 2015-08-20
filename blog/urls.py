@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-SHORT_NAME_REGEX = '[a-z0-9-]+'
+SHORT_NAME_REGEX = r'[a-z0-9-]+'
 
 urlpatterns = patterns('blog.views',
     url(r'^$', 'page_view', name='index'),

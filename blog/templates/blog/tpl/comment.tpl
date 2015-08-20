@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load replace_newlines %}
 
 <div class="comment" id="comment-{{ comment.id }}">
     <div class="info">
@@ -17,5 +18,5 @@
             | <a href="{% url 'admin:blog_comment_delete' comment.id %}">delete</a>
         {% endif %}
     </div>
-    <div class="text">{{ comment.text.rendered|safe }}</div>
+    <div class="text">{{ comment.get_formatted_text|replace_newlines|safe }}</div>
 </div>

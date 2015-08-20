@@ -15,9 +15,13 @@ var paths = {
 };
 
 var copy = {
-    'slasyz_ru/static/js/jquery.min.js': 'bower_components/jquery/dist/jquery.min.js',
-    'slasyz_ru/static/js/foundation.min.js': 'bower_components/foundation/js/foundation.min.js',
-    'slasyz_ru/static/js/modernizr.min.js': 'bower_components/foundation/js/vendor/modernizr.js'
+    js: {
+        'slasyz_ru/static/js/jquery.min.js': 'bower_components/jquery/dist/jquery.min.js',
+        'slasyz_ru/static/js/foundation.min.js': 'bower_components/foundation/js/foundation.min.js',
+        'slasyz_ru/static/js/modernizr.min.js': 'bower_components/foundation/js/vendor/modernizr.js',
+        'slasyz_ru/static/js/foundation.topbar.min.js': 'bower_components/foundation/js/foundation/foundation.topbar.js'
+    },
+    other: {}
 };
 
 var destDirs = {
@@ -51,7 +55,13 @@ gulp.task('js', function() {
 });
 
 gulp.task('copylibs', function() {
-    for (var key in copy) {
+    for (var key in copy.js) {
+        gulp.src(copy.js[key])
+            .pipe(uglify())
+            .pipe(rename(key))
+            .pipe(gulp.dest('./'))
+    }
+    for (var key in copy.other) {
         gulp.src(copy[key])
             .pipe(rename(key))
             .pipe(gulp.dest('./'))

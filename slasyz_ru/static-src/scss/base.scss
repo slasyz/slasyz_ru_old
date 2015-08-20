@@ -44,8 +44,9 @@ input[type=submit] { width: 100%; }
     display: table-row;
 }
 #topbar{
-    display: table-cell;
-    //height: 3rem;
+    @media only screen and (min-width: 40.063em) {
+        display: table-cell;
+    }
 }
 #middle{
     display: table-cell;

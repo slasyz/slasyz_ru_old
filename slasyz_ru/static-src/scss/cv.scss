@@ -36,18 +36,26 @@ html,body {
   }
 }
 
-#contacts, #skills, #education{
+#contacts, #skills, #education, #projects{
   max-width: 48rem;
   margin: 3rem auto;
   padding: 0 1rem;
 
   ul{
+    list-style: none;
+    padding-left: 1rem;
+
+    &.inner{
+      margin-bottom: 2rem;
+    }
+
     li{
       margin-top: 0.75rem;
     }
   }
-  ul.inner{
-    margin-bottom: 2rem;
+
+  .comment{
+    color: $comment-color;
   }
 }
 
@@ -99,18 +107,5 @@ html,body {
   }
 }
 
-#skills, #education{
-  ul{
-    list-style: none;
-  }
-  ul.outer{
-    padding-left: 1rem;
-  }
-  ul.inner{
-    padding-left: 1rem;
-  }
-
-  .comment{
-    color: $comment-color;
-  }
+#contacts, #skills, #education, #projects{
 }

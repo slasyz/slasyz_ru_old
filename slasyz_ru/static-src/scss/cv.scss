@@ -13,7 +13,7 @@ $welcome-header-weight: 400;
 $welcome-bg-color: $primary-color;
 $welcome-shadow-color: scale_color(grayscale($welcome-bg-color), $lightness: 50%);
 $welcome-h1-color: $text-color;
-$welcome-h2-color: scale_color($text-color, $lightness: 10%);
+$welcome-h2-color: scale_color($text-color, $saturation: -40%, $lightness: 40%);
 
 html,body {
   font-family: 'Roboto Mono', monospace;

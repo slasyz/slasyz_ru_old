@@ -38,12 +38,12 @@ html,body {
 
 #contacts, #skills, #education{
   max-width: 48rem;
-  margin: 2rem auto 3rem;
+  margin: 3rem auto;
   padding: 0 1rem;
 
   ul{
     li{
-      margin-bottom: 0.75rem;
+      margin-top: 0.75rem;
     }
   }
   ul.inner{
@@ -54,7 +54,6 @@ html,body {
 #welcome {
   background: $welcome-bg-color;
   box-shadow: 0 0.5rem 1rem $welcome-shadow-color;
-
   padding: 4rem 0 5rem;
 
   text-align: center;
@@ -75,9 +74,28 @@ html,body {
 }
 
 #contacts{
-  ul{
-    list-style: none;
-    padding-left: 1rem;
+  #contacts-data{
+    display: inline-block;
+    h2{
+      margin-top: 0;
+    }
+
+    ul{
+      list-style: none;
+      padding-left: 1rem;
+      margin-bottom: 0;
+    }
+  }
+
+  #contacts-photo{
+    width: 7.244125rem;
+    height: 7.244125rem;
+    float: right;
+    border-radius: 50%;
+    
+    @media only screen and (max-width: 28rem) {
+      display: none;
+    }
   }
 }
 

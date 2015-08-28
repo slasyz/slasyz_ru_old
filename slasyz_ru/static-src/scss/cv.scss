@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Mono:400,300,100,700&subset=latin,cyrillic);
 
-$primary-color: #b8edd2;
+$primary-color: #ccccef;
 
 $text-color: scale_color($primary-color, $saturation: -50%, $lightness: -80%);
 $comment-color: scale_color($primary-color, $saturation: -50%, $lightness: -30%);

@@ -13,7 +13,7 @@ html,body {
   margin: 0;
   color: #00292f;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1;
 
   a{
     text-decoration: none;
@@ -32,6 +32,16 @@ html,body {
 #contacts, #skills, #education{
   max-width: 48rem;
   margin: 2rem auto 3rem;
+  padding: 0 1rem;
+
+  ul{
+    li{
+      margin-bottom: 0.75rem;
+    }
+  }
+  ul.inner{
+    margin-bottom: 2rem;
+  }
 }
 
 #welcome {

@@ -3,8 +3,6 @@
 $primary-color: #004020;
 
 $text-color: $primary-color;
-//$text-color: #204000;
-//$text-color: #002000;
 $comment-color: scale_color($text-color, $saturation: -75%, $lightness: 50%);
 $link-color: scale_color($text-color, $saturation: -30%, $lightness: 30%);
 

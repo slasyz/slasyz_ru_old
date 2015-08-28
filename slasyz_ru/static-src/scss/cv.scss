@@ -1,0 +1,82 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:400,300,100,700&subset=latin,cyrillic);
+
+$text-color: #00292f;
+$text-second-color: scale_color($text-color, $lightness: 10%);
+$comment-color: scale_color($text-color, $saturation: -75%, $lightness: 50%);
+$link-color: #0472B0;
+
+$welcome-bg-color: #bce0f2;
+$welcome-shadow-color: scale_color(grayscale($welcome-bg-color), $lightness: 50%);
+
+html,body {
+  font-family: 'Roboto Mono', monospace;
+  margin: 0;
+  color: #00292f;
+  font-weight: 400;
+  line-height: 1.5;
+
+  a{
+    text-decoration: none;
+    color: $link-color;
+
+    &:hover{
+      border-bottom: 1px
+    }
+  }
+
+  h1,h2,h3{
+    font-weight: 400;
+  }
+}
+
+#contacts, #skills, #education{
+  max-width: 48rem;
+  margin: 2rem auto 3rem;
+}
+
+#welcome {
+  background: $welcome-bg-color;
+  //box-shadow: 0 0.5rem 1rem #f0ebf2;
+  box-shadow: 0 0.5rem 1rem $welcome-shadow-color;
+
+  padding: 2rem 0 3rem;
+
+  text-align: center;
+
+  h1, h2 {
+    margin: 0;
+  }
+  h1{
+    font-size: 3rem;
+  }
+  h2{
+    font-size: 2rem;
+    margin-top: 1rem;
+    //color: #003f54;
+    //color: scale_color($text-color, $lightness: 10%);
+    color: $text-second-color;
+  }
+}
+
+#contacts{
+  ul{
+    list-style: none;
+    padding-left: 1rem;
+  }
+}
+
+#skills, #education{
+  ul{
+    list-style: none;
+  }
+  ul.outer{
+    padding-left: 1rem;
+  }
+  ul.inner{
+    padding-left: 1rem;
+  }
+
+  .comment{
+    color: $comment-color;
+  }
+}

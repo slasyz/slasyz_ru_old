@@ -12,6 +12,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'slasyz_ru.views.index', name='index'),
+    url(r'^cv/?$', 'slasyz_ru.views.cv', name='cv'),
+
     url(r'^upload/', include('upload.urls', app_name='upload', namespace='upload')),
     url(r'^blog/', include('blog.urls', app_name='blog', namespace='blog')),
 

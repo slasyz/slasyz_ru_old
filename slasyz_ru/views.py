@@ -45,6 +45,10 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+def cv(request):
+    return render(request, 'cv.html')
+
+
 def custom_400(request):
     return render(request, 'error.html', {'code': 400, 'name': 'Bad Request'}, status=400)
 

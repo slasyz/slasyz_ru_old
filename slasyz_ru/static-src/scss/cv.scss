@@ -1,18 +1,26 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Mono:400,300,100,700&subset=latin,cyrillic);
 
-$text-color: #00292f;
-$text-second-color: scale_color($text-color, $lightness: 10%);
-$comment-color: scale_color($text-color, $saturation: -75%, $lightness: 50%);
-$link-color: #0472B0;
+$primary-color: #004020;
 
-$welcome-bg-color: #bce0f2;
+$text-color: $primary-color;
+//$text-color: #204000;
+//$text-color: #002000;
+$comment-color: scale_color($text-color, $saturation: -75%, $lightness: 50%);
+$link-color: scale_color($text-color, $saturation: -30%, $lightness: 30%);
+
+$header-weight: 400;
+$text-weight: 400;
+$welcome-header-weight: 400;
+
+$welcome-bg-color: scale_color($text-color, $saturation: -40%, $lightness: 80%);
 $welcome-shadow-color: scale_color(grayscale($welcome-bg-color), $lightness: 50%);
+$welcome-h2-color: scale_color($text-color, $lightness: 10%);
 
 html,body {
   font-family: 'Roboto Mono', monospace;
   margin: 0;
-  color: #00292f;
-  font-weight: 400;
+  color: $text-color;
+  font-weight: $text-weight;
   line-height: 1;
 
   a{
@@ -20,12 +28,12 @@ html,body {
     color: $link-color;
 
     &:hover{
-      border-bottom: 1px
+      border-bottom: 1px solid $link-color;
     }
   }
 
   h1,h2,h3{
-    font-weight: 400;
+    font-weight: $header-weight;
   }
 }
 
@@ -55,6 +63,7 @@ html,body {
 
   h1, h2 {
     margin: 0;
+    font-weight: $welcome-header-weight;
   }
   h1{
     font-size: 3rem;
@@ -64,7 +73,7 @@ html,body {
     margin-top: 1rem;
     //color: #003f54;
     //color: scale_color($text-color, $lightness: 10%);
-    color: $text-second-color;
+    color: $welcome-h2-color;
   }
 }
 
